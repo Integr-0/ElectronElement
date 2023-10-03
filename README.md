@@ -1,2 +1,4 @@
 # ElectronElement
-is a Nice Game yk?
+## Game Idea
+Ability PVP in space with guns
+
