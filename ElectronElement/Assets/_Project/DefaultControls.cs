@@ -56,7 +56,7 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""e5443c9e-49e4-4af1-9b5d-17f4e016d2fb"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -68,7 +68,7 @@ public partial class @DefaultControls: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""b23e76c1-3fb6-4d1d-bef4-a61a32b55ad1"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""InvertVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
