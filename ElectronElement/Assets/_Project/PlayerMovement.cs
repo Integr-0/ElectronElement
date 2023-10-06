@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
@@ -38,7 +38,8 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Move: " + dir);
 
         Vector2 move = dir * transform.forward * movementSpeed * Time.deltaTime;
-        rb.velocity = new Vector3(move.x, rb.velocity.y, move.y);
+        //rb.velocity = new Vector3(move.x, rb.velocity.y, move.y);
+        rb.MovePosition(new Vector3(move.x, 0f, move.y));
     }
     private void Jump()
     {
@@ -58,6 +59,6 @@ public class PlayerMovement : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0f, transform.rotation.y + (dir.x * lookSensitivity.x), 0f);
 
-        cam.rotation = Quaternion.Euler(transform.rotation.x + (dir.y * lookSensitivity.y), 0f, 0f);
+        cam.rotation = Quaternion.Euler(cam.rotation.x + (dir.y * lookSensitivity.y), 0f, 0f);
     }
 }
