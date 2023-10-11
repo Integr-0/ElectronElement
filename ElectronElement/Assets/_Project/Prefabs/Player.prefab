@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f368e500a092054409c68ab137a49d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
+  mouseSensitivity: 300
   playerBody: {fileID: 3713241679996979824}
 --- !u!1 &7530081877977125708
 GameObject:
@@ -286,8 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fcffd322e9ea6045b2d9fda1a31e46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  airSpeed: 2
+  speed: 5
+  sprintSpeed: 10
+  airSpeed: 4
   accelerationSpeed: 3
   decelerationSpeed: 5
   stickDeadzone: 0.1
