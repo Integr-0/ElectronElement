@@ -19,8 +19,6 @@ public class FirstPersonMovement : MonoBehaviour
     private float currentGravity;
     private float currentSpeed;
 
-    private float accelerationValue = 0;
-
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -44,7 +42,7 @@ public class FirstPersonMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        controller.Move(currentSpeed * accelerationValue * Time.deltaTime * move);
+        controller.Move(currentSpeed * Time.deltaTime * move);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
