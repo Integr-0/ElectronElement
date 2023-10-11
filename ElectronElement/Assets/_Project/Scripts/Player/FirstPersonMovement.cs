@@ -2,29 +2,38 @@ using UnityEngine;
 
 public class FirstPersonMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    [Space, SerializeField] private float speed = 12f;
+    [SerializeField] private float airSpeed = 8f;
 
-    public float speed = 12f;
-    public float airSpeed = 8f;
+    [Space, SerializeField] private float accelerationSpeed = 1f;
+    [SerializeField] private float decelerationSpeed = 0.5f;
 
-    public float accelerationSpeed = 1f;
-    public float decelerationSpeed = 0.5f;
+    [Space, SerializeField, Range(0, 1), Tooltip("(Only for Controller) Will only start moving when the stick is above a certain value from the center")]
+    private float stickDeadzone;
 
-    [Range(0, 1), Tooltip("(Only for Controller) Will only start moving when the stick is above a certain value from the center")] public float stickDeadzone;
+    [Space, SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float jump = 1f;
 
-    public float gravity = -9.81f;
-    public float jump = 1f;
+    [Space, SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [HideInInspector] public bool swimming { get => swimming; set { swimming = value; ToggleSwim(swimming); } }
 
+    private CharacterController controller;
     private Vector3 velocity;
     private Vector3 movement;
     private bool isGrounded;
     private bool isSliding;
+    private float currentGravity;
 
     private float accelerationValue = 0;
+
+    private void Awake()
+    {
+        controller = GetComponent<CharacterController>();
+        currentGravity = gravity;
+    }
 
     void Update()
     {
@@ -53,11 +62,18 @@ public class FirstPersonMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jump * -2f * gravity);
+            velocity.y = Mathf.Sqrt(jump * -2f * currentGravity);
         }
 
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += currentGravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void ToggleSwim(bool swimming)
+    {
+        Debug.Log("SwimCode");
+        transform.Rotate(transform.right * (swimming ? 90f : 0f));
+        currentGravity = swimming ? 0f : gravity;
     }
 }
