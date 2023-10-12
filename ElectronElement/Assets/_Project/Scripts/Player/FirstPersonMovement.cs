@@ -13,6 +13,8 @@ public class FirstPersonMovement : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
 
+    [Space, SerializeField] private PauseMenu pauseMenu;
+
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
@@ -28,6 +30,8 @@ public class FirstPersonMovement : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape)) pauseMenu.TogglePause();
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : isGrounded ? speed : airSpeed;
