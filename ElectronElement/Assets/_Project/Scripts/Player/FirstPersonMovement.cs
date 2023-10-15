@@ -8,6 +8,8 @@ public class FirstPersonMovement : MonoBehaviour
     [SerializeField] private float airSpeed = 2f;
     [SerializeField] private float climbSpeed;
 
+    [Space, SerializeField] private float acceleration = 0.4f;
+
     [Space, SerializeField] private float gravity = -9.81f;
     [SerializeField] private float jump = 1f;
 
@@ -26,13 +28,26 @@ public class FirstPersonMovement : MonoBehaviour
     private bool isGrounded;
     private bool tryingToClimb;
     private float currentGravity;
-    private float currentSpeed;
+
+    private float currentSpeed
+    {
+        get => _currentSpeed;
+        set
+        {
+            /*while (_currentSpeed != value)
+            {
+                _currentSpeed = Mathf.MoveTowards(_currentSpeed, value, acceleration * Time.deltaTime);
+            }*/
+            _currentSpeed = value;
+        }
+    }
+    private float _currentSpeed;
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         currentGravity = gravity;
-        currentSpeed = speed;
+        _currentSpeed = speed;
     }
 
     void Update()
@@ -56,7 +71,7 @@ public class FirstPersonMovement : MonoBehaviour
 
         controller.Move(currentSpeed * Time.deltaTime * move);
 
-        if (tryingToClimb && Input.GetKey(KeyCode.W)) velocity = transform.up * climbSpeed;
+        if (tryingToClimb && (x != 0 || z != 0)) velocity = transform.up * climbSpeed;
         if (Input.GetButtonDown("Jump") && isGrounded && !tryingToClimb)
         {
             velocity.y = Mathf.Sqrt(jump * -2f * currentGravity);
@@ -64,5 +79,6 @@ public class FirstPersonMovement : MonoBehaviour
 
         velocity.y += currentGravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);    }
+        controller.Move(velocity * Time.deltaTime);    
+    }
 }
