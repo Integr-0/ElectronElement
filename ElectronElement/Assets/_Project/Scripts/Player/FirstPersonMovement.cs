@@ -4,7 +4,7 @@ using UnityEngine;
 public class FirstPersonMovement : MonoBehaviour
 {
     [Space, SerializeField] private float speed = 3f;
-    [SerializeField] private float sprintSpeed = 5f;
+    [SerializeField] private float sprintSpeedMultiplier = 1.5f;
     [SerializeField] private float airSpeed = 2f;
     [SerializeField] private float climbSpeed;
 
@@ -57,7 +57,7 @@ public class FirstPersonMovement : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         tryingToClimb = Physics.CheckSphere(ladderCheck.position, ladderDistance, ladderMask);
 
-        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : isGrounded ? speed : airSpeed;
+        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? speed*sprintSpeedMultiplier : isGrounded ? speed : airSpeed;
 
         if ((isGrounded || tryingToClimb) && velocity.y < 0)
         {
@@ -71,7 +71,7 @@ public class FirstPersonMovement : MonoBehaviour
 
         controller.Move(currentSpeed * Time.deltaTime * move);
 
-        if (tryingToClimb && (x != 0 || z != 0)) velocity = transform.up * climbSpeed;
+        if (tryingToClimb && (x != 0 || z != 0)) velocity = (Input.GetKey(KeyCode.LeftShift) ? sprintSpeedMultiplier : 1f) * climbSpeed * transform.up;
         if (Input.GetButtonDown("Jump") && isGrounded && !tryingToClimb)
         {
             velocity.y = Mathf.Sqrt(jump * -2f * currentGravity);
