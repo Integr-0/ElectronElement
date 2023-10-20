@@ -5,9 +5,15 @@ public class SecurityCamera : MonoBehaviour
     private PlayerData posessingPlayer = null;
 
     [SerializeField] private GameObject cam;
+
+    [Space, SerializeField] private float sensitivity = 100f;
+    [Space, SerializeField] private Vector2 xMinMax;
+    [SerializeField] private Vector2 yMinMax;
+
     public void Posess(PlayerData player)
     {
         player.Deactivate();
+        player.cam.gameObject.SetActive(true);
         cam.SetActive(true);
 
         posessingPlayer = player;
@@ -16,6 +22,7 @@ public class SecurityCamera : MonoBehaviour
     public void Leave(PlayerData player)
     {
         player.Activate();
+        player.cam.gameObject.SetActive(true);
         cam.SetActive(false);
 
         posessingPlayer = null;
@@ -27,10 +34,9 @@ public class SecurityCamera : MonoBehaviour
         else Posess(player);
     }
 
-    [SerializeField] private float sensitivity = 100f;
-    private float xRotation = 0f;
-    private float yRotation = 0f;
 
+    private float xRot;
+    private float yRot;
     void Update()
     {
         if(posessingPlayer != null)
@@ -38,14 +44,18 @@ public class SecurityCamera : MonoBehaviour
             float MouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
             float MouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
-            xRotation -= MouseY;
-            xRotation = Mathf.Clamp(xRotation, -80f, 0f);
+            xRot -= MouseY;
+            yRot += MouseX;
 
-            yRotation += MouseX;
-            yRotation = Mathf.Clamp(yRotation, 25f, 155f);
+            xRot = Mathf.Clamp(xRot, xMinMax.x, xMinMax.y);
+            yRot = Mathf.Clamp(yRot, yMinMax.x, yMinMax.y);
 
-            cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-            transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
+            cam.transform.localRotation = Quaternion.Euler(xRot, yRot, 0f);
+
+            /*
+            cam.transform.localRotation = Quaternion.Euler(Mathf.Clamp(cam.transform.localRotation.x, xMinMax.x, xMinMax.y),
+                                                           Mathf.Clamp(cam.transform.localRotation.y, yMinMax.x, yMinMax.y),
+                                                           0f);*/
         }
     }
 }

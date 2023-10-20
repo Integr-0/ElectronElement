@@ -21,8 +21,6 @@ public class FirstPersonMovement : MonoBehaviour
     [SerializeField] private float ladderDistance = 0.1f;
     [SerializeField] private LayerMask ladderMask;
 
-    [Space, SerializeField] private PauseMenu pauseMenu;
-
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
@@ -51,9 +49,7 @@ public class FirstPersonMovement : MonoBehaviour
     }
 
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) pauseMenu.TogglePause();
-
+    {     
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         tryingToClimb = Physics.CheckSphere(ladderCheck.position, ladderDistance, ladderMask);
 
@@ -71,7 +67,11 @@ public class FirstPersonMovement : MonoBehaviour
 
         controller.Move(currentSpeed * Time.deltaTime * move);
 
-        if (tryingToClimb && (x != 0 || z != 0)) velocity = (Input.GetKey(KeyCode.LeftShift) ? sprintSpeedMultiplier : 1f) * climbSpeed * transform.up;
+        if (tryingToClimb && (x != 0 || z != 0)) 
+                velocity = 
+                (Input.GetKey(KeyCode.LeftShift) ? sprintSpeedMultiplier : 1f)
+                * climbSpeed * transform.up;
+
         if (Input.GetButtonDown("Jump") && isGrounded && !tryingToClimb)
         {
             velocity.y = Mathf.Sqrt(jump * -2f * currentGravity);

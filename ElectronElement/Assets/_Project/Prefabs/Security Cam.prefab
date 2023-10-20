@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7733631219972881735}
   - component: {fileID: 5067119862230683890}
   - component: {fileID: 1544329784318618635}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Security Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7111975550742764181}
@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1694807256077077420}
+  sensitivity: 100
+  xMinMax: {x: -80, y: 80}
+  yMinMax: {x: 10, y: 170}
 --- !u!33 &5067119862230683890
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -110,7 +113,7 @@ GameObject:
   - component: {fileID: 2279701495452381149}
   - component: {fileID: 8222435455940936735}
   - component: {fileID: 318101106002696300}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +129,7 @@ Transform:
   m_GameObject: {fileID: 1694807256077077420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.393, y: 0, z: 0}
+  m_LocalPosition: {x: 0.393, y: 0.113, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -171,7 +174,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 255
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

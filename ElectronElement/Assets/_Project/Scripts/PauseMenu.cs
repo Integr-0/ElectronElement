@@ -1,10 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
-    [SerializeField] private GameObject settingsPanel;
+    [Space, SerializeField] private Slider sensitivitySlider;
+
     public bool IsPaused {  get; private set; }
+
+    private void Awake()
+    {
+        sensitivitySlider.value = PlayerPrefs.GetFloat(MouseLook.KEY_SENSITIVITY);
+    }
 
     public void Pause()
     {
@@ -33,11 +40,6 @@ public class PauseMenu : MonoBehaviour
             IsPaused = true;
             Pause();
         }
-    }
-
-    public void QuitApplication()
-    {
-        Application.Quit();
     }
 
     private void OnApplicationFocus(bool focus)
