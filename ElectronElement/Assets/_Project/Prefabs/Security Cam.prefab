@@ -48,9 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1694807256077077420}
-  sensitivity: 100
+  sensitivity: 300
+  zoomSensitivity: 1
   xMinMax: {x: -80, y: 80}
   yMinMax: {x: 10, y: 170}
+  zoomFOVMinMax: {x: 30, y: 90}
 --- !u!33 &5067119862230683890
 MeshFilter:
   m_ObjectHideFlags: 0

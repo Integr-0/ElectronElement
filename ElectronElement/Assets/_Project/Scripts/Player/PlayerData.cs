@@ -11,6 +11,8 @@ public class PlayerData : MonoBehaviour
 
     public PauseMenu pauseMenu;
 
+    public bool canPause;
+
     private void Awake()
     {
         CameraManager.Instance.testData = this;
@@ -20,17 +22,15 @@ public class PlayerData : MonoBehaviour
     {
         Movement.enabled = true;
         Look.enabled = true;
-        //cam.gameObject.SetActive(true);
     }
     public void Deactivate()
     {
         Movement.enabled = false;
         Look.enabled = false;
-        //cam.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) pauseMenu.TogglePause();
+        if (canPause && Input.GetKeyDown(KeyCode.Escape)) pauseMenu.TogglePause();
     }
 }

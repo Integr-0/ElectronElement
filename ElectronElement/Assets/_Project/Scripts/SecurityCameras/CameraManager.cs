@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
     public void PosessCam(int i)
     {
         cam = i;
-        allCams[i].Posess(testData);
+        allCams[i].Posess(anyPlayerNear() ?? testData);
         selectPanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -28,11 +28,23 @@ public class CameraManager : MonoBehaviour
         allCams[(int)cam].Leave(testData);
         selectPanel.SetActive(true);
         cam = null;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void Update()
     {
         PlayerData playerNear = anyPlayerNear();
+
+        if (Input.GetButtonDown("Cancel") && playerNear != null)
+        {
+            if (cam != null) ExitCurrentCam();
+            else
+            {
+                playerNear.Activate();
+                selectPanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
 
         buttonPrompt.SetActive(playerNear != null && !selectPanel.activeSelf && cam == null);
 
