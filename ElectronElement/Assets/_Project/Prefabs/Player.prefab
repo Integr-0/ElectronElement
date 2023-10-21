@@ -1031,7 +1031,7 @@ MonoBehaviour:
   Movement: {fileID: 1754843695414353770}
   Look: {fileID: 8423499973126427342}
   pauseMenu: {fileID: 8893657308211680524}
-  canPause: 0
+  canPause: 1
 --- !u!1 &801447183665810072
 GameObject:
   m_ObjectHideFlags: 0

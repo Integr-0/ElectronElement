@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject selectPanel;
     [SerializeField] private GameObject buttonPrompt;
 
-    [HideInInspector] public PlayerData testData;
+    public PlayerData testData;
 
     private int? cam = null;
     private void Awake()
@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
     public void PosessCam(int i)
     {
         cam = i;
-        allCams[i].Posess(anyPlayerNear() ?? testData);
+        allCams[i].Posess(testData);
         selectPanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -38,11 +38,13 @@ public class CameraManager : MonoBehaviour
         if (Input.GetButtonDown("Cancel") && playerNear != null)
         {
             if (cam != null) ExitCurrentCam();
-            else
+            else if(selectPanel.activeSelf)
             {
                 playerNear.Activate();
                 selectPanel.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
+
+                playerNear.canPause = true;
             }
         }
 
@@ -52,6 +54,7 @@ public class CameraManager : MonoBehaviour
         {
             playerNear.Deactivate();
             selectPanel.SetActive(true);
+            playerNear.canPause = false;
             Cursor.lockState = CursorLockMode.None;
         }
     }

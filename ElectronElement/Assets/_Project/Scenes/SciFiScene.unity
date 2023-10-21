@@ -2194,7 +2194,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -67970,6 +67970,7 @@ GameObject:
   - component: {fileID: 1854333180}
   - component: {fileID: 1854333182}
   - component: {fileID: 1854333181}
+  - component: {fileID: 1854333183}
   m_Layer: 0
   m_Name: ButtonPrompt
   m_TagString: Untagged
@@ -68093,6 +68094,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854333179}
   m_CullTransparentMesh: 1
+--- !u!225 &1854333183
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854333179}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1855450840
 PrefabInstance:
   m_ObjectHideFlags: 0

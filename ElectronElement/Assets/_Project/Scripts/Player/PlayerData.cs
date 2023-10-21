@@ -11,11 +11,11 @@ public class PlayerData : MonoBehaviour
 
     public PauseMenu pauseMenu;
 
-    public bool canPause;
+    public bool canPause = true;
 
-    private void Awake()
+    private void Start()
     {
-        CameraManager.Instance.testData = this;
+        if (CameraManager.Instance != null) CameraManager.Instance.testData = this;
     }
 
     public void Activate()
