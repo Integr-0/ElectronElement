@@ -1,84 +1,150 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController), typeof(AudioSource))]
 public class FirstPersonMovement : MonoBehaviour
 {
-    [Space, SerializeField] private float speed = 3f;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float climbSpeed = 3f;
+
     [SerializeField] private float sprintSpeedMultiplier = 1.5f;
-    [SerializeField] private float airSpeed = 2f;
-    [SerializeField] private float climbSpeed;
+    [SerializeField] private float airControlMultiplier = 1f;
 
-    [Space, SerializeField] private float acceleration = 0.4f;
 
-    [Space, SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float jump = 1f;
+    [Space, SerializeField] private float jumpStrength = 1.5f;
+    [SerializeField] private float jumpBuffer = 0.2f;
 
-    [Space, SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance = 0.4f;
-    [SerializeField] private LayerMask groundMask;
+    [Space, SerializeField] private float gravity = -20f;
 
-    [Space, SerializeField] private Transform ladderCheck;
-    [SerializeField] private float ladderDistance = 0.1f;
-    [SerializeField] private LayerMask ladderMask;
+
+    [Space, SerializeField] private Transform groundCheckTransform;
+    [SerializeField] private float groundCheckDistance = 0.2f;
+    [SerializeField] private LayerMask groundLayers;
+
+
+    [Space, SerializeField] private Transform ladderCheckTransform;
+    [SerializeField] private float ladderCheckDistance = 0.1f;
+    [SerializeField] private LayerMask climbableLayers;
+
+    [Space, SerializeField] private float pushForce = 0.7f;
+
+
+    [Space, SerializeField] private AudioClip footstepSound;
+    [SerializeField] private float footstepDelay = 0.3f;
+
 
     private CharacterController controller;
-    private Vector3 velocity;
-    private bool isGrounded;
-    private bool tryingToClimb;
-    private float currentGravity;
+    private AudioSource footstepAudioSource;
 
-    private float currentSpeed
-    {
-        get => _currentSpeed;
-        set
-        {
-            /*while (_currentSpeed != value)
-            {
-                _currentSpeed = Mathf.MoveTowards(_currentSpeed, value, acceleration * Time.deltaTime);
-            }*/
-            _currentSpeed = value;
-        }
-    }
-    private float _currentSpeed;
+
+    private Vector2 input;
+
+
+    private float yMovement;
+    private float currentGroundSpeed;
+    private float currentClimbSpeed;
+
+    private float jumpBufferTimer;
+
+    private float nextFootstep = 0;
+
+
+    private bool isGrounded;
+
+    private bool tryingToClimb;
+    private bool isSprinting;
 
     private void Awake()
     {
+        //Init
         controller = GetComponent<CharacterController>();
-        currentGravity = gravity;
-        _currentSpeed = speed;
+        footstepAudioSource = GetComponent<AudioSource>();
+
+        currentGroundSpeed = speed;
     }
 
     void Update()
     {     
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        tryingToClimb = Physics.CheckSphere(ladderCheck.position, ladderDistance, ladderMask);
+        //Set basic variables
+        isGrounded = Physics.CheckSphere(groundCheckTransform.position, groundCheckDistance, groundLayers);
+        tryingToClimb = Physics.CheckSphere(ladderCheckTransform.position, ladderCheckDistance, climbableLayers);
+        isSprinting = Input.GetKey(KeyCode.LeftShift);
 
-        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? speed*sprintSpeedMultiplier : isGrounded ? speed : airSpeed;
+        currentGroundSpeed = isSprinting ? speed * sprintSpeedMultiplier : isGrounded ? speed : speed * airControlMultiplier;
+        currentClimbSpeed = isSprinting ? climbSpeed * sprintSpeedMultiplier : climbSpeed;
 
-        if ((isGrounded || tryingToClimb) && velocity.y < 0)
+
+        //resetting gravity force when grounded
+        if ((isGrounded || tryingToClimb) && yMovement < 0)
         {
-            velocity.y = -2f;
+            yMovement = -2f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        //get input
+        input.x = Input.GetAxis("Horizontal");
+        input.y = Input.GetAxis("Vertical");
 
-        controller.Move(currentSpeed * Time.deltaTime * move);
+        Vector3 move = transform.right * input.x + transform.forward * input.y;
 
-        if (tryingToClimb && (x != 0 || z != 0)) 
-                velocity = 
-                (Input.GetKey(KeyCode.LeftShift) ? sprintSpeedMultiplier : 1f)
-                * climbSpeed * transform.up;
 
-        if (Input.GetButtonDown("Jump") && isGrounded && !tryingToClimb)
+        //climbing
+        if (tryingToClimb && input.magnitude > 0) yMovement = currentClimbSpeed;
+
+
+        //jumping (with jumpBuffer)
+        jumpBufferTimer -= Time.deltaTime;
+        if (Input.GetButtonDown("Jump") && !tryingToClimb)
         {
-            velocity.y = Mathf.Sqrt(jump * -2f * currentGravity);
+            jumpBufferTimer = jumpBuffer;
+        }
+        if(jumpBufferTimer > 0f && isGrounded)
+        {
+            //real life gravity formula
+            yMovement = Mathf.Sqrt(jumpStrength * -2f * gravity);
+            
         }
 
-        velocity.y += currentGravity * Time.deltaTime;
+        
+        //adding gravity
+        yMovement += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);    
+
+        //moving
+        controller.Move(currentGroundSpeed * Time.deltaTime * move);
+        controller.Move(yMovement * transform.up * Time.deltaTime);
+
+
+        //footsteps
+        if (isGrounded && input.magnitude > 0)
+        {
+            nextFootstep -= Time.deltaTime;
+            if (nextFootstep <= 0)
+            {
+                footstepAudioSource.PlayOneShot(footstepSound, 0.7f);
+                nextFootstep += footstepDelay;
+            }
+        }
+    }
+
+    //Push physics
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody hitRb = hit.collider.attachedRigidbody;
+
+        if (hitRb == null || hitRb.isKinematic || hit.moveDirection.y < -0.3f) return;
+
+        Vector3 pushDir = new(hit.moveDirection.x, 0, hit.moveDirection.z);
+
+        hitRb.velocity = pushDir * pushForce * currentGroundSpeed;
+    }
+
+    //Draw visualizatiuons for groundCheck und ladderCheck
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheckTransform.position, groundCheckDistance);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(ladderCheckTransform.position, ladderCheckDistance);
     }
 }

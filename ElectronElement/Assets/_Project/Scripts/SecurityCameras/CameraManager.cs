@@ -6,6 +6,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private GameObject selectPanel;
     [SerializeField] private GameObject buttonPrompt;
+    [SerializeField] private GameObject camOverlay;
 
     public PlayerData testData;
 
@@ -22,6 +23,8 @@ public class CameraManager : MonoBehaviour
         allCams[i].Posess(testData);
         selectPanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+
+        camOverlay.SetActive(true);
     }
     public void ExitCurrentCam()
     {
@@ -29,6 +32,14 @@ public class CameraManager : MonoBehaviour
         selectPanel.SetActive(true);
         cam = null;
         Cursor.lockState = CursorLockMode.None;
+
+        camOverlay.SetActive(false);
+    }
+    public void ChangeCamera(int i)
+    {
+        allCams[(int)cam].Leave(testData);
+        cam = i;
+        allCams[i].Posess(testData);
     }
 
     private void Update()
@@ -57,6 +68,12 @@ public class CameraManager : MonoBehaviour
             playerNear.canPause = false;
             Cursor.lockState = CursorLockMode.None;
         }
+
+        if (cam != null)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) ChangeCamera(GetPreviousIndex());
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) ChangeCamera(GetNextIndex());
+        }
     }
 
     private PlayerData anyPlayerNear()
@@ -69,5 +86,16 @@ public class CameraManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private int GetNextIndex()
+    {
+        if (cam == allCams.Length - 1) return 0;
+        return (int)cam + 1;
+    }
+    private int GetPreviousIndex()
+    {
+        if (cam == 0) return allCams.Length - 1;
+        return (int)cam - 1;
     }
 }

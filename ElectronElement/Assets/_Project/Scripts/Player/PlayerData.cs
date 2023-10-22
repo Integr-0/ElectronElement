@@ -33,4 +33,9 @@ public class PlayerData : MonoBehaviour
     {
         if (canPause && Input.GetKeyDown(KeyCode.Escape)) pauseMenu.TogglePause();
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

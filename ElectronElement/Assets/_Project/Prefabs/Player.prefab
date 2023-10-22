@@ -928,9 +928,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5777725173334482573}
-  - component: {fileID: 1754843695414353770}
-  - component: {fileID: 4168234691910791582}
   - component: {fileID: 9004006556133425786}
+  - component: {fileID: 6572997166189070213}
+  - component: {fileID: 1809757172021735810}
+  - component: {fileID: 7561426354274154034}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -954,12 +955,29 @@ Transform:
   - {fileID: 1554370317500774283}
   - {fileID: 5221978633784261317}
   - {fileID: 140607047735111284}
-  - {fileID: 127927283391756845}
   - {fileID: 3788960962345793350}
   - {fileID: 1644476106766250024}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1754843695414353770
+--- !u!114 &9004006556133425786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787152353578245981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a2df53e0496c24b9bb9afe7bd838e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Test
+  cam: {fileID: 1714665157175845418}
+  Movement: {fileID: 6572997166189070213}
+  Look: {fileID: 8423499973126427342}
+  pauseMenu: {fileID: 7054220373681330600}
+  canPause: 1
+--- !u!114 &6572997166189070213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -972,23 +990,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  climbSpeed: 4
   sprintSpeedMultiplier: 1.5
-  airSpeed: 4
-  climbSpeed: 5
-  acceleration: 0.4
-  gravity: -9.8
-  jump: 1
-  groundCheck: {fileID: 5221978633784261317}
-  groundDistance: 0.2
-  groundMask:
+  airControlMultiplier: 1
+  jumpStrength: 1.5
+  jumpBuffer: 0.1
+  gravity: -20
+  groundCheckTransform: {fileID: 5221978633784261317}
+  groundCheckDistance: 0.2
+  groundLayers:
     serializedVersion: 2
     m_Bits: 136
-  ladderCheck: {fileID: 140607047735111284}
-  ladderDistance: 0.1
-  ladderMask:
+  ladderCheckTransform: {fileID: 140607047735111284}
+  ladderCheckDistance: 0.1
+  climbableLayers:
     serializedVersion: 2
     m_Bits: 128
---- !u!143 &4168234691910791582
+  pushForce: 0.7
+  footstepSound: {fileID: 8300000, guid: 263f8aaa01d5d0041b082b7b69d9ca02, type: 3}
+  footstepDelay: 0.3
+--- !u!143 &1809757172021735810
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1009,29 +1030,107 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.3
-  m_SlopeLimit: 35
-  m_StepOffset: 0.5
-  m_SkinWidth: 0.03
-  m_MinMoveDistance: 0
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9004006556133425786
-MonoBehaviour:
+--- !u!82 &7561426354274154034
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787152353578245981}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a2df53e0496c24b9bb9afe7bd838e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Test
-  cam: {fileID: 1714665157175845418}
-  Movement: {fileID: 1754843695414353770}
-  Look: {fileID: 8423499973126427342}
-  pauseMenu: {fileID: 8893657308211680524}
-  canPause: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 2
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &801447183665810072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,7 +1759,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 191
+    m_Bits: 447
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2414,7 +2513,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8893657308211680524}
+      - m_Target: {fileID: 7054220373681330600}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: Unpause
         m_Mode: 1
@@ -3757,8 +3856,9 @@ GameObject:
   - component: {fileID: 4780502199325950567}
   - component: {fileID: 776916952941654683}
   - component: {fileID: 4913436351044642191}
+  - component: {fileID: 7054220373681330600}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: PauseMenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3847,6 +3947,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7054220373681330600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4777539935495382221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da61191a34b0d4840af8e96a3fb14f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 7011154628321951076}
+  sensitivitySlider: {fileID: 299108185063342706}
 --- !u!1 &4811414442545029725
 GameObject:
   m_ObjectHideFlags: 0
@@ -5299,7 +5413,6 @@ GameObject:
   - component: {fileID: 1928099562850471708}
   - component: {fileID: 4251121479674266192}
   - component: {fileID: 5202474413226914271}
-  - component: {fileID: 8893657308211680524}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -5369,20 +5482,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8893657308211680524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7011154628321951076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da61191a34b0d4840af8e96a3fb14f0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 7011154628321951076}
-  sensitivitySlider: {fileID: 299108185063342706}
 --- !u!1 &7210593195502910097
 GameObject:
   m_ObjectHideFlags: 0
@@ -5693,9 +5792,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8893657308211680524}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: QuitApplication
+      - m_Target: {fileID: 9004006556133425786}
+        m_TargetAssemblyTypeName: PlayerData, Assembly-CSharp
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6511,34 +6610,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &9221533572293371535
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 127927283391756845}
-  m_Layer: 0
-  m_Name: swimCheck
-  m_TagString: SwimCheck
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &127927283391756845
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9221533572293371535}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5777725173334482573}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

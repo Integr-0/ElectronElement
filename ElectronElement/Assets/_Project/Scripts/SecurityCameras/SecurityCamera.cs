@@ -24,9 +24,6 @@ public class SecurityCamera : MonoBehaviour
 
     public void Leave(PlayerData player)
     {
-        //if you don't want the camera selection panel to pop up when leaving
-        //player.Activate();
-
         player.cam.gameObject.SetActive(true);
         cam.SetActive(false);
 
@@ -40,8 +37,8 @@ public class SecurityCamera : MonoBehaviour
     }
 
 
-    private float xRot;
-    private float yRot;
+    private float xRot = 0f;
+    private float yRot = 90f;
     private float zoom = 60f;
     void Update()
     {
