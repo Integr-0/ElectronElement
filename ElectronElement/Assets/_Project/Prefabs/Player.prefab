@@ -993,7 +993,7 @@ MonoBehaviour:
   climbSpeed: 4
   sprintSpeedMultiplier: 1.5
   airControlMultiplier: 1
-  jumpStrength: 1.5
+  jumpStrength: 1
   jumpBuffer: 0.1
   gravity: -20
   groundCheckTransform: {fileID: 5221978633784261317}
