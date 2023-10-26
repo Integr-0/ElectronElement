@@ -25,11 +25,12 @@ public class WeaponData : ScriptableObject
     {
         get
         {
+            Dictionary<(ShotType, RangeType), float> output = new();
             foreach (var shot in shotData)
             {
-                damageMap[(shot.shotType, shot.rangeType)] = shot.damage;
+                output[(shot.shotType, shot.rangeType)] = shot.damage;
             }
-            return damageMap;
+            return output;
         }
         set
         {
@@ -45,13 +46,16 @@ public class WeaponData : ScriptableObject
     [Space, Space]
 
     [Tooltip("Firing speed: 1 / fireRate")] public float fireRate;
+    public bool canHold;
     public float maxRange;
+    public float muzzleFlashSize;
     public float[] zoomLevels;
 
     [Space]
 
     [Tooltip("All the layers the gun can shoot at. Layers not in the list will be ignored")] 
     public LayerMask shootableLayers;
+    public AudioClip shotSound;
 
     public bool canGiveToCamera;
 }

@@ -42,10 +42,11 @@ MonoBehaviour:
     damage: 10
   lowToMidRangeDistance: 5
   midToHighRangeDistance: 15
-  fireRate: 0.5
+  fireRate: 5
   maxRange: 25
+  muzzleFlashSize: 0.3
   zoomLevels: []
   shootableLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 447
   canGiveToCamera: 1

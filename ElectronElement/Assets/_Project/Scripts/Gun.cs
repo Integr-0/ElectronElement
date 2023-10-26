@@ -5,11 +5,18 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] private WeaponData data;
     [Space, SerializeField] private Transform gunTip;
+    [SerializeField] private ParticleSystem muzzleFlash;
     private float nextTimeToFire;
+
+    [System.Obsolete]
+    private void Awake()
+    {
+        muzzleFlash.startSize = data.muzzleFlashSize;
+    }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if ((!data.canHold && Input.GetMouseButtonDown(0)) || (data.canHold && Input.GetMouseButton(0)))
         {
             Shoot();
         }
@@ -27,6 +34,8 @@ public class Gun : MonoBehaviour
                             data.maxRange, 
                             data.shootableLayers))
         {
+            muzzleFlash.Play();
+            GetComponent<AudioSource>().PlayOneShot(data.shotSound);
             if (hit.transform.TryGetComponent(out Health health))
             {
                 health.TakeDamage(CalculateDamage(hit));

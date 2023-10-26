@@ -17,24 +17,21 @@ public class ShelfLooter : MonoBehaviour
 
     private void Update()
     {
-        var shelf = closestShelf(out float distance);
-
-        if(distance < lootDist)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            lootedShelves++;
-            Instantiate(emptyShelfPrefab,
-                        shelf.transform.position,
-                        shelf.transform.rotation,
-                        shelf.transform.parent);
+            var shelf = closestShelf(out float distance);
 
-            lootableShelves.Remove(shelf);
-            Destroy(shelf);
-        }
+            if (distance <= lootDist)
+            {
+                lootedShelves++;
+                Instantiate(emptyShelfPrefab,
+                            shelf.transform.position,
+                            shelf.transform.rotation,
+                            shelf.transform.parent);
 
-        float a = 5;
-        while (a > 0)
-        {
-
+                lootableShelves.Remove(shelf);
+                Destroy(shelf);
+            }
         }
     }
     private GameObject closestShelf(out float dist)
@@ -53,5 +50,11 @@ public class ShelfLooter : MonoBehaviour
         }
 
         return closest;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, lootDist);
     }
 }

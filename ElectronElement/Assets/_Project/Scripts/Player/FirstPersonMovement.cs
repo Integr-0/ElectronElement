@@ -117,7 +117,7 @@ public class FirstPersonMovement : MonoBehaviour
         //footsteps
         if (isGrounded && input.magnitude > 0)
         {
-            nextFootstep -= Time.deltaTime;
+            nextFootstep -= Time.deltaTime * (isSprinting ? sprintSpeedMultiplier : 1f);
             if (nextFootstep <= 0)
             {
                 footstepAudioSource.PlayOneShot(footstepSound, 0.7f);
