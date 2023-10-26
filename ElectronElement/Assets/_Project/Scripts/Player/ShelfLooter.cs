@@ -52,7 +52,7 @@ public class ShelfLooter : MonoBehaviour
         return closest;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, lootDist);

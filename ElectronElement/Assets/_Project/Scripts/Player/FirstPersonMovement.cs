@@ -139,7 +139,7 @@ public class FirstPersonMovement : MonoBehaviour
     }
 
     //Draw visualizatiuons for groundCheck und ladderCheck
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheckTransform.position, groundCheckDistance);

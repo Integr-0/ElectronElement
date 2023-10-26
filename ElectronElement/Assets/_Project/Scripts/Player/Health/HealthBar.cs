@@ -1,12 +1,14 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 [RequireComponent(typeof(Health))]
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Text healthText;
+    [SerializeField] private TMP_Text dmgPopup;
 
     private void Awake()
     {

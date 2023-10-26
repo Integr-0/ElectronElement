@@ -5,6 +5,7 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [Space, SerializeField] private Slider sensitivitySlider;
+    [SerializeField] private PlayerData data;
 
     public bool IsPaused {  get; private set; }
 
@@ -44,6 +45,6 @@ public class PauseMenu : MonoBehaviour
 
     private void OnApplicationFocus(bool focus)
     {
-        if (!focus) Pause();
+        if (!focus && data.canPause) Pause();
     }
 }
