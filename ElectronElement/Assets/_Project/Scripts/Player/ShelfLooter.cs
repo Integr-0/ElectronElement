@@ -7,21 +7,25 @@ public class ShelfLooter : MonoBehaviour
     [SerializeField] private GameObject emptyShelfPrefab;
     [SerializeField] private float lootDist = 1f;
 
-    private int lootedShelves = 0;
+    public int lootedShelves = 0;
+    public int lootedCrystals = 0;
     private List<GameObject> lootableShelves;
+    private List<GameObject> crystals;
 
     private void Awake()
     {
         lootableShelves = GameObject.FindGameObjectsWithTag("Shelf").ToList();
+        crystals = GameObject.FindGameObjectsWithTag("Crystal").ToList();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            var shelf = closestShelf(out float distance);
+            var shelf = closestShelf(out float s_distance);
+            var crystal = closestCrystal(out float c_distance);
 
-            if (distance <= lootDist)
+            if (s_distance <= lootDist)
             {
                 lootedShelves++;
                 Instantiate(emptyShelfPrefab,
@@ -31,6 +35,15 @@ public class ShelfLooter : MonoBehaviour
 
                 lootableShelves.Remove(shelf);
                 Destroy(shelf);
+            }
+
+
+            if(c_distance <= lootDist)
+            {
+                lootedCrystals++;
+
+                crystals.Remove(crystal);
+                Destroy(crystal);
             }
         }
     }
@@ -45,6 +58,23 @@ public class ShelfLooter : MonoBehaviour
             if (distance < dist)
             {
                 closest = shelf;
+                dist = distance;
+            }
+        }
+
+        return closest;
+    }
+    private GameObject closestCrystal(out float dist)
+    {
+        GameObject closest = default;
+        dist = float.MaxValue;
+
+        foreach (var crystal in crystals)
+        {
+            float distance = Vector3.Distance(transform.position, crystal.transform.position);
+            if (distance < dist)
+            {
+                closest = crystal;
                 dist = distance;
             }
         }

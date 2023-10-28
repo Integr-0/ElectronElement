@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SwimCheck
   - Shelf
+  - Crystal
   layers:
   - Default
   - TransparentFX

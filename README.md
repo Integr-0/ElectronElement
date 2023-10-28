@@ -7,3 +7,7 @@ to be made and fetched
 make assets
 make movement script
 
+# Active Debug Values
+Player.ShelfLooter.LootedShelves = 1000 (default: 0)
+Player.ShelfLooter.LootedCrystals = 5; (default: 0)
+Laser.NeededDistance = 100 (default: 10)

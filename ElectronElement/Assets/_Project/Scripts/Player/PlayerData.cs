@@ -10,12 +10,13 @@ public class PlayerData : MonoBehaviour
     public FirstPersonMovement Movement;
     public MouseLook Look;
     public GameObject gunParent;
+    public ShelfLooter shelfLooter;
 
     public PauseMenu pauseMenu;
 
     public bool canPause = true;
 
-    private void Start()
+    private void Awake()
     {
         if (CameraManager.Instance != null) CameraManager.Instance.testData = this;
     }

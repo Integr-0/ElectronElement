@@ -13,7 +13,14 @@ public class CameraManager : MonoBehaviour
     private int? cam = null;
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     public SecurityCamera[] allCams;
 
@@ -44,28 +51,29 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        PlayerData playerNear = anyPlayerNear();
+        PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(transform.position, out float distanceToClosestPlayer);
+        bool anyPlayerNearEnough = distanceToClosestPlayer < 5f;
 
-        if (Input.GetButtonDown("Cancel") && playerNear != null)
+        if (Input.GetButtonDown("Cancel") && anyPlayerNearEnough)
         {
             if (cam != null) ExitCurrentCam();
             else if(selectPanel.activeSelf)
             {
-                playerNear.Activate();
+                nearestPlayer.Activate();
                 selectPanel.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
 
-                playerNear.canPause = true;
+                nearestPlayer.canPause = true;
             }
         }
 
-        buttonPrompt.SetActive(playerNear != null && !selectPanel.activeSelf && cam == null);
+        buttonPrompt.SetActive(anyPlayerNearEnough && !selectPanel.activeSelf && cam == null);
 
-        if (playerNear != null && Input.GetKeyDown(KeyCode.C) && cam == null)
+        if (anyPlayerNearEnough && Input.GetKeyDown(KeyCode.C) && cam == null)
         {
-            playerNear.Deactivate();
+            nearestPlayer.Deactivate();
             selectPanel.SetActive(true);
-            playerNear.canPause = false;
+            nearestPlayer.canPause = false;
             Cursor.lockState = CursorLockMode.None;
         }
 

@@ -41,6 +41,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Specular: 0.4
+    - _StencilWriteMaskDepth: 9
+    - _StencilWriteMaskMV: 43
     m_Colors:
     - _Length_Color: {r: 0.6132076, g: 0.4560509, b: 0.29889044, a: 1}
     - _Root_Color: {r: 0.4433962, g: 0.30466056, b: 0.16592497, a: 1}

@@ -1024,6 +1024,7 @@ MonoBehaviour:
   Movement: {fileID: 6572997166189070213}
   Look: {fileID: 8423499973126427342}
   gunParent: {fileID: 415938477462874244}
+  shelfLooter: {fileID: 1267321238576778732}
   pauseMenu: {fileID: 7054220373681330600}
   canPause: 0
 --- !u!114 &6572997166189070213
@@ -1087,6 +1088,8 @@ MonoBehaviour:
   emptyShelfPrefab: {fileID: 6225358861170117921, guid: f27fcf47b279da042ae6ff22c72d9949,
     type: 3}
   lootDist: 5
+  lootedShelves: 0
+  lootedCrystals: 0
 --- !u!143 &1809757172021735810
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1830,7 +1833,7 @@ Transform:
   m_GameObject: {fileID: 1180197007088497919}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0.131}
+  m_LocalPosition: {x: 0, y: 0.7714, z: 0.131}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3182,7 +3185,7 @@ Transform:
   m_GameObject: {fileID: 3247895609358012256}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -8.83, z: 0}
+  m_LocalPosition: {x: 0, y: -12.2, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11536,7 +11539,7 @@ Transform:
   m_GameObject: {fileID: 8836020726752528636}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3900134, y: -0.54136026, z: 0.037385922, w: 0.74392265}
-  m_LocalPosition: {x: 2.6299992, y: 1.7099984, z: 5.220001}
+  m_LocalPosition: {x: 11.13, y: 6.84, z: 3.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11687,32 +11690,32 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: aa8c59f1515a0e241b995fb51bd75ab9,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.04
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa8c59f1515a0e241b995fb51bd75ab9,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.04
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa8c59f1515a0e241b995fb51bd75ab9,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.04
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa8c59f1515a0e241b995fb51bd75ab9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2
+      value: 0.121
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa8c59f1515a0e241b995fb51bd75ab9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.049
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa8c59f1515a0e241b995fb51bd75ab9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 0.1909
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa8c59f1515a0e241b995fb51bd75ab9,
         type: 3}
