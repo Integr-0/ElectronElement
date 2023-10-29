@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject camOverlay;
 
     public PlayerData testData;
+    public SecurityCamera[] allCams;
 
     private int? cam = null;
     private void Awake()
@@ -22,7 +23,6 @@ public class CameraManager : MonoBehaviour
             Instance = this;
         }
     }
-    public SecurityCamera[] allCams;
 
     public void PosessCam(int i)
     {

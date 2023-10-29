@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 public class Laser : MonoBehaviour
 {
@@ -15,14 +17,23 @@ public class Laser : MonoBehaviour
     [Space, SerializeField] private Stage[] stages;
     [SerializeField] private Transform crystal;
     [SerializeField] private int neededCrystals;
-    private int currentCrystals;
+
+    [SerializeField] private LocalVolumetricFog orb;
 
     [Space, SerializeField] private float neededDistance;
 
     private int currentStage = 0;
+    private int currentCrystals;
+
+    private float[] orbSizeMap = new float[]
+    {
+        0f, 4f, 5.5f, 7f
+    };
 
     private void Update()
     {
+        orb.parameters.size = Vector3.one * orbSizeMap[currentCrystals];
+
         //To prevent IndexOutOfRangeException
         if (currentStage < stages.Length)
         {
