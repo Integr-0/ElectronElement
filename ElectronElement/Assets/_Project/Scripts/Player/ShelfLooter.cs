@@ -28,6 +28,7 @@ public class ShelfLooter : MonoBehaviour
             if (s_distance <= lootDist)
             {
                 lootedShelves++;
+
                 Instantiate(emptyShelfPrefab,
                             shelf.transform.position,
                             shelf.transform.rotation,
