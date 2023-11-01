@@ -2,19 +2,15 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    [SerializeField] private float mouseSensitivity = 300f;
     [SerializeField] private Transform playerBody;
+    [SerializeField] private PlayerData data;
 
     private float xRotation = 0f;
-
-    public const string KEY_SENSITIVITY = "mouse_sens";
+    private float mouseSensitivity = 300f;
 
     void Start()
     {
-        if (PlayerPrefs.GetFloat(KEY_SENSITIVITY) == default) 
-            PlayerPrefs.SetFloat(KEY_SENSITIVITY, 300f);
-
-        mouseSensitivity = PlayerPrefs.GetFloat(KEY_SENSITIVITY);
+        mouseSensitivity = data.DefaultPrefs.MouseSensitivity;
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -34,6 +30,6 @@ public class MouseLook : MonoBehaviour
     public void SetSensitivity(float s)
     {
         mouseSensitivity = s;
-        PlayerPrefs.SetFloat(KEY_SENSITIVITY, s);
+        data.DefaultPrefs.MouseSensitivity = s;
     }
 }

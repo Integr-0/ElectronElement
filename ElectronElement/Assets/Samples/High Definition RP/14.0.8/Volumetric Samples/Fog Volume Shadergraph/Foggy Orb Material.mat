@@ -67,7 +67,7 @@ Material:
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _BlendMode: 0
-    - _Center_Color_Fade: 0.75
+    - _Center_Color_Fade: 1
     - _Center_Color_Fade_Start: 0.738
     - _Color_Intensity: 10
     - _Color_Power: 0.68
@@ -117,8 +117,9 @@ Material:
     - _contrast: -2.9
     m_Colors:
     - _Center_Color: {r: 1, g: 1, b: 1, a: 0}
-    - _Color: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0}
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RotationAxis: {r: 0, g: 1, b: 0, a: 0}
+    - _Rotation_Axis: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

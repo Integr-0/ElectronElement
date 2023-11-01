@@ -1,6 +1,7 @@
 using static WeaponData;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Gun : MonoBehaviour
 {
     [SerializeField] private WeaponData data;
@@ -45,18 +46,21 @@ public class Gun : MonoBehaviour
 
     private float CalculateDamage(RaycastHit hit)
     {
-        ShotType shot = hit.transform.tag switch
+        ShotType? shot = hit.transform.tag switch
         {
             "Head" => ShotType.Head,
             "Body" => ShotType.Body,
             "Legs" => ShotType.Legs,
-            _ => throw new UnityException("Wrong tag attached to collider. [Head, Body, Legs]")
+            _ => null
         };
+
+
         RangeType range;
+
         if (hit.distance <= data.lowToMidRangeDistance) range = RangeType.Low;
-        else if (hit.distance > data.lowToMidRangeDistance && hit.distance < data.midToHighRangeDistance) range = RangeType.Mid;
+        else if (hit.distance < data.midToHighRangeDistance) range = RangeType.Mid;
         else range = RangeType.High;
 
-        return data.damageMap[(shot, range)];
+        return shot != null ? data.damageMap[((ShotType)shot, range)] : 0f;
     }
 }

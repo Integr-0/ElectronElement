@@ -32,7 +32,8 @@ public class ShelfLooter : MonoBehaviour
                 Instantiate(emptyShelfPrefab,
                             shelf.transform.position,
                             shelf.transform.rotation,
-                            shelf.transform.parent);
+                            shelf.transform.parent).transform.localScale = 
+                            shelf.transform.localScale;
 
                 lootableShelves.Remove(shelf);
                 Destroy(shelf);

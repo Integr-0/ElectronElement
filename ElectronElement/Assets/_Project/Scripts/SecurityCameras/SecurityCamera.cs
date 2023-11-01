@@ -6,7 +6,6 @@ public class SecurityCamera : MonoBehaviour
 
     [SerializeField] private GameObject cam;
 
-    [Space, SerializeField] private float sensitivity = 300f;
     [SerializeField] private float zoomSensitivity = 1f;
 
     [Space, SerializeField] private Vector2 xMinMax;
@@ -44,6 +43,7 @@ public class SecurityCamera : MonoBehaviour
     {
         if(posessingPlayer != null)
         {
+            float sensitivity = posessingPlayer.DefaultPrefs.MouseSensitivity;
             float MouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
             float MouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
             float Scroll = Input.mouseScrollDelta.y * zoomSensitivity;

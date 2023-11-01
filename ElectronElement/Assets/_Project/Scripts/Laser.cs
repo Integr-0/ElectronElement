@@ -34,7 +34,6 @@ public class Laser : MonoBehaviour
     {
         orb.parameters.size = Vector3.one * orbSizeMap[currentCrystals];
 
-        //To prevent IndexOutOfRangeException
         if (currentStage < stages.Length)
         {
             PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(stages[currentStage].transform.position, out float distance);

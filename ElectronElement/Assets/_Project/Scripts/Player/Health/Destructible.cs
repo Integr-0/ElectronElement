@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public class Destructible : MonoBehaviour
 {
-    [SerializeField] private GameObject destroyedVersion;
+    [SerializeField, Tooltip("Can be null if no destroyed version exists")] private GameObject destroyedVersion;
     [SerializeField] private ParticleSystem destructionParticles;
     private void Awake()
     {
@@ -11,7 +11,7 @@ public class Destructible : MonoBehaviour
         {
             destructionParticles.Play();
 
-            Instantiate(destroyedVersion, transform.position, transform.rotation, transform.parent);
+            if (destroyedVersion != null) Instantiate(destroyedVersion, transform.position, transform.rotation, transform.parent);
             Destroy(gameObject);
         };
     }

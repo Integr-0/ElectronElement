@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        sensitivitySlider.value = PlayerPrefs.GetFloat(MouseLook.KEY_SENSITIVITY);
+        sensitivitySlider.value = data.DefaultPrefs.MouseSensitivity;
     }
 
     public void Pause()

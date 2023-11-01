@@ -42,13 +42,13 @@ MonoBehaviour:
     damage: 10
   lowToMidRangeDistance: 5
   midToHighRangeDistance: 15
-  fireRate: 5
+  fireRate: 10
   canHold: 0
   maxRange: 25
-  muzzleFlashSize: 0.3
+  muzzleFlashSize: 0.05
   zoomLevels: []
   shootableLayers:
     serializedVersion: 2
-    m_Bits: 447
+    m_Bits: 4294967295
   shotSound: {fileID: 8300000, guid: 750f4c01905e28b4382f9b605a4c1c1c, type: 3}
   canGiveToCamera: 1

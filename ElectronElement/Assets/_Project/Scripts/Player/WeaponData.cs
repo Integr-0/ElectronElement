@@ -32,10 +32,6 @@ public class WeaponData : ScriptableObject
             }
             return output;
         }
-        set
-        {
-            damageMap = value;
-        }
     }
 
     [Space]

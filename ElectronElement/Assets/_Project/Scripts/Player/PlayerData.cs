@@ -2,6 +2,22 @@
 
 public class PlayerData : MonoBehaviour
 {
+    public struct Preferences
+    {
+        public float MouseSensitivity
+        { 
+            get
+            {
+                return PlayerPrefs.GetFloat("MouseSens", defaultValue: 300f);
+            }
+            set
+            {
+                PlayerPrefs.SetFloat("MouseSens", value);
+            }
+        }
+    }
+    public Preferences DefaultPrefs;
+
     public string Name;
     public Sprite Image;
 
