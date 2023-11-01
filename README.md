@@ -7,3 +7,5 @@ to be made and fetched
 make assets
 make movement script
 
+## Active Debug Values
+Player.PlayerData.canPause = false (default: true)

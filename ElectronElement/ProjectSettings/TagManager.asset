@@ -3,17 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Shelf
+  - Crystal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Jumpable
   - Water
   - UI
   - FirstPersonExclude
-  - 
-  - 
+  - Climbable
+  - ExcludeOnSecurityCam
   - 
   - 
   - 
