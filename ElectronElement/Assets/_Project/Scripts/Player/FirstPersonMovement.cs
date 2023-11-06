@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController), typeof(AudioSource))]
 public class FirstPersonMovement : MonoBehaviour
 {
+    #region Fields
+
     [SerializeField] private float speed = 5f;
     [SerializeField] private float climbSpeed = 3f;
 
@@ -31,6 +33,9 @@ public class FirstPersonMovement : MonoBehaviour
     [Space, SerializeField] private AudioClip footstepSound;
     [SerializeField] private float footstepDelay = 0.3f;
 
+    #endregion
+
+    #region Variables
 
     private CharacterController controller;
     private AudioSource footstepAudioSource;
@@ -53,18 +58,24 @@ public class FirstPersonMovement : MonoBehaviour
     private bool tryingToClimb;
     private bool isSprinting;
 
+    #endregion
+
     private void Awake()
     {
-        //Init
+        #region Init
+
         controller = GetComponent<CharacterController>();
         footstepAudioSource = GetComponent<AudioSource>();
 
         currentGroundSpeed = speed;
+
+        #endregion
     }
 
     void Update()
-    {     
-        //Set basic variables
+    {
+        #region Set basic variables
+
         isGrounded = Physics.CheckSphere(groundCheckTransform.position, groundCheckDistance, groundLayers);
         tryingToClimb = Physics.CheckSphere(ladderCheckTransform.position, ladderCheckDistance, climbableLayers);
         isSprinting = Input.GetKey(KeyCode.LeftShift);
@@ -72,49 +83,66 @@ public class FirstPersonMovement : MonoBehaviour
         currentGroundSpeed = isSprinting ? speed * sprintSpeedMultiplier : isGrounded ? speed : speed * airControlMultiplier;
         currentClimbSpeed = isSprinting ? climbSpeed * sprintSpeedMultiplier : climbSpeed;
 
+        #endregion
 
-        //resetting gravity force when grounded
+
+        #region resetting gravity force when grounded
+
         if ((isGrounded || tryingToClimb) && yMovement < 0)
         {
             yMovement = -2f;
         }
 
+        #endregion
 
-        //get input
+
+        #region Get Input
+
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * input.x + transform.forward * input.y;
 
+        #endregion
 
-        //climbing
+
+        #region climbing
+
         if (tryingToClimb && input.magnitude > 0) yMovement = currentClimbSpeed;
 
+        #endregion
 
-        //jumping (with jumpBuffer)
+
+        #region jumping & gravity
+
+        //jumping
         jumpBufferTimer -= Time.deltaTime;
         if (Input.GetButtonDown("Jump") && !tryingToClimb)
         {
             jumpBufferTimer = jumpBuffer;
         }
-        if(jumpBufferTimer > 0f && isGrounded)
+        if (jumpBufferTimer > 0f && isGrounded)
         {
             //real life gravity formula
-            yMovement = Mathf.Sqrt(jumpStrength * -2f * gravity);
-            
+            yMovement = Mathf.Sqrt(jumpStrength * -2f * gravity);  
         }
 
-        
         //adding gravity
         yMovement += gravity * Time.deltaTime;
 
+        #endregion
 
-        //moving
+
+        #region applying movement
+
         controller.Move(currentGroundSpeed * Time.deltaTime * move);
-        controller.Move(yMovement * transform.up * Time.deltaTime);
+        controller.Move(Time.deltaTime * yMovement * transform.up);
+
+        #endregion
 
 
-        //footsteps
+        #region play footsteps
+
         if (isGrounded && input.magnitude > 0)
         {
             nextFootstep -= Time.deltaTime * (isSprinting ? sprintSpeedMultiplier : 1f);
@@ -124,9 +152,11 @@ public class FirstPersonMovement : MonoBehaviour
                 nextFootstep += footstepDelay;
             }
         }
-    }
 
-    //Push physics
+        #endregion
+    }
+    
+    #region Push physics
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody hitRb = hit.collider.attachedRigidbody;
@@ -137,8 +167,10 @@ public class FirstPersonMovement : MonoBehaviour
 
         hitRb.velocity = pushDir * pushForce * currentGroundSpeed;
     }
+    #endregion
 
-    //Draw visualizatiuons for groundCheck und ladderCheck
+    #region Draw visualizations for groundCheck and ladderCheck
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -147,4 +179,6 @@ public class FirstPersonMovement : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(ladderCheckTransform.position, ladderCheckDistance);
     }
+
+    #endregion
 }

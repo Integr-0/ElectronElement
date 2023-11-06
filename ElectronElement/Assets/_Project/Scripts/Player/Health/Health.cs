@@ -19,10 +19,10 @@ public class Health : MonoBehaviour
     /// <summary>
     /// Use negative values for healing
     /// </summary>
-    /// <param name="damage"></param>
-    public void TakeDamage(float damage)
+    /// <param name="ammt"></param>
+    public void ChangeHealth(float ammt)
     {
-        currentHealth -= damage;
+        currentHealth += ammt;
 
         //for damage
         if (currentHealth <= 0)
@@ -37,6 +37,6 @@ public class Health : MonoBehaviour
         }
 
         //apply after clamping
-        onHealthChanged(-damage, currentHealth);
+        onHealthChanged(ammt, currentHealth);
     }
 }

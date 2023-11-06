@@ -1,5 +1,5 @@
-using static WeaponData;
 using UnityEngine;
+using static WeaponData;
 
 [RequireComponent(typeof(AudioSource))]
 public class Gun : MonoBehaviour
@@ -39,7 +39,7 @@ public class Gun : MonoBehaviour
             GetComponent<AudioSource>().PlayOneShot(data.shotSound);
             if (hit.transform.TryGetComponent(out Health health))
             {
-                health.TakeDamage(CalculateDamage(hit));
+                health.ChangeHealth(CalculateDamage(hit));
             }
         }
     }
@@ -61,6 +61,6 @@ public class Gun : MonoBehaviour
         else if (hit.distance < data.midToHighRangeDistance) range = RangeType.Mid;
         else range = RangeType.High;
 
-        return shot != null ? data.damageMap[((ShotType)shot, range)] : 0f;
+        return shot != null ? -data.damageMap[((ShotType)shot, range)] : 0f;
     }
 }
