@@ -5,7 +5,6 @@ using static WeaponData;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private WeaponData data;
-    [Space, SerializeField] private Transform gunTip;
     [SerializeField] private ParticleSystem muzzleFlash;
     private float nextTimeToFire;
 
@@ -29,7 +28,7 @@ public class Gun : MonoBehaviour
 
         nextTimeToFire = Time.time + (1 / data.fireRate);
 
-        if (Physics.Raycast(gunTip.position, 
+        if (Physics.Raycast(transform.position, 
                             transform.forward, 
                             out RaycastHit hit, 
                             data.maxRange, 
@@ -51,7 +50,7 @@ public class Gun : MonoBehaviour
             "Head" => ShotType.Head,
             "Body" => ShotType.Body,
             "Legs" => ShotType.Legs,
-            _ => null
+            _ => throw new UnityException("Wrong tag attached to collider [Head, Body, Leg]")
         };
 
 

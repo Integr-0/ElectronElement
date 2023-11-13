@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
         currentHealth += ammt;
 
         //for damage
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && onDied != null)
         {
             onDied();
         }
@@ -37,6 +37,6 @@ public class Health : MonoBehaviour
         }
 
         //apply after clamping
-        onHealthChanged(ammt, currentHealth);
+        if(onHealthChanged != null) onHealthChanged(ammt, currentHealth);
     }
 }

@@ -810,9 +810,10 @@ GameObject:
   - component: {fileID: 1775657045}
   - component: {fileID: 1775657044}
   - component: {fileID: 1775657047}
+  - component: {fileID: 1775657048}
   m_Layer: 0
   m_Name: Target
-  m_TagString: Untagged
+  m_TagString: Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -916,9 +917,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f69f0af59429341977e8109457c027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  startingHealth: 10
-  text: {fileID: 0}
+  text: {fileID: 587499134}
+--- !u!114 &1775657048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775657042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 502a332dd04571c4caa7ea5085944784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 200
+  startingHealth: 200
 --- !u!1 &2013410473
 GameObject:
   m_ObjectHideFlags: 1
