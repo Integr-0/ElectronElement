@@ -3217,7 +3217,7 @@ Transform:
   m_GameObject: {fileID: 3247895609358012256}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.11, z: -2.74}
+  m_LocalPosition: {x: 0, y: -10.1, z: -2.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16756,7 +16756,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a6a57102f49d37445866a3a349a7b922, type: 2}
-  gunTip: {fileID: 5860211978428115190}
   muzzleFlash: {fileID: 9079913637052525367}
 --- !u!82 &4699809571507789928
 AudioSource:
@@ -16954,7 +16953,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 05d99cdcf0309b8469848b1ddb644604, type: 2}
-  gunTip: {fileID: 2270745772553548438}
   muzzleFlash: {fileID: 3009263695342966008}
 --- !u!82 &5828226178481319503
 AudioSource:
