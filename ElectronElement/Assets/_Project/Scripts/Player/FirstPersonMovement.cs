@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController), typeof(AudioSource))]
@@ -9,6 +10,7 @@ public class FirstPersonMovement : MonoBehaviour
     [SerializeField] private float climbSpeed = 3f;
 
     [SerializeField] private float sprintSpeedMultiplier = 1.5f;
+    [SerializeField] private float sneakSpeedMultiplier = 0.5f;
     [SerializeField] private float airControlMultiplier = 1f;
 
 
@@ -57,6 +59,7 @@ public class FirstPersonMovement : MonoBehaviour
 
     private bool tryingToClimb;
     private bool isSprinting;
+    private bool isSneaking;
 
     #endregion
 
@@ -74,13 +77,17 @@ public class FirstPersonMovement : MonoBehaviour
 
     void Update()
     {
-        #region Set basic variables
+        #region set basic variables
 
         isGrounded = Physics.CheckSphere(groundCheckTransform.position, groundCheckDistance, groundLayers);
         tryingToClimb = Physics.CheckSphere(ladderCheckTransform.position, ladderCheckDistance, climbableLayers);
-        isSprinting = Input.GetKey(KeyCode.LeftShift);
+        isSneaking = Input.GetKey(KeyCode.LeftControl);
+        isSprinting = Input.GetKey(KeyCode.LeftShift) && !isSneaking;
 
-        currentGroundSpeed = isSprinting ? speed * sprintSpeedMultiplier : isGrounded ? speed : speed * airControlMultiplier;
+        currentGroundSpeed = isSneaking ? speed * sneakSpeedMultiplier : 
+                             isSprinting ? speed * sprintSpeedMultiplier : 
+                             isGrounded ? speed : speed * airControlMultiplier;
+        
         currentClimbSpeed = isSprinting ? climbSpeed * sprintSpeedMultiplier : climbSpeed;
 
         #endregion
@@ -96,7 +103,7 @@ public class FirstPersonMovement : MonoBehaviour
         #endregion
 
 
-        #region Get Input
+        #region get Input
 
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
@@ -143,7 +150,7 @@ public class FirstPersonMovement : MonoBehaviour
 
         #region play footsteps
 
-        if (isGrounded && input.magnitude > 0)
+        if (isGrounded && input.magnitude > 0 && !isSneaking)
         {
             nextFootstep -= Time.deltaTime * (isSprinting ? sprintSpeedMultiplier : 1f);
             if (nextFootstep <= 0)
