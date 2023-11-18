@@ -6,9 +6,6 @@ TagManager:
   tags:
   - Shelf
   - Crystal
-  - Head
-  - Body
-  - Leg
   layers:
   - Default
   - TransparentFX

@@ -36,30 +36,21 @@ public class Gun : MonoBehaviour
         {
             muzzleFlash.Play();
             GetComponent<AudioSource>().PlayOneShot(data.shotSound);
-            if (hit.transform.TryGetComponent(out Health health))
+            if (hit.transform.TryGetComponent(out ShootableCollider s))
             {
-                health.ChangeHealth(CalculateDamage(hit));
+                s.health.ChangeHealth(CalculateDamage(hit, s.bodyPart));
             }
         }
     }
 
-    private float CalculateDamage(RaycastHit hit)
+    private float CalculateDamage(RaycastHit hit, ShotType shotType)
     {
-        ShotType? shot = hit.transform.tag switch
-        {
-            "Head" => ShotType.Head,
-            "Body" => ShotType.Body,
-            "Legs" => ShotType.Legs,
-            _ => throw new UnityException("Wrong tag attached to collider [Head, Body, Leg]")
-        };
-
-
         RangeType range;
 
         if (hit.distance <= data.lowToMidRangeDistance) range = RangeType.Low;
         else if (hit.distance < data.midToHighRangeDistance) range = RangeType.Mid;
         else range = RangeType.High;
 
-        return shot != null ? -data.damageMap[((ShotType)shot, range)] : 0f;
+        return -data.damageMap[(shotType, range)];
     }
 }

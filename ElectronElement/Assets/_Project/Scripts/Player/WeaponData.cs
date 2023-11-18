@@ -6,7 +6,7 @@ public class WeaponData : ScriptableObject
 {
     public enum ShotType
     {
-        Head, Body, Legs
+        Head, Body, LegsAndHands
     }
     public enum RangeType
     {

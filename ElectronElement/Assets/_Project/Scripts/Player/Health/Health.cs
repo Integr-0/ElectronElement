@@ -24,19 +24,19 @@ public class Health : MonoBehaviour
     {
         currentHealth += ammt;
 
-        //for damage
+        //Handle Damage
         if (currentHealth <= 0 && onDied != null)
         {
             onDied();
         }
 
-        //For healing
-        if(currentHealth > maxHealth)
+        //Handle Healing
+        if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
 
-        //apply after clamping
+        //Call event after clamping
         if(onHealthChanged != null) onHealthChanged(ammt, currentHealth);
     }
 }
