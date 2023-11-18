@@ -168,7 +168,7 @@ public class FirstPersonMovement : MonoBehaviour
     {
         Rigidbody hitRb = hit.collider.attachedRigidbody;
 
-        if (hitRb == null || hitRb.isKinematic || hit.moveDirection.y < -0.3f) return;
+        if (hitRb == null || hitRb.isKinematic || hit.moveDirection.y < -0.6f) return;
 
         Vector3 pushDir = new(hit.moveDirection.x, 0, hit.moveDirection.z);
 

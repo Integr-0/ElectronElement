@@ -53,7 +53,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
     private void OnApplicationQuit()
     {
-        LeaveLobby();
+        if(joinedLobby != null) LeaveLobby();
     }
 
     private async void HandleLobbyHeartbeat()
@@ -229,8 +229,6 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
 
             NetworkUIButtons.Instance.OnLeaveLobby();
-            deleteLobbyButton.SetActive(false);
-            codeDisplayText.gameObject.SetActive(false);
         }
         catch (LobbyServiceException e)
         {
@@ -248,8 +246,6 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             joinedLobby = null;
 
             NetworkUIButtons.Instance.OnLeaveLobby();
-            deleteLobbyButton.SetActive(false);
-            codeDisplayText.gameObject.SetActive(false);
         }
         catch (LobbyServiceException e)
         {

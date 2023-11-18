@@ -12,6 +12,8 @@ public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
     [SerializeField] private Button quickJoinLobbyButton;
 
     [SerializeField] private GameObject leaveLobbyButton;
+    [SerializeField] private GameObject deleteLobbyButton;
+    [SerializeField] private GameObject codeDisplayText;
     [SerializeField] private GameObject startGameButton;
 
     private string lobbyCodeInput;
@@ -40,6 +42,8 @@ public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
 
         leaveLobbyButton.SetActive(false);
         startGameButton.SetActive(false);
+        deleteLobbyButton.SetActive(false);
+        codeDisplayText.SetActive(false);
     }
     public void OnJoinLobby()
     {

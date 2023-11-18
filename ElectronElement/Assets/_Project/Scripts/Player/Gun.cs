@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] private WeaponData data;
     [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private Transform shotPoint;
     private float nextTimeToFire;
 
     [System.Obsolete]
@@ -28,9 +29,9 @@ public class Gun : MonoBehaviour
 
         nextTimeToFire = Time.time + (1 / data.fireRate);
 
-        if (Physics.Raycast(transform.position, 
-                            transform.forward, 
-                            out RaycastHit hit, 
+        if (Physics.Raycast(shotPoint.position,
+                            shotPoint.forward, 
+                            out RaycastHit hit,
                             data.maxRange, 
                             data.shootableLayers))
         {
@@ -52,5 +53,11 @@ public class Gun : MonoBehaviour
         else range = RangeType.High;
 
         return -data.damageMap[(shotType, range)];
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(shotPoint.position, shotPoint.forward * data.maxRange);
     }
 }

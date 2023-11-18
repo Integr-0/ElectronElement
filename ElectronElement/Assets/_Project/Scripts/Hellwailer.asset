@@ -45,7 +45,7 @@ MonoBehaviour:
   fireRate: 15
   canHold: 1
   maxRange: 100
-  muzzleFlashSize: 10
+  muzzleFlashSize: 3
   zoomLevels: []
   shootableLayers:
     serializedVersion: 2

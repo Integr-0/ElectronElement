@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Project/Scenes/MAIN.unity
+    guid: b39bc56c555a3914aa4d831d67ddccdd
+  - enabled: 1
     path: Assets/_Project/Scenes/TestingScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
   - enabled: 1
-    path: Assets/_Project/Scenes/MAIN.unity
-    guid: b39bc56c555a3914aa4d831d67ddccdd
+    path: Assets/_Project/Scenes/IndoorScifi.unity
+    guid: 105eb6687d8ab1a43bc1344ed720feae
+  - enabled: 1
+    path: Assets/_Project/Scenes/SciFiScene.unity
+    guid: e737198f42001014c817089842324f21
   m_configObjects: {}

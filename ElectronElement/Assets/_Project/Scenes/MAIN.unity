@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -3171,6 +3171,8 @@ MonoBehaviour:
   joinLobbyButton: {fileID: 7707714594402623717}
   quickJoinLobbyButton: {fileID: 8927622329564283458}
   leaveLobbyButton: {fileID: 7445681327115975492}
+  deleteLobbyButton: {fileID: 0}
+  codeDisplayText: {fileID: 0}
   startGameButton: {fileID: 5137896486510848216}
 --- !u!1 &2488860007357395848
 GameObject:
