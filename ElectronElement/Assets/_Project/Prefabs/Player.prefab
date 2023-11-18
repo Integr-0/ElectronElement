@@ -980,6 +980,7 @@ GameObject:
   - component: {fileID: 1267321238576778732}
   - component: {fileID: 1809757172021735810}
   - component: {fileID: 7561426354274154034}
+  - component: {fileID: 6173098736023485618}
   - component: {fileID: 6604545004793423759}
   m_Layer: 0
   m_Name: Player
@@ -1044,6 +1045,7 @@ MonoBehaviour:
   speed: 5
   climbSpeed: 4
   sprintSpeedMultiplier: 1.5
+  sneakSpeedMultiplier: 0.5
   airControlMultiplier: 1
   jumpStrength: 1
   jumpBuffer: 0.1
@@ -1214,6 +1216,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6173098736023485618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787152353578245981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &6604545004793423759
 MonoBehaviour:
   m_ObjectHideFlags: 0

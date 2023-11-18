@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
     public List<PlayerData> allPlayers = new();
 
     [SerializeField] private Popup popupPrefab;
@@ -11,9 +13,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if(Instance != null && Instance != this)
         {
-            Destroy(this);
+            DespawnInstanceServerRpc();
         }
         else
         {
@@ -50,4 +52,28 @@ public class GameManager : MonoBehaviour
         }
         return closest;
     }
+
+    #region Netcode
+
+    [ServerRpc]
+    private void DespawnInstanceServerRpc()
+    {
+        GetComponent<NetworkObject>().Despawn(destroy: true);
+    }
+
+    [Space, SerializeField] private GameObject lobbyParent;
+
+    public void HostStartGame()
+    {
+        lobbyParent.SetActive(false);
+
+        Debug.Log("Game Started (Host)");
+    }
+    public void ClientStartGame()
+    {
+        lobbyParent.SetActive(false);
+
+        Debug.Log("Game Started (Client)");
+    }
+    #endregion
 }
