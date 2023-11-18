@@ -29,13 +29,14 @@ public class Gun : MonoBehaviour
 
         nextTimeToFire = Time.time + (1 / data.fireRate);
 
+        muzzleFlash.Play();
+
         if (Physics.Raycast(shotPoint.position,
                             shotPoint.forward, 
                             out RaycastHit hit,
                             data.maxRange, 
                             data.shootableLayers))
         {
-            muzzleFlash.Play();
             GetComponent<AudioSource>().PlayOneShot(data.shotSound);
             if (hit.transform.TryGetComponent(out ShootableCollider s))
             {

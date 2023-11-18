@@ -17,9 +17,9 @@ public class WeaponHolder : MonoBehaviour
     {
         for (int i = 0; i < weapons.Count; i++)
         {
-            if (Input.GetKeyDown((2).ToString()))
+            if (Input.GetKeyDown((i + 1).ToString()))
             {
-                ActivateWeapon(1);
+                ActivateWeapon(i);
             }
         }
     }

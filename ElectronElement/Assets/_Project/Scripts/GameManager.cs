@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Popup popupPrefab;
     [SerializeField] private Transform popupArea;
 
+    [Space, SerializeField] private GameObject lobbyCanvas;
+    [SerializeField] private GameObject hudCanvas;
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -61,17 +63,18 @@ public class GameManager : MonoBehaviour
         GetComponent<NetworkObject>().Despawn(destroy: true);
     }
 
-    [Space, SerializeField] private GameObject lobbyParent;
 
     public void HostStartGame()
     {
-        lobbyParent.SetActive(false);
+        lobbyCanvas.SetActive(false);
+        hudCanvas.SetActive(true);
 
         Debug.Log("Game Started (Host)");
     }
     public void ClientStartGame()
     {
-        lobbyParent.SetActive(false);
+        lobbyCanvas.SetActive(false);
+        hudCanvas.SetActive(true);
 
         Debug.Log("Game Started (Client)");
     }
