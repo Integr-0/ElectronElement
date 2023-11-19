@@ -6,9 +6,16 @@ using Unity.Services.Lobbies;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 {
+    private const int SCENES_BEFORE_LEVELS = 1; //Here it's only 'MAIN' that is before the levels in the build settings
+    private const float LOBBY_UPDATE_POLL_FREQUENCY_SECONDS = 1.5f;
+    private const float LOBBY_HEARTBEAT_TIMER_SECONDS = 15f;
+    private const string KEY_START_GAME = "StartGame";
+
+
     [SerializeField] private UnityEvent OnGameStarted;
     [SerializeField] private TMPro.TMP_Text codeDisplayText;
     [SerializeField] private GameObject startGameButton;
@@ -25,9 +32,9 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     private float hearbeatTimer;
     private float updatePollTimer;
 
-    private const int MAX_PLAYERS = 10;
-    private const float LOBBY_UPDATE_POLL_FREQUENCY = 1.1f;
-    private const string KEY_START_GAME = "StartGame";
+    private int sceneIndex = SCENES_BEFORE_LEVELS; //the first level in the build settings
+    private int maxPlayers = 1;
+    private string lobbyName = "Unnamed Lobby";
 
     private async void Start()
     {
@@ -63,7 +70,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             hearbeatTimer -= Time.deltaTime;
             if (hearbeatTimer < 0f)
             {
-                hearbeatTimer = 15;
+                hearbeatTimer = LOBBY_HEARTBEAT_TIMER_SECONDS;
 
                 await LobbyService.Instance.SendHeartbeatPingAsync(hostedLobby.Id);
             }
@@ -76,7 +83,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             updatePollTimer -= Time.deltaTime;
             if (updatePollTimer < 0f)
             {
-                updatePollTimer = LOBBY_UPDATE_POLL_FREQUENCY;
+                updatePollTimer = LOBBY_UPDATE_POLL_FREQUENCY_SECONDS;
 
                 Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
                 joinedLobby = lobby;
@@ -117,10 +124,12 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 }
                 
             };
-            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync("myLobby", MAX_PLAYERS, options);
+            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
             hostedLobby = lobby;
             joinedLobby = hostedLobby;
+
+            SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
 
             Debug.Log("Created Lobby! " + lobby.LobbyCode);
 
@@ -286,5 +295,17 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     public void SetAccessibility(bool isPublic)
     {
         isHostedLobbyPrivate = !isPublic;
+    }
+    public void SetScene(int index)
+    {
+        sceneIndex = index + SCENES_BEFORE_LEVELS;
+    }
+    public void SetMaxPlayers(string max)
+    {
+        maxPlayers = int.Parse(max);
+    }
+    public void SetLobbyName(string name)
+    {
+        lobbyName = name;
     }
 }

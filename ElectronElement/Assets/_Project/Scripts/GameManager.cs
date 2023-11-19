@@ -55,8 +55,6 @@ public class GameManager : MonoBehaviour
         return closest;
     }
 
-    #region Netcode
-
     [ServerRpc]
     private void DespawnInstanceServerRpc()
     {
@@ -78,5 +76,4 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Game Started (Client)");
     }
-    #endregion
 }
