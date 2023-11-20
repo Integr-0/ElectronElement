@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 {
     private const int SCENES_BEFORE_LEVELS = 1; //Here it's only 'MAIN' that is before the levels in the build settings
+    private const int LOADING_ARTIFICIAL_DELAY_MILLISECONDS = 3000;
     private const float LOBBY_UPDATE_POLL_FREQUENCY_SECONDS = 1.5f;
     private const float LOBBY_HEARTBEAT_TIMER_SECONDS = 15f;
     private const string KEY_START_GAME = "StartGame";
@@ -115,6 +116,8 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     {
         try
         {
+            LoadingScreen.Instance.Activate("Creating lobby", "Initializing lobby", "Loading Scene");
+
             CreateLobbyOptions options = new()
             {
                 IsPrivate = isHostedLobbyPrivate,
@@ -125,11 +128,20 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 
             };
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
+            LoadingScreen.Instance.TaskCompleted(LOADING_ARTIFICIAL_DELAY_MILLISECONDS);
 
             hostedLobby = lobby;
             joinedLobby = hostedLobby;
 
-            SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
+            var asyncOp = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+
+            asyncOp.completed += (AsyncOperation op) => LoadingScreen.Instance.TaskCompleted(LOADING_ARTIFICIAL_DELAY_MILLISECONDS);
+
+            while (!asyncOp.isDone)
+            {
+                LoadingScreen.Instance.SetProgress(asyncOp.progress);
+                await Task.Yield();
+            }
 
             Debug.Log("Created Lobby! " + lobby.LobbyCode);
 
@@ -270,7 +282,11 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             {
                 Debug.Log("Starting Game...");
 
+                LoadingScreen.Instance.Activate("Starting Game", "Building Connection", "Informing Clients", "Spawning Players");
+
                 string relayCode = await RelayManager.Instance.CreateRelay();
+
+                LoadingScreen.Instance.TaskCompleted(LOADING_ARTIFICIAL_DELAY_MILLISECONDS);
 
                 Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
                 {
@@ -280,9 +296,13 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                     }
                 });
 
+                LoadingScreen.Instance.TaskCompleted(LOADING_ARTIFICIAL_DELAY_MILLISECONDS);
+
                 joinedLobby = lobby;
 
                 GameManager.Instance.HostStartGame();
+
+                LoadingScreen.Instance.TaskCompleted(LOADING_ARTIFICIAL_DELAY_MILLISECONDS);
             }
             catch (LobbyServiceException e)
             {
