@@ -54,7 +54,26 @@ public class PlayerData : MonoBehaviour
     {
         if (canPause && Input.GetKeyDown(KeyCode.Escape)) pauseMenu.TogglePause();
     }
+    private void OnApplicationFocus(bool focussed)
+    {
+        if (!focussed && canPause) pauseMenu.Pause();
+    }
 
+    public void MainMenu()
+    {
+        var load = LoadingScreen.Instance;
+        load.Activate("Returning to Main Menu", "Leaving lobby, Loading Scene");
+
+        load.StartTask();
+        //LobbyManager.Instance.LeaveLobby();
+        load.MarkTaskCompleted();
+
+        load.StartTask();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MAIN");
+        load.MarkTaskCompleted();
+
+        pauseMenu.Unpause();
+    }
     public void Quit()
     {
         Application.Quit();

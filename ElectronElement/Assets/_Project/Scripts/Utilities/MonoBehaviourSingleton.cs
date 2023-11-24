@@ -3,7 +3,7 @@ using UnityEngine;
 public class MonoBehaviourSingleton<T> : MonoBehaviour where T : Component
 {
     public static T Instance { get; protected set; }
-    private void Awake()
+    protected virtual void Awake()
     {
         if (Instance != null && Instance != this as T)
         {

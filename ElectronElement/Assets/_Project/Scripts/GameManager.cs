@@ -2,28 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public static GameManager Instance;
-
     public List<PlayerData> allPlayers = new();
 
     [SerializeField] private Popup popupPrefab;
     [SerializeField] private Transform popupArea;
 
     [Space, SerializeField] private GameObject lobbyCanvas;
-    [SerializeField] private GameObject hudCanvas;
-    private void Awake()
+    [SerializeField] private GameObject popupCanvas;
+    protected override void Awake()
     {
-        if(Instance != null && Instance != this)
-        {
-            DespawnInstanceServerRpc();
-        }
-        else
-        {
-            Instance = this;
-        }
-
+        base.Awake();
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
             PlayerData data = player.GetComponent<PlayerData>();
@@ -65,14 +55,14 @@ public class GameManager : MonoBehaviour
     public void HostStartGame()
     {
         lobbyCanvas.SetActive(false);
-        hudCanvas.SetActive(true);
+        popupCanvas.SetActive(true);
 
         Debug.Log("Game Started (Host)");
     }
     public void ClientStartGame()
     {
         lobbyCanvas.SetActive(false);
-        hudCanvas.SetActive(true);
+        popupCanvas.SetActive(true);
 
         Debug.Log("Game Started (Client)");
     }

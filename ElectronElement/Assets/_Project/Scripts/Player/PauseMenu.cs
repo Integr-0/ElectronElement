@@ -4,8 +4,9 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject HUD;
     [Space, SerializeField] private Slider sensitivitySlider;
-    [SerializeField] private PlayerData data;
+    [Space, SerializeField] private PlayerData data;
 
     public bool IsPaused {  get; private set; }
 
@@ -17,6 +18,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         panel.SetActive(true);
+        HUD.SetActive(false);
         IsPaused = true;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
@@ -24,6 +26,7 @@ public class PauseMenu : MonoBehaviour
     public void Unpause()
     {
         panel.SetActive(false);
+        HUD.SetActive(true);
         IsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;
@@ -41,10 +44,5 @@ public class PauseMenu : MonoBehaviour
             IsPaused = true;
             Pause();
         }
-    }
-
-    private void OnApplicationFocus(bool focus)
-    {
-        if (!focus && data.canPause) Pause();
     }
 }
