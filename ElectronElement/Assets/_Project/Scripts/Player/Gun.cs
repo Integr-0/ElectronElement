@@ -1,8 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 using static WeaponData;
 
 [RequireComponent(typeof(AudioSource))]
-public class Gun : MonoBehaviour
+public class Gun : NetworkBehaviour
 {
     [SerializeField] private WeaponData data;
     [SerializeField] private ParticleSystem muzzleFlash;
@@ -17,6 +18,8 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
+
         if ((!data.canHold && Input.GetMouseButtonDown(0)) || (data.canHold && Input.GetMouseButton(0)))
         {
             Shoot();

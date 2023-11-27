@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerData : MonoBehaviour
+public class PlayerData : Unity.Netcode.NetworkBehaviour
 {
     public struct Preferences
     {
@@ -52,30 +52,30 @@ public class PlayerData : MonoBehaviour
 
     private void Update()
     {
-        if (canPause && Input.GetKeyDown(KeyCode.Escape)) pauseMenu.TogglePause();
+        if (canPause && IsOwner && Input.GetKeyDown(KeyCode.Escape)) pauseMenu.TogglePause();
     }
     private void OnApplicationFocus(bool focussed)
     {
-        if (!focussed && canPause) pauseMenu.Pause();
+        if (!focussed && canPause && IsOwner) pauseMenu.Pause();
     }
 
     public void MainMenu()
     {
+        if (!IsOwner) return;
+
         var load = LoadingScreen.Instance;
         load.Activate("Returning to Main Menu", "Leaving lobby, Loading Scene");
 
-        load.StartTask();
-        //LobbyManager.Instance.LeaveLobby();
         load.MarkTaskCompleted();
 
-        load.StartTask();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MAIN");
-        load.MarkTaskCompleted();
 
         pauseMenu.Unpause();
+
+        Cursor.lockState = CursorLockMode.None;
     }
     public void Quit()
     {
-        Application.Quit();
+        if (IsOwner) Application.Quit();
     }
 }

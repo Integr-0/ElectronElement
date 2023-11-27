@@ -1,6 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+[RequireComponent(typeof(Camera))]
+public class MouseLook : NetworkBehaviour
 {
     [SerializeField] private Transform playerBody;
     [SerializeField] private PlayerData data;
@@ -13,10 +15,16 @@ public class MouseLook : MonoBehaviour
         mouseSensitivity = data.DefaultPrefs.MouseSensitivity;
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        //disable all cameras that arent't owned by this player
+        if (IsLocalPlayer) return;
+        GetComponent<Camera>().enabled = false;
     }
 
     void Update()
     {
+        if (!IsOwner) return;
+
         float MouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float MouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 

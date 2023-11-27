@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 {
@@ -17,7 +18,8 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
 
     [SerializeField] private UnityEvent OnGameStarted;
-    [SerializeField] private TMPro.TMP_Text codeDisplayText;
+    [SerializeField] private TMP_Text codeText;
+    [SerializeField] private TMP_Text numPlayersText;
     [SerializeField] private GameObject startGameButton;
     [SerializeField] private GameObject deleteLobbyButton;
 
@@ -41,7 +43,9 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     private async void Start()
     {
         load = LoadingScreen.Instance;
-        if (load == null) throw new System.NullReferenceException("Custom: No LoadingScreenInstance found.\nIf you are using the Awake method in the LoadingScreen script, please override the base.Awake and call that method");
+        if (load == null) 
+            throw new System.NullReferenceException("Custom: No LoadingScreenInstance found.\n" + 
+                "If you are using the Awake method in the LoadingScreen script, please override the base.Awake and call that method");
 
         await UnityServices.InitializeAsync();
 
@@ -65,7 +69,8 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
     private void OnApplicationQuit()
     {
-        if (joinedLobby != null) LeaveLobby();
+        if (joinedLobby != null)
+            LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
     }
 
     private async void HandleLobbyHeartbeat()
@@ -93,10 +98,10 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
                 joinedLobby = lobby;
 
-                if (hostedLobby != null)
+                if (numPlayersText != null)
                 {
-                    startGameButton.SetActive(true);
-                    codeDisplayText.text = $"Code: {lobby.LobbyCode}\nNumPlayers: {lobby.Players.Count}/{lobby.MaxPlayers}";
+                    numPlayersText.gameObject.SetActive(true);
+                    numPlayersText.text = "NumPlayers: " + lobby.Players.Count + "/" + lobby.MaxPlayers;
                 }
 
                 if (joinedLobby.Data[KEY_START_GAME].Value != "0")
@@ -131,28 +136,29 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 }
                 
             };
-            load.StartTask();
+            
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
             load.MarkTaskCompleted();
             
             hostedLobby = lobby;
             joinedLobby = hostedLobby;
 
-            Debug.Log("Created Lobby! " + lobby.LobbyCode);
-
-            if (codeDisplayText != null)
-            {
-                codeDisplayText.text = "Code: " + lobby.LobbyCode + "\n NumPlayers: " + lobby.Players.Count + "/" + lobby.MaxPlayers;
-                codeDisplayText.gameObject.SetActive(true);
-            }
-
-            deleteLobbyButton.SetActive(true);
+            Debug.Log("Created Lobby! " + lobby.LobbyCode);        
 
             NetworkUIButtons.Instance.OnJoinLobby();
+
+            if (codeText != null)
+            {
+                codeText.gameObject.SetActive(true);
+                codeText.text = "Code: " + lobby.LobbyCode;
+            }
+
+            startGameButton.SetActive(true);
+            deleteLobbyButton.SetActive(true);
         }
         catch (LobbyServiceException e)
         {
-            Debug.LogWarning(e);
+            HandleException(e);
         }
     }
 
@@ -160,21 +166,14 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     {
         try
         {
-            if (!string.IsNullOrEmpty(code))
-            {
-                Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(code);
-                joinedLobby = lobby;
+            if (string.IsNullOrEmpty(code)) throw new LobbyServiceException(LobbyExceptionReason.LobbyNotFound, "Code is empty");
 
-                Debug.Log("Joined lobby! " + code);
+            Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(code);
+            joinedLobby = lobby;
 
-                NetworkUIButtons.Instance.OnJoinLobby();
-            }
-            else
-            {
-                wrongJoinCodeText.SetActive(true);
-                await Task.Delay(2000);
-                wrongJoinCodeText.SetActive(false);
-            }
+            Debug.Log("Joined lobby! " + code);
+
+            NetworkUIButtons.Instance.OnJoinLobby();
         }
         catch (LobbyServiceException e)
         {
@@ -186,7 +185,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             }
             else
             {
-                Debug.LogWarning(e);
+                HandleException(e);
             }
         }
     }
@@ -200,12 +199,12 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             Debug.Log("QuickJoined lobby!");
 
-
             NetworkUIButtons.Instance.OnJoinLobby();
         }
         catch (LobbyServiceException e)
         {
-            if(e.Reason == LobbyExceptionReason.NoOpenLobbies)
+            HandleException(e);
+            if (e.Reason == LobbyExceptionReason.NoOpenLobbies)
             {
                 noQuickJoinLobbyFoundText.SetActive(true);
                 await Task.Delay(2000);
@@ -213,7 +212,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             }
             else
             {
-                Debug.LogWarning(e);
+                //HandleException(e);
             }
         }
     }
@@ -232,7 +231,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
         }
         catch (LobbyServiceException e)
         {
-            Debug.LogWarning(e);
+            HandleException(e);
         }
     }
 
@@ -248,7 +247,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
         }
         catch (LobbyServiceException e)
         {
-            Debug.LogWarning(e);
+            HandleException(e);
         }
     }
 
@@ -265,7 +264,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
         }
         catch (LobbyServiceException e)
         {
-            Debug.LogWarning(e);
+            HandleException(e);
         }
     }
 
@@ -279,15 +278,15 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
                 load.Activate("Starting Game", "Loading Level", "Building Connection", "Informing Clients", "Spawning Players");
 
-                load.StartTask();
+                
                 SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
                 load.MarkTaskCompleted();
 
-                load.StartTask();
+                
                 string relayCode = await RelayManager.Instance.CreateRelay();
                 load.MarkTaskCompleted();
 
-                load.StartTask();
+                
                 Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
                 {
                     Data = new Dictionary<string, DataObject>
@@ -299,13 +298,13 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
                 joinedLobby = lobby;
 
-                load.StartTask();
+                
                 GameManager.Instance.HostStartGame();
                 load.MarkTaskCompleted();
             }
             catch (LobbyServiceException e)
             {
-                Debug.LogWarning(e);
+                HandleException(e);
             }
         }
     }
@@ -326,5 +325,16 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     public void SetLobbyName(string name)
     {
         lobbyName = name;
+    }
+
+
+    private void HandleException(LobbyServiceException e)
+    {
+        Debug.LogWarning(e);
+
+        if (e.ErrorCode == 50)
+        {
+            Debug.LogError("Too many lobby requests. Needs to be handled");
+        }
     }
 }

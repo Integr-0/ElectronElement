@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ShelfLooter : MonoBehaviour
+public class ShelfLooter : NetworkBehaviour
 {
     [SerializeField] private GameObject emptyShelfPrefab;
     [SerializeField] private float lootDist = 1f;
@@ -20,6 +21,8 @@ public class ShelfLooter : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             var shelf = closestShelf(out float s_distance);

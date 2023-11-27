@@ -1,8 +1,8 @@
-using System;
+using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController), typeof(AudioSource))]
-public class FirstPersonMovement : MonoBehaviour
+public class FirstPersonMovement : NetworkBehaviour
 {
     #region Fields
 
@@ -77,6 +77,8 @@ public class FirstPersonMovement : MonoBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
+
         #region set basic variables
 
         isGrounded = Physics.CheckSphere(groundCheckTransform.position, groundCheckDistance, groundLayers);
@@ -92,7 +94,6 @@ public class FirstPersonMovement : MonoBehaviour
 
         #endregion
 
-
         #region resetting gravity force when grounded
 
         if ((isGrounded || tryingToClimb) && yMovement < 0)
@@ -101,7 +102,6 @@ public class FirstPersonMovement : MonoBehaviour
         }
 
         #endregion
-
 
         #region get Input
 
@@ -112,13 +112,11 @@ public class FirstPersonMovement : MonoBehaviour
 
         #endregion
 
-
         #region climbing
 
         if (tryingToClimb && input.magnitude > 0) yMovement = currentClimbSpeed;
 
         #endregion
-
 
         #region jumping & gravity
 
@@ -139,14 +137,12 @@ public class FirstPersonMovement : MonoBehaviour
 
         #endregion
 
-
         #region applying movement
 
         controller.Move(currentGroundSpeed * Time.deltaTime * move);
         controller.Move(Time.deltaTime * yMovement * transform.up);
 
         #endregion
-
 
         #region play footsteps
 

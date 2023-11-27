@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class WeaponHolder : MonoBehaviour
+public class WeaponHolder : NetworkBehaviour
 {
     private readonly List<GameObject> weapons = new();
 
@@ -15,6 +16,8 @@ public class WeaponHolder : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
+
         for (int i = 0; i < weapons.Count; i++)
         {
             if (Input.GetKeyDown((i + 1).ToString()))

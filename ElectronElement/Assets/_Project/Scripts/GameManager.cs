@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
@@ -44,13 +43,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         }
         return closest;
     }
-
-    [ServerRpc]
-    private void DespawnInstanceServerRpc()
-    {
-        GetComponent<NetworkObject>().Despawn(destroy: true);
-    }
-
 
     public void HostStartGame()
     {
