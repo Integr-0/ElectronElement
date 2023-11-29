@@ -40,6 +40,19 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
     private LoadingScreen load;
 
+
+    private string gamertag = "Unnamed";
+    private int characterIndex = 0;
+
+    private NetworkUIButtons.JoinData GetJoinData()
+    {
+        return new NetworkUIButtons.JoinData
+        {
+            Name = gamertag,
+            CharacterIndex = characterIndex,
+        };
+    }
+
     private async void Start()
     {
         load = LoadingScreen.Instance;
@@ -145,7 +158,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             Debug.Log("Created Lobby! " + lobby.LobbyCode);        
 
-            NetworkUIButtons.Instance.OnJoinLobby();
+            NetworkUIButtons.Instance.JoinLobby(GetJoinData());
 
             if (codeText != null)
             {
@@ -173,7 +186,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             Debug.Log("Joined lobby! " + code);
 
-            NetworkUIButtons.Instance.OnJoinLobby();
+            NetworkUIButtons.Instance.JoinLobby(GetJoinData());
         }
         catch (LobbyServiceException e)
         {
@@ -199,7 +212,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             Debug.Log("QuickJoined lobby!");
 
-            NetworkUIButtons.Instance.OnJoinLobby();
+            NetworkUIButtons.Instance.JoinLobby(GetJoinData());
         }
         catch (LobbyServiceException e)
         {
@@ -241,7 +254,6 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
         {
             await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
             joinedLobby = null;
-
 
             NetworkUIButtons.Instance.OnLeaveLobby();
         }
@@ -325,6 +337,15 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     public void SetLobbyName(string name)
     {
         lobbyName = name;
+    }
+
+    public void SetPlayerGamertag(string name)
+    {
+        gamertag = name;
+    }
+    public void SetPlayerCharacterIndex(int i)
+    {
+        characterIndex = i;
     }
 
 
