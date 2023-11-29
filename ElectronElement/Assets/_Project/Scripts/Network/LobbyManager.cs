@@ -15,6 +15,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     private const float LOBBY_UPDATE_POLL_FREQUENCY_SECONDS = 1.5f;
     private const float LOBBY_HEARTBEAT_TIMER_SECONDS = 15f;
     private const string KEY_START_GAME = "StartGame";
+    private const string KEY_READY_PLAYERS = "ReadyPlayers";
 
 
     [SerializeField] private UnityEvent OnGameStarted;
@@ -43,6 +44,9 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
     private string gamertag = "Unnamed";
     private int characterIndex = 0;
+
+    private int readyPlayers = 0;
+    private bool isReady = false;
 
     private NetworkUIButtons.JoinData GetJoinData()
     {
@@ -146,6 +150,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 Data = new Dictionary<string, DataObject>
                 {
                     { KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, "0") },
+                    { KEY_READY_PLAYERS, new DataObject(DataObject.VisibilityOptions.Member, "0") }
                 }
                 
             };
@@ -166,7 +171,6 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 codeText.text = "Code: " + lobby.LobbyCode;
             }
 
-            startGameButton.SetActive(true);
             deleteLobbyButton.SetActive(true);
         }
         catch (LobbyServiceException e)
@@ -298,7 +302,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 string relayCode = await RelayManager.Instance.CreateRelay();
                 load.MarkTaskCompleted();
 
-                
+
                 Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
                 {
                     Data = new Dictionary<string, DataObject>
@@ -346,6 +350,30 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     public void SetPlayerCharacterIndex(int i)
     {
         characterIndex = i;
+    }
+    public void ToggleIsReady(bool isReady)
+    {
+        this.isReady = isReady;
+
+
+        if (joinedLobby != null)
+        {
+            readyPlayers = int.Parse(hostedLobby.Data[KEY_READY_PLAYERS].Value);
+            readyPlayers += isReady ? 1 : -1;
+
+            Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
+            {
+                Data = new Dictionary<string, DataObject>
+                {
+                    { KEY_READY_PLAYERS, new DataObject(DataObject.VisibilityOptions.Member, readyPlayers.ToString()) }
+                }
+            });
+
+            if (readyPlayers == hostedLobby.Players.Count)
+            {
+                StartGame();
+            }
+        }
     }
 
 

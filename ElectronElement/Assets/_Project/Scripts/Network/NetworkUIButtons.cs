@@ -64,6 +64,8 @@ public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
         */
 
         inLobbyScreen.SetActive(false);
+
+        playerPreviewParent.DestroyChildren();
     }
     public void JoinLobby(JoinData data)
     {
