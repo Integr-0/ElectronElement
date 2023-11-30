@@ -19,7 +19,7 @@ public class RelayManager : MonoBehaviourSingleton<RelayManager>
             Debug.Log("Created Relay! " + joinCode);
 
             RelayServerData relayServerData = new(allocation, "dtls");
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); 
 
             NetworkManager.Singleton.StartHost();
 

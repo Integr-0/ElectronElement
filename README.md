@@ -5,7 +5,9 @@ Ability PVP in space with guns with parkour elements
 to be made and fetched
 # TODO
 make assets
-make movement script
+sync username with playerprefs
+dynamic animation changes based on speed
+acceleration
 
 ## Active Debug Values
-Player.PlayerData.canPause = false (default: true)
+NONE
