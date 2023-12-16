@@ -14,8 +14,11 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     private const int SCENES_BEFORE_LEVELS = 1; //Here it's only 'MAIN' that is before the levels in the build setting
     private const float LOBBY_UPDATE_POLL_FREQUENCY_SECONDS = 1.5f;
     private const float LOBBY_HEARTBEAT_TIMER_SECONDS = 15f;
+
     private const string KEY_START_GAME = "StartGame";
     private const string KEY_READY_PLAYERS = "ReadyPlayers";
+    private const string KEY_LOBBY_NAME = "Lobby Name";
+
     private const int POPUP_ACTIVE_TIME_MILLISECONDS = 2000;
 
 
@@ -148,7 +151,8 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 Data = new Dictionary<string, DataObject>
                 {
                     { KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, "0") },
-                    { KEY_READY_PLAYERS, new DataObject(DataObject.VisibilityOptions.Member, "0") }
+                    { KEY_READY_PLAYERS, new DataObject(DataObject.VisibilityOptions.Member, "0") },
+                    { KEY_LOBBY_NAME, new DataObject(DataObject.VisibilityOptions.Member, lobbyName) }
                 }
 
             };
@@ -187,6 +191,10 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(code);
             joinedLobby = lobby;
 
+            string lobbyName = lobby.Data[KEY_LOBBY_NAME].Value;
+
+            lobbyNameText.text = lobbyName;
+
             Debug.Log("Joined lobby! " + code);
 
             NetworkUIButtons.Instance.JoinLobby(GetJoinData());
@@ -209,6 +217,10 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
         {
             Lobby lobby = await LobbyService.Instance.QuickJoinLobbyAsync();
             joinedLobby = lobby;
+
+            string lobbyName = lobby.Data[KEY_LOBBY_NAME].Value;
+
+            lobbyNameText.text = lobbyName;
 
             Debug.Log("QuickJoined lobby!");
 

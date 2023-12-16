@@ -8618,7 +8618,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2481214030567230725}
         m_TargetAssemblyTypeName: NetworkUIButtons, Assembly-CSharp
-        m_MethodName: Host_TogglePanel
+        m_MethodName: ToggleHostParamPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10545,7 +10545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6790793981484110456
 MonoBehaviour:
   m_ObjectHideFlags: 0
