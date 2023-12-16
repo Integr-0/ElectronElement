@@ -17,6 +17,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        data.cam.GetComponent<MouseLook>().enabled = false;
+
         panel.SetActive(true);
         HUD.SetActive(false);
         IsPaused = true;
@@ -24,6 +26,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void Unpause()
     {
+        data.cam.GetComponent<MouseLook>().enabled = true;
+
         panel.SetActive(false);
         HUD.SetActive(true);
         IsPaused = false;

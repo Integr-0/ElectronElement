@@ -13,6 +13,7 @@ public class Laser : MonoBehaviour
 
     [SerializeField] private Animator anim;
     [SerializeField] private string animatorIntName;
+    [SerializeField] private string animatorBoolName;
 
     [Space, SerializeField] private Stage[] stages;
     [SerializeField] private Transform crystal;
@@ -27,7 +28,7 @@ public class Laser : MonoBehaviour
 
     private float[] orbSizeMap = new float[]
     {
-        0f, 4f, 5.5f, 7f
+        0f, 5.5f, 7f, 0f
     };
 
     private void Update()
@@ -44,6 +45,8 @@ public class Laser : MonoBehaviour
             {
                 nearestPlayer.shelfLooter.lootedShelves -= stages[currentStage].neededMats;
                 currentStage++;
+
+                if (currentStage > 1) anim.SetBool(animatorBoolName, false);
                 anim.SetInteger(animatorIntName, currentStage);
             }
         }
@@ -70,5 +73,9 @@ public class Laser : MonoBehaviour
     public void Shoot()
     {
         Debug.Log("Everyone is ded");
+    }
+    public void FinishAnimation()
+    {
+        anim.SetBool(animatorBoolName, true);
     }
 }

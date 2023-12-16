@@ -11,10 +11,9 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [Space, SerializeField] private GameObject lobbyParent;
     [SerializeField] private GameObject inLobbyScreen;
     [SerializeField] private GameObject popupCanvas;
-    protected override void Awake()
+
+    private void GetAllPlayers()
     {
-        base.Awake();
-        Debug.Log(Instance, Instance);
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
             PlayerData data = player.GetComponent<PlayerData>();
@@ -50,6 +49,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         lobbyParent.SetActive(false);
         popupCanvas.SetActive(true);
+
+        GetAllPlayers();
 
         Debug.Log("Game Started (Host)");
     }
