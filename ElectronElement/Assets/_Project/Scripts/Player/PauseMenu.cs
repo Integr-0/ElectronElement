@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
     [Space, SerializeField] private Slider sensitivitySlider;
     [Space, SerializeField] private PlayerData data;
 
-    public bool IsPaused {  get; private set; }
+    public bool IsPaused { get; private set; }
 
     private void Awake()
     {

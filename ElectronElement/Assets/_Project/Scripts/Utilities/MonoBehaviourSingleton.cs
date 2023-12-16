@@ -17,7 +17,7 @@ public class MonoBehaviourSingleton<T> : MonoBehaviour where T : Component
 
     protected void Singleton_Despawn()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
     protected void Singleton_SetInstance()
     {

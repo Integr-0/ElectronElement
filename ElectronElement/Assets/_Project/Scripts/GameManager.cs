@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField] private Popup popupPrefab;
     [SerializeField] private Transform popupArea;
 
-    [Space, SerializeField] private GameObject lobbyCanvas;
+    [Space, SerializeField] private GameObject lobbyParent;
+    [SerializeField] private GameObject inLobbyScreen;
     [SerializeField] private GameObject popupCanvas;
     protected override void Awake()
     {
         base.Awake();
+        Debug.Log(Instance, Instance);
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
             PlayerData data = player.GetComponent<PlayerData>();
@@ -46,16 +48,22 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public void HostStartGame()
     {
-        lobbyCanvas.SetActive(false);
+        lobbyParent.SetActive(false);
         popupCanvas.SetActive(true);
 
         Debug.Log("Game Started (Host)");
     }
     public void ClientStartGame()
     {
-        lobbyCanvas.SetActive(false);
+        lobbyParent.SetActive(false);
         popupCanvas.SetActive(true);
 
         Debug.Log("Game Started (Client)");
+    }
+
+    public void ResetLobby()
+    {
+        lobbyParent.SetActive(true);
+        inLobbyScreen.SetActive(false);
     }
 }

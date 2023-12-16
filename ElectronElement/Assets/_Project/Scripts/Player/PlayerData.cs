@@ -69,11 +69,15 @@ public class PlayerData : Unity.Netcode.NetworkBehaviour
         load.MarkTaskCompleted();
         pauseMenu.Unpause();
 
+        GameManager.Instance.ResetLobby();
+
         UnityEngine.SceneManagement.SceneManager.LoadScene("MAIN");
 
         load.MarkTaskCompleted();
 
         Cursor.lockState = CursorLockMode.None;
+
+        Debug.Log(Time.timeScale);
     }
     public void Quit()
     {

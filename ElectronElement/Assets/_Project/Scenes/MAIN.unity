@@ -3464,7 +3464,8 @@ MonoBehaviour:
   popupPrefab: {fileID: 8054551441459870416, guid: f03823e7827923640a6dfc7cb6661e87,
     type: 3}
   popupArea: {fileID: 211209102}
-  lobbyCanvas: {fileID: 1241225708978090487}
+  lobbyParent: {fileID: 1241225708978090487}
+  inLobbyScreen: {fileID: 1040742606}
   popupCanvas: {fileID: 354507322}
 --- !u!4 &964289469
 Transform:
