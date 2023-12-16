@@ -34,7 +34,7 @@ public class PlayerData : Unity.Netcode.NetworkBehaviour
 
     private void Awake()
     {
-        if (CameraManager.Instance != null) CameraManager.Instance.testData = this;
+        if (CameraManager.Instance != null) CameraManager.Instance.data = this;
     }
 
     public void Activate()
@@ -64,13 +64,14 @@ public class PlayerData : Unity.Netcode.NetworkBehaviour
         if (!IsOwner) return;
 
         var load = LoadingScreen.Instance;
-        load.Activate("Returning to Main Menu", "Leaving lobby, Loading Scene");
+        load.Activate("Returning to Main Menu", "Leaving lobby", "Loading Scene");
 
         load.MarkTaskCompleted();
+        pauseMenu.Unpause();
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("MAIN");
 
-        pauseMenu.Unpause();
+        load.MarkTaskCompleted();
 
         Cursor.lockState = CursorLockMode.None;
     }

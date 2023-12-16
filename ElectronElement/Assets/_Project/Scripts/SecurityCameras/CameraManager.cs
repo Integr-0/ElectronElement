@@ -8,7 +8,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject buttonPrompt;
     [SerializeField] private GameObject camOverlay;
 
-    public PlayerData testData;
+    public PlayerData data;
     public SecurityCamera[] allCams;
 
     private int? cam = null;
@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
     public void PosessCam(int i)
     {
         cam = i;
-        allCams[i].Posess(testData);
+        allCams[i].Posess(data);
         selectPanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -35,7 +35,7 @@ public class CameraManager : MonoBehaviour
     }
     public void ExitCurrentCam()
     {
-        allCams[(int)cam].Leave(testData);
+        allCams[(int)cam].Leave(data);
         selectPanel.SetActive(true);
         cam = null;
         Cursor.lockState = CursorLockMode.None;
@@ -44,26 +44,27 @@ public class CameraManager : MonoBehaviour
     }
     public void ChangeCamera(int i)
     {
-        allCams[(int)cam].Leave(testData);
+        allCams[(int)cam].Leave(data);
         cam = i;
-        allCams[i].Posess(testData);
+        allCams[i].Posess(data);
     }
 
     private void Update()
     {
         PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(transform.position, out float distanceToClosestPlayer);
         bool anyPlayerNearEnough = distanceToClosestPlayer < 5f;
+        data = nearestPlayer;
 
         if (Input.GetButtonDown("Cancel") && anyPlayerNearEnough)
         {
             if (cam != null) ExitCurrentCam();
             else if(selectPanel.activeSelf)
             {
-                nearestPlayer.Activate();
+                data.Activate();
                 selectPanel.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
 
-                nearestPlayer.canPause = true;
+                data.canPause = true;
             }
         }
 
@@ -71,9 +72,9 @@ public class CameraManager : MonoBehaviour
 
         if (anyPlayerNearEnough && Input.GetKeyDown(KeyCode.C) && cam == null)
         {
-            nearestPlayer.Deactivate();
+            data.Deactivate();
             selectPanel.SetActive(true);
-            nearestPlayer.canPause = false;
+            data.canPause = false;
             Cursor.lockState = CursorLockMode.None;
         }
 
@@ -82,18 +83,6 @@ public class CameraManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftArrow)) ChangeCamera(GetPreviousIndex());
             else if (Input.GetKeyDown(KeyCode.RightArrow)) ChangeCamera(GetNextIndex());
         }
-    }
-
-    private PlayerData anyPlayerNear()
-    {
-        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            if (Vector3.Distance(transform.position, player.transform.position) < 5f)
-            {
-                return player.GetComponent<PlayerData>();
-            }
-        }
-        return null;
     }
 
     private int GetNextIndex()

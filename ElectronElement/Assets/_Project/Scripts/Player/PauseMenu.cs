@@ -21,7 +21,6 @@ public class PauseMenu : MonoBehaviour
         HUD.SetActive(false);
         IsPaused = true;
         Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0f;
     }
     public void Unpause()
     {
@@ -29,7 +28,6 @@ public class PauseMenu : MonoBehaviour
         HUD.SetActive(true);
         IsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
     }
 
     public void TogglePause()
