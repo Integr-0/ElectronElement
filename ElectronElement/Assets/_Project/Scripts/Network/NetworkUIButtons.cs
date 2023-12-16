@@ -21,23 +21,7 @@ public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
     [SerializeField] private GameObject hostParamPanel;
     [SerializeField] private GameObject inLobbyScreen;
 
-    //[Space, Space, SerializeField] private TMPro.TMP_InputField codeInputField;
-
-    //[Space, SerializeField] private Button toggleHostPanelButton;
-    //[SerializeField] private Button joinLobbyButton;
-    //[SerializeField] private Button quickJoinLobbyButton;
-
-    //[SerializeField] private GameObject leaveLobbyButton;
-    //[SerializeField] private GameObject deleteLobbyButton;
-    //[SerializeField] private GameObject codeDisplayText;
-    //[SerializeField] private GameObject startGameButton;
-
     private string lobbyCodeInput;
-
-    public void Host_TogglePanel()
-    {
-        hostParamPanel.SetActive(!hostParamPanel.activeSelf);
-    }
 
     public void JoinLobbyWithInputtedCode()
     {
@@ -50,37 +34,13 @@ public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
 
     public void OnLeaveLobby()
     {
-        /*
-        codeInputField.interactable = true;
-
-        toggleHostPanelButton.interactable = true;
-        joinLobbyButton.interactable = true;
-        quickJoinLobbyButton.interactable = true;
-
-        leaveLobbyButton.SetActive(false);
-        startGameButton.SetActive(false);
-        deleteLobbyButton.SetActive(false);
-        codeDisplayText.SetActive(false);
-        */
-
         inLobbyScreen.SetActive(false);
 
         playerPreviewParent.DestroyChildren();
     }
     public void JoinLobby(JoinData data)
     {
-        /*
         hostParamPanel.SetActive(false);
-
-        toggleHostPanelButton.interactable = false;
-
-        codeInputField.interactable = false;
-
-        joinLobbyButton.interactable = false;
-        quickJoinLobbyButton.interactable = false;
-
-        leaveLobbyButton.SetActive(true);
-        */
 
         inLobbyScreen.SetActive(true);
 
