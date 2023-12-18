@@ -16,7 +16,7 @@ public static class Extensions
     /// Deactivate/Activate all children of a transform
     /// </summary>
     /// <param name="t"></param>
-    public static void SetChildrenActivity(this Transform t, bool active)
+    public static void SetChildrenActive(this Transform t, bool active)
     {
         foreach (Transform child in t)
         {

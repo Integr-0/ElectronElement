@@ -18,6 +18,8 @@ public class PlayerData : Unity.Netcode.NetworkBehaviour
     }
     public Preferences DefaultPrefs;
 
+    [SerializeField] private Transform characterModelParent;
+
     public string Name;
     public Sprite Image;
 
@@ -57,6 +59,13 @@ public class PlayerData : Unity.Netcode.NetworkBehaviour
     private void OnApplicationFocus(bool focussed)
     {
         if (!focussed && canPause && IsOwner) pauseMenu.Pause();
+    }
+
+    public void SetCharacter(int characterIndex)
+    {
+        characterModelParent.SetChildrenActive(false);
+
+        characterModelParent.GetChild(characterIndex).gameObject.SetActive(true);
     }
 
     public void MainMenu()

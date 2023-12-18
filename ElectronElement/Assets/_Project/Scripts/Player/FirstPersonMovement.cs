@@ -6,7 +6,9 @@ public class FirstPersonMovement : NetworkBehaviour
 {
     #region Fields
 
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private Animator anim;
+
+    [Space, SerializeField] private float speed = 5f;
     [SerializeField] private float climbSpeed = 3f;
 
     [SerializeField] private float sprintSpeedMultiplier = 1.5f;
@@ -42,9 +44,7 @@ public class FirstPersonMovement : NetworkBehaviour
     private CharacterController controller;
     private AudioSource footstepAudioSource;
 
-
     private Vector2 input;
-
 
     private float yMovement;
     private float currentGroundSpeed;
@@ -65,14 +65,10 @@ public class FirstPersonMovement : NetworkBehaviour
 
     private void Awake()
     {
-        #region Init
-
         controller = GetComponent<CharacterController>();
         footstepAudioSource = GetComponent<AudioSource>();
 
         currentGroundSpeed = speed;
-
-        #endregion
     }
 
     void Update()
@@ -89,6 +85,7 @@ public class FirstPersonMovement : NetworkBehaviour
         currentGroundSpeed = isSneaking ? speed * sneakSpeedMultiplier : 
                              isSprinting ? speed * sprintSpeedMultiplier : 
                              isGrounded ? speed : speed * airControlMultiplier;
+            
         
         currentClimbSpeed = isSprinting ? climbSpeed * sprintSpeedMultiplier : climbSpeed;
 
@@ -157,8 +154,14 @@ public class FirstPersonMovement : NetworkBehaviour
         }
 
         #endregion
+
+        #region set animator values
+
+        anim.SetFloat("Speed", move.magnitude > 0 ? currentGroundSpeed : 0);
+
+        #endregion
     }
-    
+
     #region Push physics
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
