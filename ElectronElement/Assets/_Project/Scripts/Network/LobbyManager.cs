@@ -19,6 +19,9 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     private const string KEY_READY_PLAYERS = "ReadyPlayers";
     private const string KEY_LOBBY_NAME = "Lobby Name";
 
+    private const string KEY_PLAYER_NAME = "PlayerName";
+    private const string KEY_PLAYER_CHAR_INDEX = "CharacterIndex";
+
     private const int POPUP_ACTIVE_TIME_MILLISECONDS = 2000;
 
 
@@ -70,7 +73,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
         AuthenticationService.Instance.SignedIn += () =>
         {
-            Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
+            Debug.Log("Signed in: " + AuthenticationService.Instance.PlayerId);
         };
         OnGameStarted.AddListener(() =>
         {
@@ -165,6 +168,8 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             Debug.Log("Created Lobby! " + lobby.LobbyCode);
 
+            WriteCurrentPlayerDataToJoinedLobby();
+
             NetworkUIButtons.Instance.JoinLobby(GetJoinData());
 
             if (codeText != null)
@@ -197,6 +202,8 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             Debug.Log("Joined lobby! " + code);
 
+            WriteCurrentPlayerDataToJoinedLobby();
+
             NetworkUIButtons.Instance.JoinLobby(GetJoinData());
         }
         catch (LobbyServiceException e)
@@ -223,6 +230,8 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             lobbyNameText.text = lobbyName;
 
             Debug.Log("QuickJoined lobby!");
+
+            WriteCurrentPlayerDataToJoinedLobby();
 
             NetworkUIButtons.Instance.JoinLobby(GetJoinData());
         }
@@ -290,7 +299,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
     public async void StartGame()
     {
-        if (hostedLobby != null)
+        if (hostedLobby == null)
         {
             try
             {
@@ -355,11 +364,37 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     {
         characterIndex = i;
     }
+
+    private void WriteCurrentPlayerDataToJoinedLobby()
+    {
+        int index = GetPlayerIndexInJoinedLobby();
+
+        PlayerDataObject gamertagData = new(PlayerDataObject.VisibilityOptions.Member, gamertag);
+        PlayerDataObject charIndexData = new(PlayerDataObject.VisibilityOptions.Member, characterIndex.ToString());
+
+        joinedLobby.Players[index].Data.Add(KEY_PLAYER_NAME, gamertagData);
+        joinedLobby.Players[index].Data.Add(KEY_PLAYER_CHAR_INDEX, charIndexData);
+    }
+
+    private int GetPlayerIndexInJoinedLobby()
+    {
+        int index = 0;
+        foreach (var player in joinedLobby.Players)
+        {
+            Debug.Log($"Comparing IDs {player.Id}, {AuthenticationService.Instance.PlayerId}");
+            if (player.Id == AuthenticationService.Instance.PlayerId)
+            {
+                index = joinedLobby.Players.IndexOf(player);
+            }
+        }
+        return index;
+    }
+
     public void ToggleIsReady(bool isReady)
     {
         if (joinedLobby != null)
         {
-            int readyPlayers = int.Parse(hostedLobby.Data[KEY_READY_PLAYERS].Value);
+            int readyPlayers = int.Parse(joinedLobby.Data[KEY_READY_PLAYERS].Value);
             readyPlayers += isReady ? 1 : -1;
 
             Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
@@ -370,13 +405,12 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 }
             });
 
-            if (readyPlayers == hostedLobby.Players.Count)
+            if (readyPlayers == joinedLobby.Players.Count)
             {
                 StartGame();
             }
         }
     }
-
 
     private void HandleException(LobbyServiceException e)
     {
@@ -385,5 +419,21 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             tooManyReqestsPopup.SetActive(true);
         }
         else Debug.LogWarning(e);
+    }
+
+    public void DisplayPreviews()
+    {
+        foreach (var player in joinedLobby.Players)
+        {
+            var data = player.Data;
+
+            NetworkUIButtons.JoinData joinData = new()
+            {
+                CharacterIndex = int.Parse(data[KEY_PLAYER_CHAR_INDEX].Value),
+                Name = data[KEY_PLAYER_NAME].Value,
+            };
+
+            NetworkUIButtons.Instance.InstantiatePlayerPreview(joinData);
+        }
     }
 }

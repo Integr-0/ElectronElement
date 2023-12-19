@@ -1,9 +1,7 @@
-using UnityEngine.UI;
 using UnityEngine;
 
 public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
 {
-    [System.Serializable]
     public struct JoinData
     {
         public string Name;
@@ -49,11 +47,13 @@ public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
 
         inLobbyScreen.SetActive(true);
 
+        LobbyManager.Instance.DisplayPreviews();
+    }
+    public void InstantiatePlayerPreview(JoinData data)
+    {
         var prev = Instantiate(playerPreviewPrefab, playerPreviewParent);
 
         prev.CharacterImg.sprite = characterImages[data.CharacterIndex];
         prev.GamertagText.text = data.Name;
-
-        prev.SetState(PlayerPreview.InLobbyState.Connecting);
     }
 }
