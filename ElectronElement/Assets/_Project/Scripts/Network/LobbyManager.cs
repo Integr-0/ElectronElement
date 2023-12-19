@@ -299,42 +299,41 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
     public async void StartGame()
     {
-        if (hostedLobby == null)
+        if (hostedLobby == null) return;
+
+        try
         {
-            try
+            Debug.Log("Starting Game...");
+
+            load.Activate("Starting Game", "Loading Level", "Building Connection", "Informing Clients", "Spawning Players");
+
+
+            SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+            load.MarkTaskCompleted();
+
+
+            string relayCode = await RelayManager.Instance.CreateRelay();
+            load.MarkTaskCompleted();
+
+
+            Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
             {
-                Debug.Log("Starting Game...");
-
-                load.Activate("Starting Game", "Loading Level", "Building Connection", "Informing Clients", "Spawning Players");
-
-
-                SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
-                load.MarkTaskCompleted();
-
-
-                string relayCode = await RelayManager.Instance.CreateRelay();
-                load.MarkTaskCompleted();
-
-
-                Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
-                {
-                    Data = new Dictionary<string, DataObject>
+                Data = new Dictionary<string, DataObject>
                     {
                         { KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
                     }
-                });
-                load.MarkTaskCompleted();
+            });
+            load.MarkTaskCompleted();
 
-                joinedLobby = lobby;
+            joinedLobby = lobby;
 
 
-                GameManager.Instance.HostStartGame();
-                load.MarkTaskCompleted();
-            }
-            catch (LobbyServiceException e)
-            {
-                HandleException(e);
-            }
+            GameManager.Instance.HostStartGame();
+            load.MarkTaskCompleted();
+        }
+        catch (LobbyServiceException e)
+        {
+            HandleException(e);
         }
     }
 
@@ -367,27 +366,27 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
     private void WriteCurrentPlayerDataToJoinedLobby()
     {
-        int index = GetPlayerIndexInJoinedLobby();
-
         PlayerDataObject gamertagData = new(PlayerDataObject.VisibilityOptions.Member, gamertag);
         PlayerDataObject charIndexData = new(PlayerDataObject.VisibilityOptions.Member, characterIndex.ToString());
 
-        joinedLobby.Players[index].Data.Add(KEY_PLAYER_NAME, gamertagData);
-        joinedLobby.Players[index].Data.Add(KEY_PLAYER_CHAR_INDEX, charIndexData);
-    }
-
-    private int GetPlayerIndexInJoinedLobby()
-    {
-        int index = 0;
-        foreach (var player in joinedLobby.Players)
+        //if is host just take the first dictionary
+        if (hostedLobby != null)
         {
-            Debug.Log($"Comparing IDs {player.Id}, {AuthenticationService.Instance.PlayerId}");
-            if (player.Id == AuthenticationService.Instance.PlayerId)
-            {
-                index = joinedLobby.Players.IndexOf(player);
-            }
+            SetValues(0);
+
+            return;
         }
-        return index;
+
+        int index = 0;
+        while (joinedLobby.Players[index].Data != null) index++;
+
+        SetValues(index);
+
+        void SetValues(int index)
+        {
+            joinedLobby.Players[index].Data = new() { [KEY_PLAYER_NAME] = gamertagData }; //Initialize Dictionary with the gamertagData (so it isn't null)
+            joinedLobby.Players[index].Data.Add(KEY_PLAYER_CHAR_INDEX, charIndexData); //Now we can add stuff normally
+        }
     }
 
     public void ToggleIsReady(bool isReady)
@@ -407,6 +406,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             if (readyPlayers == joinedLobby.Players.Count)
             {
+                Debug.Log("Reached start game");
                 StartGame();
             }
         }
