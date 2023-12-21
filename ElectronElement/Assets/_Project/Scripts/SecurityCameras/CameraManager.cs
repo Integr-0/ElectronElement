@@ -8,8 +8,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject buttonPrompt;
     [SerializeField] private GameObject camOverlay;
 
-    public PlayerData data;
-    public SecurityCamera[] allCams;
+    [HideInInspector] public PlayerData data;
+    [HideInInspector] public SecurityCamera[] allCams;
 
     private int? cam = null;
     private void Awake()
