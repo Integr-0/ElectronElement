@@ -18,6 +18,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     private const string KEY_START_GAME = "StartGame";
     private const string KEY_READY_PLAYERS = "ReadyPlayers";
     private const string KEY_LOBBY_NAME = "Lobby Name";
+    private const string KEY_LOBBY_MAP = "Lobby Map";
 
     private const string KEY_PLAYER_NAME = "PlayerName";
     private const string KEY_PLAYER_CHAR_INDEX = "CharacterIndex";
@@ -26,10 +27,16 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
 
     [SerializeField] private UnityEvent OnGameStarted;
-    [SerializeField] private TMP_Text codeText;
+
+    [SerializeField] private Transform lobbyPreviewParent;
+    [SerializeField] private LobbyPreview lobbyPreview;
+
+    [Space, SerializeField] private TMP_Text codeText;
     [SerializeField] private TMP_Text numPlayersText;
     [SerializeField] private TMP_Text lobbyNameText;
     [SerializeField] private GameObject deleteLobbyButton;
+
+    [Space, SerializeField] private TMP_Dropdown sceneDropdown;
 
     [Space, SerializeField] private GameObject noQuickJoinLobbyFoundText;
     [SerializeField] private GameObject wrongJoinCodeText;
@@ -45,7 +52,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     private float updatePollTimer;
 
     private int sceneIndex = SCENES_BEFORE_LEVELS; //the first level in the build settings
-    private int maxPlayers = 1;
+    private int maxPlayers = 2;
     private string lobbyName = "Unnamed Lobby";
 
     private LoadingScreen load;
@@ -148,6 +155,8 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
         {
             load.Activate("Creating lobby", "Initializing lobby");
 
+            string mapName = sceneDropdown.options[sceneIndex - SCENES_BEFORE_LEVELS].text;
+            Debug.Log(mapName == null);
             CreateLobbyOptions options = new()
             {
                 IsPrivate = isHostedLobbyPrivate,
@@ -155,9 +164,9 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
                 {
                     { KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, "0") },
                     { KEY_READY_PLAYERS, new DataObject(DataObject.VisibilityOptions.Member, "0") },
-                    { KEY_LOBBY_NAME, new DataObject(DataObject.VisibilityOptions.Member, lobbyName) }
+                    { KEY_LOBBY_NAME, new DataObject(DataObject.VisibilityOptions.Member, lobbyName) },
+                    { KEY_LOBBY_MAP, new DataObject(DataObject.VisibilityOptions.Public, mapName) }
                 }
-
             };
 
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
@@ -170,7 +179,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             WriteCurrentPlayerDataToJoinedLobby();
 
-            NetworkUIButtons.Instance.JoinLobby(GetJoinData());
+            NetworkUIButtons.Instance.JoinLobby();
 
             if (codeText != null)
             {
@@ -204,11 +213,11 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             WriteCurrentPlayerDataToJoinedLobby();
 
-            NetworkUIButtons.Instance.JoinLobby(GetJoinData());
+            NetworkUIButtons.Instance.JoinLobby();
         }
         catch (LobbyServiceException e)
         {
-            if (e.Reason == LobbyExceptionReason.LobbyNotFound)
+            if (e.Reason == LobbyExceptionReason.LobbyNotFound || e.Reason == LobbyExceptionReason.InvalidJoinCode)
             {
                 wrongJoinCodeText.SetActive(true);
                 await Task.Delay(POPUP_ACTIVE_TIME_MILLISECONDS);
@@ -233,7 +242,7 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             WriteCurrentPlayerDataToJoinedLobby();
 
-            NetworkUIButtons.Instance.JoinLobby(GetJoinData());
+            NetworkUIButtons.Instance.JoinLobby();
         }
         catch (LobbyServiceException e)
         {
@@ -251,12 +260,36 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     {
         try
         {
-            var response = await Lobbies.Instance.QueryLobbiesAsync();
-
-            Debug.Log("Lobbies found " + response.Results.Count);
-            foreach (var l in response.Results)
+            List<QueryFilter> filters = new()
             {
-                Debug.Log(l.Name + " " + l.MaxPlayers);
+                new(QueryFilter.FieldOptions.AvailableSlots, "1", QueryFilter.OpOptions.GE)
+            };
+            List<QueryOrder> orders = new()
+            {
+                new(false, QueryOrder.FieldOptions.AvailableSlots)
+            };
+            QueryLobbiesOptions options = new()
+            {
+                Filters = filters,
+                Order = orders,
+            };
+            var response = await Lobbies.Instance.QueryLobbiesAsync(options);
+
+            if (response.Results.Count == 0)
+            {
+                Debug.LogWarning("No lobbies found. Please handle later");
+                return;
+            }
+
+            lobbyPreviewParent.DestroyChildren();
+
+            foreach (Lobby lobby in response.Results)
+            {
+                var prev = Instantiate(lobbyPreview, lobbyPreviewParent);
+
+                string sceneName = lobby.Data[KEY_LOBBY_MAP].Value;
+
+                prev.Init(lobby.Name, sceneName, lobby.Players.Count, lobby.MaxPlayers);
             }
         }
         catch (LobbyServiceException e)
@@ -307,7 +340,6 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
 
             load.Activate("Starting Game", "Loading Level", "Building Connection", "Informing Clients", "Spawning Players");
 
-
             SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
             load.MarkTaskCompleted();
 
@@ -315,13 +347,13 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
             string relayCode = await RelayManager.Instance.CreateRelay();
             load.MarkTaskCompleted();
 
-
             Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
             {
                 Data = new Dictionary<string, DataObject>
-                    {
-                        { KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
-                    }
+                {
+                    { KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, relayCode) },
+                    
+                }
             });
             load.MarkTaskCompleted();
 
@@ -348,7 +380,11 @@ public class LobbyManager : MonoBehaviourSingleton<LobbyManager>
     }
     public void SetMaxPlayers(string max)
     {
-        maxPlayers = int.Parse(max);
+        try
+        {
+            maxPlayers = int.Parse(max);
+        }
+        catch (System.FormatException) { }
     }
     public void SetLobbyName(string name)
     {

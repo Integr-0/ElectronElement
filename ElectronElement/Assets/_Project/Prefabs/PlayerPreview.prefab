@@ -305,7 +305,7 @@ MonoBehaviour:
   CharacterImg: {fileID: 5088446535841292930}
   PlaceholderImg: {fileID: 1736125902687307138}
   StateText: {fileID: 7656429525472003734}
-  connectingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  connectingColor: {r: 1, g: 1, b: 0, a: 1}
   readyColor: {r: 0, g: 1, b: 0, a: 1}
   notReadyColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7309773502312693846

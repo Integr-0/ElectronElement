@@ -21,11 +21,6 @@ public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
 
     private string lobbyCodeInput;
 
-    public void ToggleHostParamPanel()
-    {
-        hostParamPanel.SetActive(!hostParamPanel.activeSelf);
-    }
-
     public void JoinLobbyWithInputtedCode()
     {
         LobbyManager.Instance.JoinLobbyByCode(lobbyCodeInput);
@@ -41,7 +36,7 @@ public class NetworkUIButtons : MonoBehaviourSingleton<NetworkUIButtons>
 
         playerPreviewParent.DestroyChildren();
     }
-    public void JoinLobby(JoinData data)
+    public void JoinLobby()
     {
         hostParamPanel.SetActive(false);
 

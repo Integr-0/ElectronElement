@@ -45,7 +45,7 @@ public static class Extensions
     /// <returns></returns>
     public static Vector2 ToVector2(this Vector3 input)
     {
-        return new Vector2(input.x, input.y);
+        return new(input.x, input.y);
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public static class Extensions
     /// <returns></returns>
     public static Vector3 Flat(this Vector3 input)
     {
-        return new Vector3(input.x, 0, input.z);
+        return new(input.x, 0, input.z);
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public static class Extensions
     /// <returns></returns>
     public static Vector3Int ToVector3Int(this Vector3 vec3)
     {
-        return new Vector3Int((int)vec3.x, (int)vec3.y, (int)vec3.z);
+        return new((int)vec3.x, (int)vec3.y, (int)vec3.z);
     }
 
     /// <summary>
@@ -78,7 +78,7 @@ public static class Extensions
     /// <returns></returns>
     public static Vector3 With(this Vector3 vec3, float? x = null, float? y = null, float? z = null)
     {
-        return new Vector3(x ?? vec3.x, y ?? vec3.y, z ?? vec3.z);
+        return new(x ?? vec3.x, y ?? vec3.y, z ?? vec3.z);
     }
 
     /// <summary>

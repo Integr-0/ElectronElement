@@ -9,6 +9,5 @@ make assets,
 sync username with playerprefs,
 player movement acceleration
 
-# BUGS
-Can't pause or rejoin lobbies more than 2 times,
-Can't move in Backrooms map
+# Bugs
+Can't pause or rejoin lobbies more than 2 times
