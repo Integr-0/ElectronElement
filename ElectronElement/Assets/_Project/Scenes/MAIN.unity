@@ -10317,7 +10317,6 @@ GameObject:
   - component: {fileID: 7982760108315405210}
   - component: {fileID: 5841686310277750864}
   - component: {fileID: 3061645068225131810}
-  - component: {fileID: 2481214030567230725}
   m_Layer: 5
   m_Name: Lobby UI
   m_TagString: Untagged
@@ -10582,27 +10581,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3682863759082746613}
   m_CullTransparentMesh: 1
---- !u!114 &2481214030567230725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1241225708978090487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24c59ce68787ecf4a855d4521f2ae7cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPreviewPrefab: {fileID: 5485707070107577671, guid: 90085e64ed70f2b45a851036a567ad8a,
-    type: 3}
-  characterImages:
-  - {fileID: 21300000, guid: 49563f2d264486b4a9b5bc13c42c4e51, type: 3}
-  - {fileID: 21300000, guid: afd05c101d7ce694ca7ca2f5c83f442d, type: 3}
-  playerPreviewParent: {fileID: 812286545}
-  hostParamPanel: {fileID: 7397862436996596904}
-  inLobbyScreen: {fileID: 1040742606}
-  lobbyCodeInput: 
 --- !u!224 &2543525439438274453
 RectTransform:
   m_ObjectHideFlags: 0

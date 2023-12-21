@@ -1,5 +1,8 @@
+using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using System.Collections.Generic;
+using Unity.Services.Authentication;
 
 public class LobbyPlayerData : MonoBehaviour
 {
@@ -10,24 +13,28 @@ public class LobbyPlayerData : MonoBehaviour
         PlayerDataObject gamertagData = new(PlayerDataObject.VisibilityOptions.Member, master.Variables.gamertag);
         PlayerDataObject charIndexData = new(PlayerDataObject.VisibilityOptions.Member, master.Variables.characterIndex.ToString());
 
-        //if is host just take the first dictionary
-        if (master.Variables.hostedLobby != null)
+        SetValues();
+
+        async void SetValues()
         {
-            SetValues(0);
+            try
+            {
 
-            return;
-        }
 
-        int index = 0;
-        while (master.Variables.joinedLobby.Players[index].Data != null)
-            index++;
-
-        SetValues(index);
-
-        void SetValues(int index)
-        {
-            master.Variables.joinedLobby.Players[index].Data = new() { [LobbyVariables.KEY_PLAYER_NAME] = gamertagData }; //Initialize Dictionary with the gamertagData (so it isn't null)
-            master.Variables.joinedLobby.Players[index].Data.Add(LobbyVariables.KEY_PLAYER_CHAR_INDEX, charIndexData); //Now we can add stuff normally
+                UpdatePlayerOptions options = new()
+                {
+                    Data = new Dictionary<string, PlayerDataObject>()
+                    {
+                        [LobbyVariables.KEY_PLAYER_NAME] = gamertagData,
+                        [LobbyVariables.KEY_PLAYER_CHAR_INDEX] = charIndexData
+                    }
+                };
+                master.Variables.joinedLobby = await LobbyService.Instance.UpdatePlayerAsync(master.Variables.joinedLobby.Id, AuthenticationService.Instance.PlayerId, options);
+            }
+            catch (LobbyServiceException e)
+            {
+                master.LobbyErrorHandler.HandleException(e);
+            }
         }
     }
 }
