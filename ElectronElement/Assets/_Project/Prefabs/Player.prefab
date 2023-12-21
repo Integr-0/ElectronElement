@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fcffd322e9ea6045b2d9fda1a31e46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 3522795972091875808}
+  anim: {fileID: 0}
   speed: 5
   climbSpeed: 4
   sprintSpeedMultiplier: 1.5

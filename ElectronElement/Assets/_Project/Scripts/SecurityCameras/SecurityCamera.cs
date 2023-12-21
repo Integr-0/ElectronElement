@@ -41,7 +41,7 @@ public class SecurityCamera : MonoBehaviour
     private float zoom = 60f;
     void Update()
     {
-        if(posessingPlayer != null)
+        if (posessingPlayer != null)
         {
             float sensitivity = posessingPlayer.DefaultPrefs.MouseSensitivity;
             float MouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;

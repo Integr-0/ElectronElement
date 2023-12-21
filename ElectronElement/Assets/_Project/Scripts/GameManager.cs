@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         lobbyParent.SetActive(false);
 
+        GetAllPlayers();
+
         Debug.Log("Game Started (Client)");
     }
 

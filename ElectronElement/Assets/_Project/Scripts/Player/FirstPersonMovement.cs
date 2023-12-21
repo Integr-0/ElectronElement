@@ -157,7 +157,7 @@ public class FirstPersonMovement : NetworkBehaviour
 
         #region set animator values
 
-        anim.SetFloat("Speed", move.magnitude > 0 ? currentGroundSpeed : 0);
+        if (anim != null) anim.SetFloat("Speed", move.magnitude > 0 ? currentGroundSpeed : 0);
 
         #endregion
     }
