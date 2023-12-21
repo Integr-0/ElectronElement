@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField] private Popup popupPrefab;
     [SerializeField] private Transform popupArea;
 
-    [Space, SerializeField] private GameObject inLobbyScreen;
+    [Space, SerializeField] private GameObject lobbyParent;
+    [SerializeField] private GameObject inLobbyScreen;
 
     private void GetAllPlayers()
     {
@@ -45,17 +46,22 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public void HostStartGame()
     {
+        lobbyParent.SetActive(false);
+
         GetAllPlayers();
 
         Debug.Log("Game Started (Host)");
     }
     public void ClientStartGame()
     {
+        lobbyParent.SetActive(false);
+
         Debug.Log("Game Started (Client)");
     }
 
     public void ResetLobby()
     {
+        lobbyParent.SetActive(true);
         inLobbyScreen.SetActive(false);
     }
 }
