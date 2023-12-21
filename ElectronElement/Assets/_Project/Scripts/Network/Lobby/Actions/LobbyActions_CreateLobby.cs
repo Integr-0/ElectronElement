@@ -34,7 +34,7 @@ public class LobbyActions_CreateLobby : MonoBehaviour
 
             Debug.Log("Created Lobby! " + lobby.LobbyCode);
 
-            master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
+            await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
 
             master.LobbyUI.JoinLobby();
 

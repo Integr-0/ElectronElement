@@ -18,7 +18,7 @@ public class LobbyActions_QuickJoinLobby : MonoBehaviour
 
             Debug.Log("QuickJoined lobby!");
 
-            master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
+            await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
 
             master.LobbyUI.JoinLobby();
         }

@@ -21,7 +21,7 @@ public class LobbyActions_JoinLobby : MonoBehaviour
 
             Debug.Log("Joined lobby! " + code);
 
-            master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
+            await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
 
             master.LobbyUI.JoinLobby();
         }
