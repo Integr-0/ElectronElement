@@ -13,7 +13,7 @@ public class LobbyActions_LeaveLobby : MonoBehaviour
             await LobbyService.Instance.RemovePlayerAsync(master.Variables.joinedLobby.Id, AuthenticationService.Instance.PlayerId);
             master.Variables.joinedLobby = null;
 
-            NetworkUIButtons.Instance.OnLeaveLobby();
+            master.LobbyUI.OnLeaveLobby();
         }
         catch (LobbyServiceException e)
         {

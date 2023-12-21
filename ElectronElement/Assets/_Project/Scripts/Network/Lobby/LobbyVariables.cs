@@ -36,6 +36,7 @@ public class LobbyVariables : MonoBehaviour
     public GameObject wrongJoinCodeText;
 
     [Space] public GameObject tooManyReqestsPopup;
+    public GameObject noLobbiesFoundPopup;
 
     [Space] public LoadingScreen load;
 

@@ -4,7 +4,8 @@ Ability PVP in space with guns with parkour elements
 ## Assets
 to be made and fetched
 # TODO
-Rework whole multiplayer code to be more organized and have better commenting,
+Comment new multiplayer code,
+Clean up common variables script (lobby)
 make assets,
 sync username with playerprefs,
 player movement acceleration

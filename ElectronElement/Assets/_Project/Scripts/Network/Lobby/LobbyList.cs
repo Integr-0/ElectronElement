@@ -28,7 +28,7 @@ public class LobbyList : MonoBehaviour
 
             if (response.Results.Count == 0)
             {
-                Debug.LogWarning("No lobbies found. Please handle later");
+                master.LobbyErrorHandler.ToggleObjectForPopupTime(master.Variables.noLobbiesFoundPopup);
                 return;
             }
 

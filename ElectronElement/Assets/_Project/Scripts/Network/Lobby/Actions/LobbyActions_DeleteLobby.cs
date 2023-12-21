@@ -14,7 +14,7 @@ public class LobbyActions_DeleteLobby : MonoBehaviour
             master.Variables.hostedLobby = null;
             master.Variables.joinedLobby = null;
 
-            NetworkUIButtons.Instance.OnLeaveLobby();
+            master.LobbyUI.OnLeaveLobby();
         }
         catch (LobbyServiceException e)
         {

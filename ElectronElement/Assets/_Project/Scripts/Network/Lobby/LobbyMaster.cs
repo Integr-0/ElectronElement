@@ -13,6 +13,7 @@ public class LobbyMaster : MonoBehaviour
     public LobbyActionsContinuous LobbyActionsContinuous;
     public LobbyPlayerData LobbyPlayerData;
     public LobbyErrorHandler LobbyErrorHandler;
+    public LobbyPreviewSystem LobbyPreviewSystem;
     public LobbyVariables Variables;
 
     private async void Start()

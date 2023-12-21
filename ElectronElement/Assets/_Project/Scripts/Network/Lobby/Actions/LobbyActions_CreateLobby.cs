@@ -36,7 +36,7 @@ public class LobbyActions_CreateLobby : MonoBehaviour
 
             master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
 
-            NetworkUIButtons.Instance.JoinLobby();
+            master.LobbyUI.JoinLobby();
 
             if (master.Variables.codeText != null)
             {

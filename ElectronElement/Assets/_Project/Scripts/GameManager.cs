@@ -3,14 +3,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public List<PlayerData> allPlayers = new();
+    private readonly List<PlayerData> allPlayers = new();
 
     [SerializeField] private Popup popupPrefab;
     [SerializeField] private Transform popupArea;
 
-    [Space, SerializeField] private GameObject lobbyParent;
-    [SerializeField] private GameObject inLobbyScreen;
-    [SerializeField] private GameObject popupCanvas;
+    [Space, SerializeField] private GameObject inLobbyScreen;
 
     private void GetAllPlayers()
     {
@@ -47,24 +45,17 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public void HostStartGame()
     {
-        lobbyParent.SetActive(false);
-        popupCanvas.SetActive(true);
-
         GetAllPlayers();
 
         Debug.Log("Game Started (Host)");
     }
     public void ClientStartGame()
     {
-        lobbyParent.SetActive(false);
-        popupCanvas.SetActive(true);
-
         Debug.Log("Game Started (Client)");
     }
 
     public void ResetLobby()
     {
-        lobbyParent.SetActive(true);
         inLobbyScreen.SetActive(false);
     }
 }

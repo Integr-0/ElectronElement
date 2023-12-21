@@ -25,6 +25,6 @@ public class LobbyUI : MonoBehaviour
 
         master.Variables.inLobbyScreen.SetActive(true);
 
-        LobbyManager.Instance.DisplayPreviews();
+        master.LobbyPreviewSystem.DisplayPreviews();
     }
 }

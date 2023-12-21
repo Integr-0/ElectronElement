@@ -20,7 +20,7 @@ public class LobbyActions_QuickJoinLobby : MonoBehaviour
 
             master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
 
-            NetworkUIButtons.Instance.JoinLobby();
+            master.LobbyUI.JoinLobby();
         }
         catch (LobbyServiceException e)
         {
