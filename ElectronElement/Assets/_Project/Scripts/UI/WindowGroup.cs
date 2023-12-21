@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class WindowGroup : MonoBehaviour
 {
@@ -6,8 +7,12 @@ public class WindowGroup : MonoBehaviour
     {
         bool active = !obj.activeSelf;
 
-        transform.SetChildrenActive(false);
+        DeactivateAll();
 
         obj.SetActive(active);
+    }
+    public void DeactivateAll()
+    {
+        transform.SetChildrenActive(false);
     }
 }
