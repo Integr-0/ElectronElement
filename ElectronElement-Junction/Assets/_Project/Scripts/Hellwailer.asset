@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c9de248a426c840ada02edfc3dc764, type: 3}
+  m_Name: Hellwailer
+  m_EditorClassIdentifier: 
+  shotData:
+  - shotType: 0
+    rangeType: 0
+    damage: 150
+  - shotType: 0
+    rangeType: 1
+    damage: 125
+  - shotType: 0
+    rangeType: 2
+    damage: 100
+  - shotType: 1
+    rangeType: 0
+    damage: 100
+  - shotType: 1
+    rangeType: 1
+    damage: 80
+  - shotType: 1
+    rangeType: 2
+    damage: 60
+  - shotType: 2
+    rangeType: 0
+    damage: 60
+  - shotType: 2
+    rangeType: 1
+    damage: 45
+  - shotType: 2
+    rangeType: 2
+    damage: 30
+  lowToMidRangeDistance: 30
+  midToHighRangeDistance: 75
+  fireRate: 7
+  canHold: 1
+  maxRange: 100
+  muzzleFlashSize: 3
+  zoomLevels: []
+  shootableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  shotSound: {fileID: 8300000, guid: 750f4c01905e28b4382f9b605a4c1c1c, type: 3}
+  canGiveToCamera: 0
