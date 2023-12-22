@@ -12,9 +12,15 @@ public class LobbyPreviewSystem : MonoBehaviour
 
     public void DisplayPreviews()
     {
+        master.Variables.playerPreviewParent.DestroyChildren();
         foreach (var player in master.Variables.joinedLobby.Players)
         {
             var data = player.Data;
+
+            //guard clause if there aren't enough elements in the dictionary
+            //if the dataCount is smaller than 2 it will throw an error
+            if (data == null || data.Count < 2)
+                return;
 
             JoinData joinData = new()
             {

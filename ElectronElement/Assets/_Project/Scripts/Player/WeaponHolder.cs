@@ -6,12 +6,16 @@ public class WeaponHolder : NetworkBehaviour
 {
     private readonly List<GameObject> weapons = new();
 
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
+
         foreach (Transform child in transform)
         {
             weapons.Add(child.gameObject);
+            child.gameObject.SetActive(false);
         }
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     private void Update()

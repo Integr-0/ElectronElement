@@ -10,13 +10,12 @@ public class LobbyActions_QuickJoinLobby : MonoBehaviour
         try
         {
             Lobby lobby = await LobbyService.Instance.QuickJoinLobbyAsync();
+
             master.Variables.joinedLobby = lobby;
 
             string lobbyName = lobby.Data[LobbyVariables.KEY_LOBBY_NAME].Value;
 
             master.Variables.lobbyNameText.text = lobbyName;
-
-            Debug.Log("QuickJoined lobby!");
 
             await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
 

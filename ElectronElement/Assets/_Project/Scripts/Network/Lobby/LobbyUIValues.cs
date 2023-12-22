@@ -51,11 +51,6 @@ public class LobbyUIValues : MonoBehaviour
                     { LobbyVariables.KEY_READY_PLAYERS, new DataObject(DataObject.VisibilityOptions.Member, readyPlayers.ToString()) }
                 }
             });
-
-            if (readyPlayers == master.Variables.joinedLobby.Players.Count)
-            { 
-                master.LobbyActions_StartGame.StartGame();
-            }
         }
     }
 }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Unity.Services.Lobbies.Models;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +22,6 @@ public class LobbyActions_StartGame : MonoBehaviour
             SceneManager.LoadSceneAsync(master.Variables.sceneIndex, LoadSceneMode.Additive);
             master.Variables.load.MarkTaskCompleted();
 
-
             string relayCode = await RelayManager.Instance.CreateRelay();
             master.Variables.load.MarkTaskCompleted();
 
@@ -34,10 +33,10 @@ public class LobbyActions_StartGame : MonoBehaviour
 
                 }
             });
+
             master.Variables.load.MarkTaskCompleted();
 
             master.Variables.joinedLobby = lobby;
-
 
             GameManager.Instance.HostStartGame();
             master.Variables.load.MarkTaskCompleted();

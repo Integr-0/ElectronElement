@@ -30,20 +30,18 @@ public class LobbyActions_CreateLobby : MonoBehaviour
             master.Variables.load.MarkTaskCompleted();
 
             master.Variables.hostedLobby = lobby;
-            master.Variables.joinedLobby = master.Variables.hostedLobby;
+            master.Variables.joinedLobby = master.Variables.hostedLobby; 
 
-            Debug.Log("Created Lobby! " + lobby.LobbyCode);
+            await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby(); 
 
-            await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
-
-            master.LobbyUI.JoinLobby();
+            master.LobbyUI.JoinLobby(); 
 
             if (master.Variables.codeText != null)
             {
                 master.Variables.codeText.gameObject.SetActive(true);
                 master.Variables.codeText.text = "Code: " + lobby.LobbyCode;
             }
-            master.Variables.lobbyNameText.text = master.Variables.lobbyName;
+            master.Variables.lobbyNameText.text = master.Variables.lobbyName; 
 
             master.Variables.deleteLobbyButton.SetActive(true);
         }

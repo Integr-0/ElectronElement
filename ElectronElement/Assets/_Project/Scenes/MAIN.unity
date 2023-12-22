@@ -4895,8 +4895,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -120}
-  m_SizeDelta: {x: -50, y: 540}
+  m_AnchoredPosition: {x: 0, y: -85}
+  m_SizeDelta: {x: -50, y: 610}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1099193767
 MonoBehaviour:
@@ -4941,6 +4941,12 @@ MonoBehaviour:
     Leave/Kick players:
     5 requests per second
 
+
+    All of these values include automatic calls.
+
+    e.
+    g. if you press the refresh button at the same time it automatically refreshes,
+    it will exceed the rate limits
 
     Thank you for your consideration'
   m_isRightToLeft: 0
@@ -6707,6 +6713,7 @@ MonoBehaviour:
   isHostedLobbyPrivate: 0
   hearbeatTimer: 0
   updatePollTimer: 0
+  listLobbyTimer: 0
   sceneIndex: 1
   maxPlayers: 2
   lobbyName: Unnamed Lobby
@@ -11947,14 +11954,14 @@ MonoBehaviour:
       - m_Target: {fileID: 1471398448}
         m_TargetAssemblyTypeName: LobbyList, Assembly-CSharp
         m_MethodName: ListLobbies
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1502783551}
         m_TargetAssemblyTypeName: WindowGroup, Assembly-CSharp

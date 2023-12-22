@@ -13,13 +13,12 @@ public class LobbyActions_JoinLobby : MonoBehaviour
                 throw new LobbyServiceException(LobbyExceptionReason.LobbyNotFound, "Code is empty");
 
             Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(code);
+
             master.Variables.joinedLobby = lobby;
 
             string lobbyName = lobby.Data[LobbyVariables.KEY_LOBBY_NAME].Value;
 
             master.Variables.lobbyNameText.text = lobbyName;
-
-            Debug.Log("Joined lobby! " + code);
 
             await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
 
