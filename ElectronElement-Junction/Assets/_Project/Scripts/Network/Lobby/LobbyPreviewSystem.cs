@@ -6,6 +6,7 @@ public class LobbyPreviewSystem : MonoBehaviour
     {
         public string Name;
         public int CharacterIndex;
+        public bool IsReady;
     }
 
     [SerializeField] private LobbyMaster master;
@@ -26,6 +27,7 @@ public class LobbyPreviewSystem : MonoBehaviour
             {
                 CharacterIndex = int.Parse(data[LobbyVariables.KEY_PLAYER_CHAR_INDEX].Value),
                 Name = data[LobbyVariables.KEY_PLAYER_NAME].Value,
+                IsReady = data[LobbyVariables.KEY_PLAYER_IS_READY].Value == LobbyVariables.STRING_IS_READY_TRUE,
             };
 
             InstantiatePlayerPreview(joinData);
@@ -37,5 +39,6 @@ public class LobbyPreviewSystem : MonoBehaviour
 
         prev.CharacterImg.sprite = master.Variables.characterImages[data.CharacterIndex];
         prev.GamertagText.text = data.Name;
+        prev.SetState(data.IsReady ? PlayerPreview.InLobbyState.Ready : PlayerPreview.InLobbyState.NotReady);
     }
 }

@@ -16,7 +16,8 @@ public class LobbyMaster : MonoBehaviour
     public LobbyPreviewSystem LobbyPreviewSystem;
     public LobbyVariables Variables;
 
-    private bool startUpdate = false;
+    private bool startList = false;
+    [HideInInspector] public bool startLobbyUpdates = false;
 
     public async void OneTimeInit()
     {
@@ -25,23 +26,28 @@ public class LobbyMaster : MonoBehaviour
         AuthenticationService.Instance.SignedIn += () =>
         {
             Debug.Log("Signed in: " + AuthenticationService.Instance.PlayerId);
-            startUpdate = true;
+            startList = true;
         };
         Variables.OnGameStarted.AddListener(() =>
         {
             Debug.Log("Game Started");
         });
 
+#if UNITY_EDITOR
+        AuthenticationService.Instance.ClearSessionToken();
+#endif
+
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
     private void Update()
     {
-        if (!startUpdate) return;
+        if (!startList) return;
+        LobbyActionsContinuous.HandleLobbyListing();
 
+        if (!startLobbyUpdates) return;
         LobbyActionsContinuous.HandleLobbyHeartbeat();
         LobbyActionsContinuous.HandleLobbyPollForUpdates();
-        LobbyActionsContinuous.HandleLobbyListing();
     }
 
     private void OnApplicationQuit()

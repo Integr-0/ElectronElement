@@ -20,7 +20,6 @@ public class LobbyActions_CreateLobby : MonoBehaviour
                 Data = new Dictionary<string, DataObject>
                 {
                     { LobbyVariables.KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, "0") },
-                    { LobbyVariables.KEY_READY_PLAYERS, new DataObject(DataObject.VisibilityOptions.Member, "0") },
                     { LobbyVariables.KEY_LOBBY_NAME, new DataObject(DataObject.VisibilityOptions.Member, master.Variables.lobbyName) },
                     { LobbyVariables.KEY_LOBBY_MAP, new DataObject(DataObject.VisibilityOptions.Public, mapName) }
                 }
@@ -32,7 +31,9 @@ public class LobbyActions_CreateLobby : MonoBehaviour
             master.Variables.hostedLobby = lobby;
             master.Variables.joinedLobby = master.Variables.hostedLobby; 
 
-            await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby(); 
+            await master.LobbyPlayerData.WriteInitialPlayerDataToJoinedLobby(); 
+
+            master.startLobbyUpdates = true;
 
             master.LobbyUI.JoinLobby(); 
 

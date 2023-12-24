@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Lobbies;
 using UnityEngine;
+using Unity.Services.Authentication;
 
 public class LobbyUIValues : MonoBehaviour
 {
@@ -39,18 +40,19 @@ public class LobbyUIValues : MonoBehaviour
 
     public void ToggleIsReady(bool isReady)
     {
-        if (master.Variables.joinedLobby != null)
-        {
-            int readyPlayers = int.Parse(master.Variables.joinedLobby.Data[LobbyVariables.KEY_READY_PLAYERS].Value);
-            readyPlayers += isReady ? 1 : -1;
+        if (master.Variables.joinedLobby == null)
+            return;
 
-            Lobbies.Instance.UpdateLobbyAsync(master.Variables.joinedLobby.Id, new UpdateLobbyOptions
+        string ready = isReady ? LobbyVariables.STRING_IS_READY_TRUE : LobbyVariables.STRING_IS_READY_FALSE;
+
+        Debug.Log($"Joined ID: {master.Variables.joinedLobby.Id}, Player ID: {AuthenticationService.Instance.PlayerId}, Ready: {isReady}");
+
+        LobbyService.Instance.UpdatePlayerAsync(master.Variables.joinedLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions
+        {
+            Data = new Dictionary<string, PlayerDataObject>
             {
-                Data = new Dictionary<string, DataObject>
-                {
-                    { LobbyVariables.KEY_READY_PLAYERS, new DataObject(DataObject.VisibilityOptions.Member, readyPlayers.ToString()) }
-                }
-            });
-        }
+                 { LobbyVariables.KEY_PLAYER_IS_READY, new(PlayerDataObject.VisibilityOptions.Member, ready) }
+            }
+        });
     }
 }

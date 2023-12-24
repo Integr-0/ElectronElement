@@ -11,13 +11,14 @@ public class LobbyActions_QuickJoinLobby : MonoBehaviour
         {
             Lobby lobby = await LobbyService.Instance.QuickJoinLobbyAsync();
 
-            master.Variables.joinedLobby = lobby;
-
             string lobbyName = lobby.Data[LobbyVariables.KEY_LOBBY_NAME].Value;
+            master.Variables.joinedLobby = lobby;
 
             master.Variables.lobbyNameText.text = lobbyName;
 
-            await master.LobbyPlayerData.WriteCurrentPlayerDataToJoinedLobby();
+            await master.LobbyPlayerData.WriteInitialPlayerDataToJoinedLobby();
+
+            master.startLobbyUpdates = true;
 
             master.LobbyUI.JoinLobby();
         }

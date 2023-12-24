@@ -11,14 +11,17 @@ public class LobbyVariables : MonoBehaviour
     public const float LOBBY_LIST_DURATION_SECONDS = 30f;
 
     public const string KEY_START_GAME = "StartGame";
-    public const string KEY_READY_PLAYERS = "Ready Players";
     public const string KEY_LOBBY_NAME = "Lobby Name";
     public const string KEY_LOBBY_MAP = "Lobby Map";
 
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHAR_INDEX = "CharacterIndex";
+    public const string KEY_PLAYER_IS_READY = "IsReady";
 
     public const int POPUP_ACTIVE_TIME_MILLISECONDS = 2000;
+
+    public const string STRING_IS_READY_FALSE = "false";
+    public const string STRING_IS_READY_TRUE = "true";
 
 
     public UnityEvent OnGameStarted;

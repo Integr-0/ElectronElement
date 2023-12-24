@@ -1,5 +1,6 @@
 using Unity.Services.Lobbies;
 using UnityEngine;
+using Unity.Services.Lobbies.Models;
 
 public class LobbyActionsContinuous : MonoBehaviour
 {
@@ -42,8 +43,7 @@ public class LobbyActionsContinuous : MonoBehaviour
             master.Variables.numPlayersText.text = "NumPlayers: " + lobby.Players.Count + "/" + lobby.MaxPlayers;
         }
 
-        int readyPlayers = int.Parse(lobby.Data[LobbyVariables.KEY_READY_PLAYERS].Value);
-        if (readyPlayers >= master.Variables.joinedLobby.Players.Count && !gameStarted)
+        if (AllPlayersReady() && !gameStarted)
         {
             master.LobbyActions_StartGame.StartGame();
             gameStarted = true;
@@ -60,6 +60,16 @@ public class LobbyActionsContinuous : MonoBehaviour
             master.Variables.joinedLobby = null;
 
             master.Variables.OnGameStarted?.Invoke();
+        }
+
+
+        bool AllPlayersReady()
+        {
+            foreach (Player player in master.Variables.joinedLobby.Players)
+            {
+                if (player.Data[LobbyVariables.KEY_PLAYER_IS_READY].Value == LobbyVariables.STRING_IS_READY_FALSE) return false;
+            }
+            return true;
         }
     }
 
