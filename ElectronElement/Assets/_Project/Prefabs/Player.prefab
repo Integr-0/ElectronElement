@@ -1303,6 +1303,7 @@ MonoBehaviour:
   sprintSpeedMultiplier: 1.5
   sneakSpeedMultiplier: 0.5
   airControlMultiplier: 1
+  accelerationTimeSeconds: 0.75
   jumpStrength: 1
   jumpBuffer: 0.1
   gravity: -20

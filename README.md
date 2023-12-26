@@ -8,7 +8,8 @@ Comment new multiplayer code,
 Clean up common variables script (lobby)
 make assets,
 sync username with playerprefs,
-player movement acceleration
+make Authentication system
 
 # Bugs
 Can't pause or rejoin lobbies more than 2 times
+Pressing ready doesn't work in lobbies with 2 or more players (only for host)
