@@ -31,9 +31,7 @@ public class LobbyActions_CreateLobby : MonoBehaviour
             master.Variables.hostedLobby = lobby;
             master.Variables.joinedLobby = master.Variables.hostedLobby; 
 
-            await master.LobbyPlayerData.WriteInitialPlayerDataToJoinedLobby(); 
-
-            master.startLobbyUpdates = true;
+            await master.LobbyPlayerData.WriteInitialPlayerDataToJoinedLobby();
 
             master.LobbyUI.JoinLobby(); 
 

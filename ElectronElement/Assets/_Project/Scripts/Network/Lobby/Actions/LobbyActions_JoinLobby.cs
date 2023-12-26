@@ -21,8 +21,6 @@ public class LobbyActions_JoinLobby : MonoBehaviour
 
             await master.LobbyPlayerData.WriteInitialPlayerDataToJoinedLobby();
 
-            master.startLobbyUpdates = true;
-
             master.LobbyUI.JoinLobby();
         }
         catch (LobbyServiceException e)

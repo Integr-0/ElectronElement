@@ -17,7 +17,6 @@ public class LobbyMaster : MonoBehaviour
     public LobbyVariables Variables;
 
     private bool startList = false;
-    [HideInInspector] public bool startLobbyUpdates = false;
 
     public async void OneTimeInit()
     {
@@ -45,7 +44,6 @@ public class LobbyMaster : MonoBehaviour
         if (!startList) return;
         LobbyActionsContinuous.HandleLobbyListing();
 
-        if (!startLobbyUpdates) return;
         LobbyActionsContinuous.HandleLobbyHeartbeat();
         LobbyActionsContinuous.HandleLobbyPollForUpdates();
     }

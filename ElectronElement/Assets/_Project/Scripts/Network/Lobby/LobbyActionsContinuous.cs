@@ -40,7 +40,7 @@ public class LobbyActionsContinuous : MonoBehaviour
         if (master.Variables.numPlayersText != null)
         {
             master.Variables.numPlayersText.gameObject.SetActive(true);
-            master.Variables.numPlayersText.text = "NumPlayers: " + lobby.Players.Count + "/" + lobby.MaxPlayers;
+            master.Variables.numPlayersText.text = $"NumPlayers: {lobby.Players.Count}/{lobby.MaxPlayers}";
         }
 
         if (AllPlayersReady() && !gameStarted)
@@ -67,7 +67,14 @@ public class LobbyActionsContinuous : MonoBehaviour
         {
             foreach (Player player in master.Variables.joinedLobby.Players)
             {
-                if (player.Data[LobbyVariables.KEY_PLAYER_IS_READY].Value == LobbyVariables.STRING_IS_READY_FALSE) return false;
+                if (player.Data == null)
+                    return false;
+
+                if (!player.Data.TryGetValue(LobbyVariables.KEY_PLAYER_IS_READY, out var data))
+                    return false;
+
+                if (data.Value == LobbyVariables.STRING_IS_READY_FALSE)
+                    return false;
             }
             return true;
         }
