@@ -95,7 +95,7 @@ Material:
     - _BaseColor: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RippleColor: {r: 11.984314, g: 1.447561, b: 0, a: 0}
+    - _RippleColor: {r: 5.992157, g: 0.7237805, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5502737050583706534
 MonoBehaviour:

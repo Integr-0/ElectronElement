@@ -42,7 +42,7 @@ MonoBehaviour:
     damage: 30
   lowToMidRangeDistance: 30
   midToHighRangeDistance: 75
-  fireRate: 7
+  fireRate: 15
   canHold: 1
   maxRange: 100
   muzzleFlashSize: 3
