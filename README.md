@@ -6,16 +6,18 @@ First Person shooter with unconventional mechanics
 ## Info
 - Unity Version: 2022.3.10f1
 - Version: pre-alpha
-- Planned release platforms: Steams
+- Planned release platforms: Steam
 - Predicted release date: NONE (too early in development to accurately estimate)
 
 ## Todo
+- Fix ready system
 - Make lobby preview clickable (click to join)
-- Comment new multiplayer code
+- Make assets
+- Make Authentication system
+- Sync username with playerprefs
+- Add more player customization
 - Clean up common variables script (lobby)
-- make assets
-- sync username with playerprefs
-- make Authentication system
+- Comment new multiplayer code
 
 ## Bugs
 - Can't pause or rejoin lobbies more than 2 times
