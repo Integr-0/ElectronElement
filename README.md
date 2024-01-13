@@ -5,11 +5,11 @@ First Person shooter with unconventional mechanics
 
 ## Info
 - Unity Version: 2022.3.10f1
-- Version: alpha 1.0
-- Planned to release on: Steam
-- Predicted release date: NONE (too early to accurately estimate)
+- Version: pre-alpha
+- Planned release platforms: Steams
+- Predicted release date: NONE (too early in development to accurately estimate)
 
-## TODO
+## Todo
 - Make lobby preview clickable (click to join)
 - Comment new multiplayer code
 - Clean up common variables script (lobby)
