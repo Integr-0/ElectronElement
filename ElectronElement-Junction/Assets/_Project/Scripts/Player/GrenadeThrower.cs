@@ -4,7 +4,8 @@ public class GrenadeThrower : Unity.Netcode.NetworkBehaviour
 {
     [SerializeField] private float fireRate;
     [SerializeField] private float throwForce = 40f;
-    [SerializeField] private Rigidbody grenadePrefab;
+    [SerializeField] private GameObject grenadePrefab;
+    [SerializeField] private Transform cam;
 
     private float nextTimeToFire;
 
@@ -24,7 +25,8 @@ public class GrenadeThrower : Unity.Netcode.NetworkBehaviour
 
         nextTimeToFire = Time.time + (1 / fireRate);
 
-        Rigidbody grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
-        grenade.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
+        GameObject grenade = Instantiate(grenadePrefab, cam.position, cam.rotation);
+        Rigidbody rb = grenade.GetComponent<Rigidbody>();
+        rb.AddForce(cam.forward * throwForce, ForceMode.VelocityChange);
     }
 }

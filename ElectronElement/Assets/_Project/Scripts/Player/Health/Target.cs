@@ -10,7 +10,7 @@ public class Target : MonoBehaviour
     private void Awake()
     {
         Health health = GetComponent<Health>();
-        health.onHealthChanged += async (float dmgTaken, float currentHealth) =>
+        health.onHealthChanged += async (int dmgTaken, int currentHealth) =>
         {
             text.text = dmgTaken.ToString();
             await Task.Delay(1000);

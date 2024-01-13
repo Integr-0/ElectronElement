@@ -16,9 +16,6 @@ public class FirstPersonMovement : NetworkBehaviour
     [SerializeField] private float airControlMultiplier = 1f;
 
 
-    [Space, SerializeField] private float accelerationTimeSeconds = 1f;
-
-
     [Space, SerializeField] private float jumpStrength = 1.5f;
     [SerializeField] private float jumpBuffer = 0.2f;
 
@@ -56,9 +53,6 @@ public class FirstPersonMovement : NetworkBehaviour
     private float jumpBufferTimer;
 
     private float nextFootstep = 0;
-
-    private float currentAcceleration = 0f;
-
 
     private bool isGrounded;
 
@@ -117,24 +111,14 @@ public class FirstPersonMovement : NetworkBehaviour
 
         #region get Input
 
-        input.x = Input.GetAxis("Horizontal");
-        input.y = Input.GetAxis("Vertical");
+        input.x = Input.GetAxisRaw("Horizontal");
+        input.y = Input.GetAxisRaw("Vertical");
 
         #endregion
 
         #region calculate values
 
         Vector3 move = transform.right * input.x + transform.forward * input.y;
-
-        if (move.magnitude > 0.1f)
-        {
-            currentAcceleration += accelerationTimeSeconds * Time.deltaTime;
-        }
-        else
-        {
-            currentAcceleration -= accelerationTimeSeconds * Time.deltaTime;
-        }
-        currentAcceleration = Mathf.Clamp01(currentAcceleration);
 
         #endregion
 
@@ -165,7 +149,7 @@ public class FirstPersonMovement : NetworkBehaviour
 
         #region applying movement
 
-        controller.Move(currentAcceleration * currentGroundSpeed * Time.deltaTime * move);
+        controller.Move(currentGroundSpeed * Time.deltaTime * move);
         controller.Move(Time.deltaTime * yMovement * transform.up);
 
         #endregion
@@ -186,7 +170,7 @@ public class FirstPersonMovement : NetworkBehaviour
 
         #region set animator values
 
-        if (anim != null) anim.SetFloat("Speed", move.magnitude > 0.1f ? currentGroundSpeed*currentAcceleration : 0);
+        if (anim != null) anim.SetFloat("Speed", move.magnitude > 0.1f ? currentGroundSpeed : 0);
 
         #endregion
     }

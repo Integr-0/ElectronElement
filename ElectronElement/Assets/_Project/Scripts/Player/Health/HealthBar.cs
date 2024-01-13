@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
         slider.value = health.startingHealth;
         healthText.text = $"{health.startingHealth}/{health.maxHealth}";
 
-        health.onHealthChanged += (float damageTaken, float currentHealth) =>
+        health.onHealthChanged += (int damageTaken, int currentHealth) =>
         {
             healthText.text = $"{currentHealth}/{health.maxHealth}";
             slider.value = currentHealth;

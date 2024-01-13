@@ -33,6 +33,7 @@ public class Gun : NetworkBehaviour
         nextTimeToFire = Time.time + (1 / data.fireRate);
 
         muzzleFlash.Play();
+        GetComponent<AudioSource>().PlayOneShot(data.shotSound);
 
         if (Physics.Raycast(shotPoint.position,
                             shotPoint.forward, 
@@ -40,7 +41,6 @@ public class Gun : NetworkBehaviour
                             data.maxRange, 
                             data.shootableLayers))
         {
-            GetComponent<AudioSource>().PlayOneShot(data.shotSound);
             if (hit.transform.TryGetComponent(out ShootableCollider s))
             {
                 s.health.ChangeHealth(CalculateDamage(hit, s.bodyPart));
@@ -48,7 +48,7 @@ public class Gun : NetworkBehaviour
         }
     }
 
-    private float CalculateDamage(RaycastHit hit, ShotType shotType)
+    private int CalculateDamage(RaycastHit hit, ShotType shotType)
     {
         RangeType range;
 

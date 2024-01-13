@@ -4,16 +4,16 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Health : MonoBehaviour
 {
-    public float maxHealth;
-    public float startingHealth;
-    public float currentHealth { get; private set; }
+    public int maxHealth;
+    public int startingHealth;
+    public int currentHealth { get; private set; }
 
     public event Action onDied;
     /// <summary>
     /// First value: the health added/subtracted
     /// Second value: the new health
     /// </summary>
-    public event Action<float, float> onHealthChanged;
+    public event Action<int, int> onHealthChanged;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
     /// Negative values: Damage
     /// </summary>
     /// <param name="ammt"></param>
-    public void ChangeHealth(float ammt)
+    public void ChangeHealth(int ammt)
     {
         currentHealth += ammt;
 

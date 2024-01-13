@@ -29,13 +29,16 @@ public class LobbyList : MonoBehaviour
             };
             var response = await Lobbies.Instance.QueryLobbiesAsync(options);
 
-            if (response.Results.Count == 0 && usedWithButton)
+            master.Variables.lobbyPreviewParent.DestroyChildren();
+
+
+            if (response.Results.Count == 0)
             {
-                master.LobbyErrorHandler.ToggleObjectForPopupTime(master.Variables.noLobbiesFoundPopup);
+                if (usedWithButton) 
+                    master.LobbyErrorHandler.ToggleObjectForPopupTime(master.Variables.noLobbiesFoundPopup);
+
                 return;
             }
-
-            master.Variables.lobbyPreviewParent.DestroyChildren();
 
             foreach (Lobby lobby in response.Results)
             {

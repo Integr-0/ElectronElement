@@ -12,9 +12,12 @@ First Person shooter with unconventional mechanics
 ## Todo
 - Fix ready system
 - Make lobby preview clickable (click to join)
+- Finish player selection
 - Make assets
 - Make Authentication system
 - Sync username with playerprefs
+- Feature to give weapons to camera
+- Looting/collecting weapons
 - Add more player customization
 - Clean up common variables script (lobby)
 - Comment new multiplayer code
@@ -22,6 +25,7 @@ First Person shooter with unconventional mechanics
 ## Bugs
 - Can't pause or rejoin lobbies more than 2 times
 - Pressing ready doesn't work in lobbies with 2 or more players (only for host)
+- Can still shoot gun when paused
 
 ## Unity Packages
 - Smooth Camera Shaker - FirstGearGames

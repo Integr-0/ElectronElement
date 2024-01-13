@@ -17,15 +17,15 @@ public class WeaponData : ScriptableObject
     {
         public ShotType shotType;
         public RangeType rangeType;
-        public float damage;
+        public int damage;
     }
 
     public ShotData[] shotData;
-    public Dictionary<(ShotType, RangeType), float> damageMap
+    public Dictionary<(ShotType, RangeType), int> damageMap
     {
         get
         {
-            Dictionary<(ShotType, RangeType), float> output = new();
+            Dictionary<(ShotType, RangeType), int> output = new();
             foreach (var shot in shotData)
             {
                 output[(shot.shotType, shot.rangeType)] = shot.damage;
