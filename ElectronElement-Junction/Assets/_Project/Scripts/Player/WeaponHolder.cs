@@ -5,17 +5,17 @@ using UnityEngine;
 public class WeaponHolder : NetworkBehaviour
 {
     private readonly List<GameObject> weapons = new();
+    private GameObject currentActiveWeapon;
 
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
-
         foreach (Transform child in transform)
         {
             weapons.Add(child.gameObject);
             child.gameObject.SetActive(false);
         }
         transform.GetChild(0).gameObject.SetActive(true);
+        currentActiveWeapon = transform.GetChild(0).gameObject;
     }
 
     private void Update()
@@ -33,10 +33,8 @@ public class WeaponHolder : NetworkBehaviour
 
     private void ActivateWeapon(int i)
     {
-        foreach (var weapon in weapons)
-        {
-            weapon.SetActive(false);
-        }
+        currentActiveWeapon.SetActive(false);
         weapons[i].SetActive(true);
+        currentActiveWeapon = weapons[i];
     }
 }

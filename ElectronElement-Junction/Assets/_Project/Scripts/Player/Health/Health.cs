@@ -9,6 +9,10 @@ public class Health : MonoBehaviour
     public float currentHealth { get; private set; }
 
     public event Action onDied;
+    /// <summary>
+    /// First value: the health added/subtracted
+    /// Second value: the new health
+    /// </summary>
     public event Action<float, float> onHealthChanged;
 
     private void Awake()
@@ -17,7 +21,8 @@ public class Health : MonoBehaviour
     }
 
     /// <summary>
-    /// Use negative values for healing
+    /// Positive values: Heal
+    /// Negative values: Damage
     /// </summary>
     /// <param name="ammt"></param>
     public void ChangeHealth(float ammt)
@@ -37,6 +42,6 @@ public class Health : MonoBehaviour
         }
 
         //Call event after clamping
-        if(onHealthChanged != null) onHealthChanged(ammt, currentHealth);
+        onHealthChanged?.Invoke(ammt, currentHealth);
     }
 }
