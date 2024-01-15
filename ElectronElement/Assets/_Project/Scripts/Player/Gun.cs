@@ -5,6 +5,7 @@ using static WeaponData;
 [RequireComponent(typeof(AudioSource))]
 public class Gun : NetworkBehaviour
 {
+    [SerializeField] private PauseMenu pause;
     [SerializeField] private WeaponData data;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private Transform shotPoint;
@@ -18,7 +19,7 @@ public class Gun : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsOwner) return;
+        if (!IsOwner || pause.IsPaused) return;
 
         if ((!data.canHold && Input.GetMouseButtonDown(0)) || (data.canHold && Input.GetMouseButton(0)))
         {

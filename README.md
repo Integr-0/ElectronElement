@@ -23,14 +23,13 @@ First Person shooter with unconventional mechanics
 - Comment new multiplayer code
 
 ## Bugs
-- Can't pause or rejoin lobbies more than 2 times
+- Main menu button missing logic (network objects disposed improperly)
 - Pressing ready doesn't work in lobbies with 2 or more players (only for host)
-- Can still shoot gun when paused
 
 ## Unity Packages
-- Smooth Camera Shaker - FirstGearGames
-- Scifi Gun Collection - Black Curtain Studio
-- Sci-Fi Construction Kit (Modular) - Sickhead Games
-- LowPoly Server Room Props - iPoly3D
-- Hit Impact Effects FREE - Travis Game Assets
-- DOTween (HOTween v2) - Demigiant
+- *Smooth Camera Shaker* - FirstGearGames
+- *Scifi Gun Collection* - Black Curtain Studio
+- *Sci-Fi Construction Kit (Modular)* - Sickhead Games
+- *LowPoly Server Room Props* - iPoly3D
+- *Hit Impact Effects FREE* - Travis Game Assets
+- *DOTween (HOTween v2)* - Demigiant

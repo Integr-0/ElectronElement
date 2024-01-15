@@ -60,6 +60,6 @@ public class Grenade : MonoBehaviour
 
         await Task.Delay(effectDurationSeconds * 1000);
 
-        Destroy(effect);
+        if (Application.isPlaying) Destroy(effect);
     }
 }

@@ -155,12 +155,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 10
-  explosionForce: 10000
+  explosionForce: 250
   damage: 150
   bounceTimeSeconds: 3
   explosionEffect: {fileID: 8262461310030734433, guid: e4285abb68cfb4c42930dca2fd1d0f8f,
     type: 3}
-  effectDurationSeconds: 3
+  effectDurationSeconds: 6
   explosionSound: {fileID: 8300000, guid: 750f4c01905e28b4382f9b605a4c1c1c, type: 3}
   colliderLayers:
     serializedVersion: 2
@@ -173,7 +173,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9078914170011685910}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.05
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}

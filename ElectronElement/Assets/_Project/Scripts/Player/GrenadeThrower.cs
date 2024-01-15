@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GrenadeThrower : Unity.Netcode.NetworkBehaviour
 {
+    [SerializeField] private PauseMenu pause;
     [SerializeField] private float fireRate;
     [SerializeField] private float throwForce = 40f;
     [SerializeField] private GameObject grenadePrefab;
@@ -11,7 +12,7 @@ public class GrenadeThrower : Unity.Netcode.NetworkBehaviour
 
     private void Update()
     {
-        if (!IsOwner) return;
+        if (!IsOwner || pause.IsPaused) return;
 
         if (Input.GetMouseButtonDown(0))
         {

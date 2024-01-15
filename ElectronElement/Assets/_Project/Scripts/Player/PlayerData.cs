@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerData : Unity.Netcode.NetworkBehaviour
 {
@@ -79,14 +80,10 @@ public class PlayerData : Unity.Netcode.NetworkBehaviour
         pauseMenu.Unpause();
 
         GameManager.Instance.ResetLobby();
-
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MAIN");
-
-        load.MarkTaskCompleted();
-
         Cursor.lockState = CursorLockMode.None;
 
-        Debug.Log(Time.timeScale);
+        AsyncOperation op = SceneManager.LoadSceneAsync("MAIN", LoadSceneMode.Single);
+        op.completed += (operation) => load.MarkTaskCompleted();
     }
     public void Quit()
     {

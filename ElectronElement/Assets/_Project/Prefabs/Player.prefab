@@ -3636,6 +3636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdd84a000fb0d1439a841d4e138663e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 7054220373681330600}
   fireRate: 0.5
   throwForce: 20
   grenadePrefab: {fileID: 9078914170011685910, guid: d5f461755ac7b224ab7864a088566ea4,
@@ -11607,6 +11608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392ddafd6f0f397448a445c8a83c4cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 7054220373681330600}
   data: {fileID: 11400000, guid: a6a57102f49d37445866a3a349a7b922, type: 2}
   muzzleFlash: {fileID: 9079913637052525367}
   shotPoint: {fileID: 5860211978428115190}
@@ -18908,6 +18910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392ddafd6f0f397448a445c8a83c4cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 7054220373681330600}
   data: {fileID: 11400000, guid: 05d99cdcf0309b8469848b1ddb644604, type: 2}
   muzzleFlash: {fileID: 3009263695342966008}
   shotPoint: {fileID: 2270745772553548438}
