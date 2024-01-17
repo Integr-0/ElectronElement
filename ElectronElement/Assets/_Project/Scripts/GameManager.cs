@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -26,15 +27,17 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             PlayerData data = player.GetComponent<PlayerData>();
             allPlayers.Add(data);
 
-            player.GetComponent<Health>().onDied += async () =>
-            {
-                Popup popup = Instantiate(popupPrefab, popupArea);
-                popup.killedPlayerName = data.Name;
-                popup.killedPlayerImage = data.Image;
-                popup.UpdateUI();
-                await Task.Delay(1000);
-                Destroy(popup);
-            };
+            player.GetComponent<Health>().onDied += () => DisplayPopup(data);
+        }
+
+        async void DisplayPopup(PlayerData data)
+        {
+            Popup popup = Instantiate(popupPrefab, popupArea);
+            popup.killedPlayerName = data.Name;
+            popup.killedPlayerImage = data.Image;
+            popup.UpdateUI();
+            await Task.Delay(1000);
+            Destroy(popup.gameObject);
         }
     }
 
