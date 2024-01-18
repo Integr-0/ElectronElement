@@ -8,8 +8,8 @@ First Person shooter with unconventional mechanics
 - Version: pre-alpha
 - Planned release platforms: Steam
 - Predicted release dates
-- - Full release: NONE (too early to acculately estimate)
-- - Next Version (pre-alpha): February 2024
+    - Full release: NONE (too early to acculately estimate)
+    - Next Version (pre-alpha): February 2024
 
 ## Todo
 - Add body part colliders to player
