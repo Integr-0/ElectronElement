@@ -45,6 +45,8 @@ public class LobbyActionsContinuous : MonoBehaviour
 
         if (AllPlayersReady() && !gameStarted)
         {
+            master.Variables.load.Activate("Joining Game", "Waiting for players");
+
             master.LobbyActions_StartGame.StartGame();
             gameStarted = true;
         }
@@ -53,9 +55,9 @@ public class LobbyActionsContinuous : MonoBehaviour
         {
             if (master.Variables.hostedLobby == null)
             {
-                master.Variables.load.Activate("Joining Game", "Waiting for players");
                 RelayManager.Instance.JoinRelay(master.Variables.joinedLobby.Data[LobbyVariables.KEY_START_GAME].Value);
                 GameManager.Instance.ClientStartGame();
+
                 master.Variables.load.MarkTaskCompleted();
             }
 
