@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -34,7 +33,7 @@ public class Grenade : MonoBehaviour
         }
     }
 
-    public async void Explode()
+    public void Explode()
     {
         GetComponent<AudioSource>().PlayOneShot(explosionSound);
 
@@ -58,8 +57,6 @@ public class Grenade : MonoBehaviour
 
         Destroy(gameObject);
 
-        await Task.Delay(effectDurationSeconds * 1000);
-
-        if (Application.isPlaying) Destroy(effect);
+        Destroy(effect, effectDurationSeconds);
     }
 }

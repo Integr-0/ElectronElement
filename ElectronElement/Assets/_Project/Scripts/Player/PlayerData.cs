@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerData : Unity.Netcode.NetworkBehaviour
+public class PlayerData : NetworkBehaviour
 {
     public struct Preferences
     {
@@ -74,16 +75,26 @@ public class PlayerData : Unity.Netcode.NetworkBehaviour
         if (!IsOwner) return;
 
         var load = LoadingScreen.Instance;
-        load.Activate("Returning to Main Menu", "Leaving lobby", "Loading Scene");
+        load.Activate("Returning to Main Menu", "Leaving lobby", "Despawning Objects", "Loading Scene");
 
         load.MarkTaskCompleted();
         pauseMenu.Unpause();
 
         GameManager.Instance.ResetLobby();
+
         Cursor.lockState = CursorLockMode.None;
 
-        AsyncOperation op = SceneManager.LoadSceneAsync("MAIN", LoadSceneMode.Single);
-        op.completed += (operation) => load.MarkTaskCompleted();
+        NetworkManager.SceneManager.LoadScene("MAIN", LoadSceneMode.Single);
+
+        load.MarkTaskCompleted();
+
+        var allObjects = FindObjectsOfType<NetworkObject>();
+        foreach (var obj in allObjects)
+        {
+            if (obj.IsSpawned) obj.Despawn();
+        }
+
+        load.MarkTaskCompleted();
     }
     public void Quit()
     {

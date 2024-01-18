@@ -52,6 +52,7 @@ public class CameraManager : MonoBehaviour
     private void Update()
     {
         PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(transform.position, out float distanceToClosestPlayer);
+
         bool anyPlayerNearEnough = distanceToClosestPlayer < 5f;
         data = nearestPlayer;
 

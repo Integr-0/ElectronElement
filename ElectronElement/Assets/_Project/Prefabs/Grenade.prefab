@@ -158,7 +158,7 @@ MonoBehaviour:
   explosionForce: 250
   damage: 150
   bounceTimeSeconds: 3
-  explosionEffect: {fileID: 8262461310030734433, guid: e4285abb68cfb4c42930dca2fd1d0f8f,
+  explosionEffect: {fileID: 4025437606217242074, guid: 8d80d1404be7d704cbb3455f0d5ce999,
     type: 3}
   effectDurationSeconds: 6
   explosionSound: {fileID: 8300000, guid: 750f4c01905e28b4382f9b605a4c1c1c, type: 3}

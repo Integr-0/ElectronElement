@@ -10,9 +10,9 @@ First Person shooter with unconventional mechanics
 - Predicted release date: NONE (too early in development to accurately estimate)
 
 ## Todo
-- Fix ready system
-- Make lobby preview clickable (click to join)
+- Add body part colliders to player
 - Finish player selection
+- Make lobby preview clickable (click to join)
 - Make assets
 - Make Authentication system
 - Sync username with playerprefs
@@ -23,8 +23,7 @@ First Person shooter with unconventional mechanics
 - Comment new multiplayer code
 
 ## Bugs
-- Main menu button missing logic (network objects disposed improperly)
-- Pressing ready doesn't work in lobbies with 2 or more players (only for host)
+- Loading screen only showing for host when starting game
 
 ## Unity Packages
 - *Smooth Camera Shaker* - FirstGearGames

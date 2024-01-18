@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         PlayerData closest = null;
         foreach (PlayerData player in allPlayers)
         {
+            if (player == null) continue; // Because of weird stuff when unloading scenes (should not be null here)
+
             float dist = Vector3.Distance(player.transform.position, point);
             if (dist < distance)
             {
