@@ -18,6 +18,9 @@ public class LobbyMaster : MonoBehaviour
 
     private bool startList = false;
 
+    /// <summary>
+    /// Initialized like that because Awake would be called every time MAIN loads
+    /// </summary>
     public async void OneTimeInit()
     {
         await UnityServices.InitializeAsync();

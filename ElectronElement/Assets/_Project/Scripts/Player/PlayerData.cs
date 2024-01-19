@@ -38,7 +38,7 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsClient) 
+        if (!IsServer) // Only if you're a client (hosts are servers and clients)
             GameManager.Instance.ClientStartGame();
     }
 
