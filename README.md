@@ -12,10 +12,13 @@ First Person shooter with unconventional mechanics
     - Next Version (pre-alpha): February 2024
 
 ## Todo
+### Before Next Release
 - Add body part colliders to player
 - Make respawn system
 - Finish player selection
+- Make ammo system
 - Make lobby preview clickable (click to join)
+### Other
 - Make assets
 - Make Authentication system
 - Sync username with playerprefs
@@ -25,7 +28,7 @@ First Person shooter with unconventional mechanics
 - Clean up common variables script (lobby)
 - Comment new multiplayer code
 
-## Bugs
+## Bugs (Fix before next release)
 - Loading screen only showing for host when starting game
 
 ## Unity Packages
