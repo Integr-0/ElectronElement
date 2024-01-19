@@ -10,7 +10,7 @@ public class LoadingScreen : MonoBehaviourSingleton<LoadingScreen>
 
     private System.Collections.Generic.List<string> currentTasks;
 
-    public void Activate(string header = "", params string[] allTasks)
+    public void Activate(string header, params string[] allTasks)
     {
         currentTasks = allTasks.ToList();
 
@@ -22,13 +22,12 @@ public class LoadingScreen : MonoBehaviourSingleton<LoadingScreen>
 
     public void MarkTaskCompleted()
     {
-        DisplayQueue();
-
         currentTasks.RemoveAt(0);
         if (currentTasks.Count == 0)
         {
             panel.SetActive(false);
         }
+        DisplayQueue();
     }
 
     private void DisplayQueue()

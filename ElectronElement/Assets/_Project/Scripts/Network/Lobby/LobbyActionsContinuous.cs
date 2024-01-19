@@ -45,7 +45,8 @@ public class LobbyActionsContinuous : MonoBehaviour
 
         if (AllPlayersReady() && !gameStarted)
         {
-            master.Variables.load.Activate("Joining Game", "Waiting for players");
+            if (master.Variables.hostedLobby == null)
+                master.Variables.load.Activate("Joining Game", "Waiting for players");
 
             master.LobbyActions_StartGame.StartGame();
             gameStarted = true;

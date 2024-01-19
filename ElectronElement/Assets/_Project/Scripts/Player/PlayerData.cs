@@ -38,7 +38,8 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        GameManager.Instance.ClientStartGame();
+        if (IsClient) 
+            GameManager.Instance.ClientStartGame();
     }
 
     public void Activate()
