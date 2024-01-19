@@ -17,20 +17,26 @@ public class LoadingScreen : MonoBehaviourSingleton<LoadingScreen>
         panel.SetActive(true);
 
         headerText.text = header;
+        DisplayQueue();
     }
 
     public void MarkTaskCompleted()
     {
-        taskQueueText.text = "Queue:\n";
-        foreach (var task in currentTasks)
-        {
-            taskQueueText.text += task + "\n";
-        }
+        DisplayQueue();
 
         currentTasks.RemoveAt(0);
         if (currentTasks.Count == 0)
         {
             panel.SetActive(false);
+        }
+    }
+
+    private void DisplayQueue()
+    {
+        taskQueueText.text = "Queue:\n";
+        foreach (var task in currentTasks)
+        {
+            taskQueueText.text += task + "\n";
         }
     }
 }

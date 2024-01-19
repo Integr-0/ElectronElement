@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Netcode;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
@@ -18,6 +19,18 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private void Start()
     {
         lobbyMaster.OneTimeInit();
+
+        // The weirdest workaround I've ever seen
+#if UNITY_EDITOR
+        NetworkManager.Singleton.SceneManager.OnLoadComplete += (clientID, scene, loadMode) =>
+        {
+            foreach (var netObj in FindObjectsOfType<NetworkObject>())
+            {
+                netObj.AlwaysReplicateAsRoot  = !netObj.AlwaysReplicateAsRoot;
+                netObj.AlwaysReplicateAsRoot  = !netObj.AlwaysReplicateAsRoot;
+            }
+        };
+#endif
     }
 
     private void GetAllPlayers()
@@ -70,6 +83,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public void ClientStartGame()
     {
         lobbyParent.SetActive(false);
+        lobbyMaster.Variables.load.MarkTaskCompleted();
 
         GetAllPlayers();
 

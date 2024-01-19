@@ -13,9 +13,9 @@ First Person shooter with unconventional mechanics
 
 ## Todo
 ### Before Next Release
+- Finish player selection
 - Add body part colliders to player
 - Make respawn system
-- Finish player selection
 - Make ammo system
 - Make lobby preview clickable (click to join)
 ### Other
@@ -26,10 +26,10 @@ First Person shooter with unconventional mechanics
 - Looting/collecting weapons
 - Add more player customization
 - Clean up common variables script (lobby)
-- Comment new multiplayer code
+- Add quality improvements (like CamerShake)
 
 ## Bugs (Fix before next release)
-- Loading screen only showing for host when starting game
+- Loading screen doesn't close for clients when starting game
 
 ## Unity Packages
 - *Smooth Camera Shaker* - FirstGearGames

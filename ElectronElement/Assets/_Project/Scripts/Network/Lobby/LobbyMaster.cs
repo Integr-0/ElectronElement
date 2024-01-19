@@ -32,10 +32,6 @@ public class LobbyMaster : MonoBehaviour
             Debug.Log("Game Started");
         });
 
-#if UNITY_EDITOR
-        AuthenticationService.Instance.ClearSessionToken();
-#endif
-
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 

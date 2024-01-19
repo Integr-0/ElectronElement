@@ -2276,6 +2276,7 @@ GameObject:
   - component: {fileID: 2820397757290173421}
   - component: {fileID: 8423499973126427342}
   - component: {fileID: 4081770575268339321}
+  - component: {fileID: 9116734032187837688}
   m_Layer: 0
   m_Name: Cam
   m_TagString: Untagged
@@ -2501,6 +2502,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180197007088497919}
   m_Enabled: 1
+--- !u!114 &9116734032187837688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180197007088497919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d558a5603e16d2141b6ee822f40aa109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1180924339687594039
 GameObject:
   m_ObjectHideFlags: 0

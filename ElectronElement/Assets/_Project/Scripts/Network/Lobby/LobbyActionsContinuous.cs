@@ -56,9 +56,6 @@ public class LobbyActionsContinuous : MonoBehaviour
             if (master.Variables.hostedLobby == null)
             {
                 RelayManager.Instance.JoinRelay(master.Variables.joinedLobby.Data[LobbyVariables.KEY_START_GAME].Value);
-                GameManager.Instance.ClientStartGame();
-
-                master.Variables.load.MarkTaskCompleted();
             }
 
             master.Variables.joinedLobby = null;

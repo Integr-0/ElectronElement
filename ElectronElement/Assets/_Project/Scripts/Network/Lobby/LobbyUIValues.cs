@@ -45,8 +45,6 @@ public class LobbyUIValues : MonoBehaviour
 
         string ready = isReady ? LobbyVariables.STRING_IS_READY_TRUE : LobbyVariables.STRING_IS_READY_FALSE;
 
-        Debug.Log($"Joined ID: {master.Variables.joinedLobby.Id}, Player ID: {AuthenticationService.Instance.PlayerId}, Ready: {isReady}");
-
         LobbyService.Instance.UpdatePlayerAsync(master.Variables.joinedLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions
         {
             Data = new Dictionary<string, PlayerDataObject>

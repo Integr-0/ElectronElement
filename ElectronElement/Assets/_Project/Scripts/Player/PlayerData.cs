@@ -36,9 +36,9 @@ public class PlayerData : NetworkBehaviour
 
     public bool canPause = true;
 
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
-        if (CameraManager.Instance != null) CameraManager.Instance.data = this;
+        GameManager.Instance.ClientStartGame();
     }
 
     public void Activate()
