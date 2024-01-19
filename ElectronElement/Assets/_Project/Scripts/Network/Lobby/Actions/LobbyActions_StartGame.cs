@@ -29,8 +29,7 @@ public class LobbyActions_StartGame : MonoBehaviour
             {
                 Data = new Dictionary<string, DataObject>
                 {
-                    { LobbyVariables.KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, relayCode) },
-
+                    { LobbyVariables.KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
                 }
             });
 

@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 public class RelayManager : MonoBehaviourSingleton<RelayManager>
 {
+    [SerializeField] private LobbyVariables variables;
     public async Task<string> CreateRelay()
     {
         try
         {
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(1);
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(variables.maxPlayers-1); // MaxConnections doesn't include the host
 
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
