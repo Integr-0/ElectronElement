@@ -19,10 +19,11 @@ public class LoadingScreen : MonoBehaviourSingleton<LoadingScreen>
         headerText.text = header;
         DisplayQueue();
     }
+    public void Deactivate() => panel.SetActive(false);
 
     public void MarkTaskCompleted()
     {
-        currentTasks.RemoveAt(0);
+        if (currentTasks.Count > 0) currentTasks.RemoveAt(0);
         if (currentTasks.Count == 0)
         {
             panel.SetActive(false);

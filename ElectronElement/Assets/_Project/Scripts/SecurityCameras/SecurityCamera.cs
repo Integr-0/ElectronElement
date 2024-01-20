@@ -43,7 +43,7 @@ public class SecurityCamera : MonoBehaviour
     {
         if (posessingPlayer != null)
         {
-            float sensitivity = posessingPlayer.DefaultPrefs.MouseSensitivity;
+            float sensitivity = posessingPlayer.MouseSensitivity;
             float MouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
             float MouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
             float Scroll = Input.mouseScrollDelta.y * zoomSensitivity;

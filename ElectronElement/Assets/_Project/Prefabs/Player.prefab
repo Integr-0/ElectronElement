@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterModelParent: {fileID: 5798522726158780812}
   Name: Test
-  Image: {fileID: 21300002, guid: 1be801af75d973a4b9e1fdc6fda7ac8c, type: 3}
+  ProfilePic: {fileID: 21300002, guid: 1be801af75d973a4b9e1fdc6fda7ac8c, type: 3}
   cam: {fileID: 1714665157175845418}
   Movement: {fileID: 6572997166189070213}
   Look: {fileID: 8423499973126427342}

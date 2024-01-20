@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
@@ -18,18 +16,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private void Start()
     {
         lobbyMaster.OneTimeInit();
-
-        // The weirdest workaround I've ever seen (error only appear for clients)
-#if UNITY_EDITOR
-        SceneManager.sceneLoaded += (_,_) =>
-        {
-            foreach (var netObj in FindObjectsOfType<NetworkObject>())
-            {
-                netObj.AlwaysReplicateAsRoot = !netObj.AlwaysReplicateAsRoot;
-                netObj.AlwaysReplicateAsRoot = !netObj.AlwaysReplicateAsRoot;
-            }
-        };
-#endif
     }
 
     private void GetAllPlayers()
@@ -46,7 +32,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             Popup popup = Instantiate(popupPrefab, popupArea);
             popup.killedPlayerName = data.Name;
-            popup.killedPlayerImage = data.Image;
             popup.UpdateUI();
             Destroy(popup.gameObject, 1);
         }

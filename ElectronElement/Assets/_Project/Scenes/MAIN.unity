@@ -6479,6 +6479,7 @@ MonoBehaviour:
   playerPreviewParent: {fileID: 812286545}
   hostParamPanel: {fileID: 7397862436996596904}
   inLobbyScreen: {fileID: 1040742606}
+  nameInputField: {fileID: 1049242712}
   isHostedLobbyPrivate: 0
   hearbeatTimer: 0
   updatePollTimer: 0
@@ -6486,7 +6487,6 @@ MonoBehaviour:
   sceneIndex: 1
   maxPlayers: 2
   lobbyName: Unnamed Lobby
-  gamertag: Unnamed
   characterIndex: 0
   lobbyCodeInput: 
 --- !u!114 &1471398452

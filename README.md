@@ -28,8 +28,8 @@ First Person shooter with unconventional mechanics
 - Clean up common variables script (lobby)
 - Add quality improvements (like CamerShake)
 
-## Bugs (Fix before next release)
-- Loading screen doesn't close for clients when starting game
+## Bugs
+- NONE
 
 ## Unity Packages
 - *Smooth Camera Shaker* - FirstGearGames

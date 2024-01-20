@@ -12,7 +12,7 @@ public class MouseLook : NetworkBehaviour
 
     void Start()
     {
-        mouseSensitivity = data.DefaultPrefs.MouseSensitivity;
+        mouseSensitivity = data.MouseSensitivity;
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -38,6 +38,6 @@ public class MouseLook : NetworkBehaviour
     public void SetSensitivity(float s)
     {
         mouseSensitivity = s;
-        data.DefaultPrefs.MouseSensitivity = s;
+        data.MouseSensitivity = s;
     }
 }

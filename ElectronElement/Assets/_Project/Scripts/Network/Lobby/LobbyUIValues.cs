@@ -3,10 +3,16 @@ using Unity.Services.Lobbies.Models;
 using Unity.Services.Lobbies;
 using UnityEngine;
 using Unity.Services.Authentication;
+using TMPro;
 
 public class LobbyUIValues : MonoBehaviour
 {
     [SerializeField] private LobbyMaster master;
+
+    private void Awake()
+    {
+        master.Variables.nameInputField.text = PlayerPrefs.GetString(PlayerData.KEY_NAME, defaultValue: "Unnamed");
+    }
 
     public void SetAccessibility(bool isPublic)
     {
@@ -31,7 +37,7 @@ public class LobbyUIValues : MonoBehaviour
 
     public void SetPlayerGamertag(string name)
     {
-        master.Variables.gamertag = name;
+        PlayerPrefs.SetString(PlayerData.KEY_NAME, name);
     }
     public void SetPlayerCharacterIndex(int i)
     {

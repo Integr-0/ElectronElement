@@ -54,6 +54,8 @@ public class LobbyVariables : MonoBehaviour
     [Space] public GameObject hostParamPanel;
     public GameObject inLobbyScreen;
 
+    [Space] public TMP_InputField nameInputField;
+
 
     [HideInInspector] public Lobby hostedLobby;
     [HideInInspector] public Lobby joinedLobby;
@@ -69,7 +71,6 @@ public class LobbyVariables : MonoBehaviour
     [HideInInspector] public string lobbyName = "Unnamed Lobby";
 
 
-    [HideInInspector] public string gamertag = "Unnamed";
     [HideInInspector] public int characterIndex = 0;
 
     [HideInInspector] public string lobbyCodeInput;

@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        sensitivitySlider.value = data.DefaultPrefs.MouseSensitivity;
+        sensitivitySlider.value = data.MouseSensitivity;
     }
 
     public void Pause()

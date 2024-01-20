@@ -4,26 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class PlayerData : NetworkBehaviour
 {
-    public struct Preferences
-    {
-        public float MouseSensitivity
-        { 
-            get
-            {
-                return PlayerPrefs.GetFloat("MouseSens", defaultValue: 300f);
-            }
-            set
-            {
-                PlayerPrefs.SetFloat("MouseSens", value);
-            }
-        }
-    }
-    public Preferences DefaultPrefs;
+    public const string KEY_MOUSE_SENS = "MouseSens";
+    public const string KEY_NAME = "PlayerName";
 
     [SerializeField] private Transform characterModelParent;
 
-    public string Name;
-    public Sprite Image;
+    public string Name
+    {
+        get => PlayerPrefs.GetString(KEY_NAME, defaultValue: "Unnamed");
+        set => PlayerPrefs.SetString(KEY_NAME, value);
+    }
+    public float MouseSensitivity
+    {
+        get => PlayerPrefs.GetFloat(KEY_MOUSE_SENS, defaultValue: 300f);
+        set => PlayerPrefs.SetFloat(KEY_MOUSE_SENS, value);
+    }
 
     public Camera cam;
 
@@ -38,9 +33,13 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) // Only if you're a client (hosts are servers and clients)
-            GameManager.Instance.ClientStartGame();
+        NetworkManager.OnClientConnectedCallback += (c) =>
+        {
+            if (!IsServer) // Only if you're a client (hosts are servers and clients)
+                GameManager.Instance.ClientStartGame();
+        };
     }
+
 
     public void Activate()
     {
