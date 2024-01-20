@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
         // The weirdest workaround I've ever seen (error only appear for clients)
 #if UNITY_EDITOR
-        NetworkManager.Singleton.SceneManager.OnLoadComplete += (clientID, scene, loadMode) =>
+        SceneManager.sceneLoaded += (_,_) =>
         {
             foreach (var netObj in FindObjectsOfType<NetworkObject>())
             {
