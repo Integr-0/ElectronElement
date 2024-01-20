@@ -44,6 +44,10 @@ public class PlayerData : NetworkBehaviour
                 SetCharacter();
             }
         };
+        NetworkManager.OnServerStopped += (_) =>
+        {
+            MainMenu();
+        };
     }
 
 
