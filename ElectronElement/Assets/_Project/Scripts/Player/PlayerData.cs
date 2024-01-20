@@ -32,10 +32,9 @@ public class PlayerData : NetworkBehaviour
 
     public bool canPause = true;
 
-    public override void OnNetworkSpawn()
+    private void Awake()
     {
-        Debug.Log("OnNetworkSpawn; MainBody"); // Should only call for host
-        SetCharacter();
+        if (IsServer) SetCharacter();
 
         NetworkManager.OnClientConnectedCallback += (_) =>
         {
