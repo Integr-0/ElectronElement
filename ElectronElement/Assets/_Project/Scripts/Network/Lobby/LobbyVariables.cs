@@ -70,8 +70,5 @@ public class LobbyVariables : MonoBehaviour
     [HideInInspector] public int maxPlayers = 2;
     [HideInInspector] public string lobbyName = "Unnamed Lobby";
 
-
-    [HideInInspector] public int characterIndex = 0;
-
     [HideInInspector] public string lobbyCodeInput;
 }

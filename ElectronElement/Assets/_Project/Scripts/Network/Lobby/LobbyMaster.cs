@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -17,6 +18,11 @@ public class LobbyMaster : MonoBehaviour
     public LobbyVariables Variables;
 
     private bool startList = false;
+
+    private void Awake()
+    {
+        Variables.nameInputField.text = PlayerPrefs.GetString(PlayerData.KEY_NAME, defaultValue: "Unnamed");
+    }
 
     /// <summary>
     /// Initialized like that because Awake would be called every time MAIN loads

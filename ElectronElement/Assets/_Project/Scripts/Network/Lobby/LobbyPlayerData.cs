@@ -12,7 +12,7 @@ public class LobbyPlayerData : MonoBehaviour
     public async Task WriteInitialPlayerDataToJoinedLobby()
     {
         PlayerDataObject gamertagData = new(PlayerDataObject.VisibilityOptions.Member, PlayerPrefs.GetString(PlayerData.KEY_NAME, defaultValue: "Unnamed"));
-        PlayerDataObject charIndexData = new(PlayerDataObject.VisibilityOptions.Member, master.Variables.characterIndex.ToString());
+        PlayerDataObject charIndexData = new(PlayerDataObject.VisibilityOptions.Member, PlayerData.CharacterIndex.ToString());
         PlayerDataObject isReadyData = new(PlayerDataObject.VisibilityOptions.Member, LobbyVariables.STRING_IS_READY_FALSE);
 
         try

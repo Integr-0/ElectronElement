@@ -32,9 +32,5 @@ First Person shooter with unconventional mechanics
 - NONE
 
 ## Unity Packages
-- *Smooth Camera Shaker* - FirstGearGames
 - *Scifi Gun Collection* - Black Curtain Studio
 - *Sci-Fi Construction Kit (Modular)* - Sickhead Games
-- *LowPoly Server Room Props* - iPoly3D
-- *Hit Impact Effects FREE* - Travis Game Assets
-- *DOTween (HOTween v2)* - Demigiant

@@ -19,6 +19,7 @@ public class PlayerData : NetworkBehaviour
         get => PlayerPrefs.GetFloat(KEY_MOUSE_SENS, defaultValue: 300f);
         set => PlayerPrefs.SetFloat(KEY_MOUSE_SENS, value);
     }
+    public static int CharacterIndex;
 
     public Camera cam;
 
@@ -33,10 +34,16 @@ public class PlayerData : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        NetworkManager.OnClientConnectedCallback += (c) =>
+        Debug.Log("OnNetworkSpawn; MainBody"); // Should only call for host
+        SetCharacter();
+
+        NetworkManager.OnClientConnectedCallback += (_) =>
         {
             if (!IsServer) // Only if you're a client (hosts are servers and clients)
+            {
                 GameManager.Instance.ClientStartGame();
+                SetCharacter();
+            }
         };
     }
 
@@ -63,11 +70,11 @@ public class PlayerData : NetworkBehaviour
         if (!focussed && canPause && IsOwner) pauseMenu.Pause();
     }
 
-    public void SetCharacter(int characterIndex)
+    public void SetCharacter()
     {
         characterModelParent.SetChildrenActive(false);
 
-        characterModelParent.GetChild(characterIndex).gameObject.SetActive(true);
+        characterModelParent.GetChild(CharacterIndex).gameObject.SetActive(true);
     }
 
     public void MainMenu()

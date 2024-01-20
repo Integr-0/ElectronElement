@@ -9,11 +9,6 @@ public class LobbyUIValues : MonoBehaviour
 {
     [SerializeField] private LobbyMaster master;
 
-    private void Awake()
-    {
-        master.Variables.nameInputField.text = PlayerPrefs.GetString(PlayerData.KEY_NAME, defaultValue: "Unnamed");
-    }
-
     public void SetAccessibility(bool isPublic)
     {
         master.Variables.isHostedLobbyPrivate = !isPublic;
@@ -41,7 +36,7 @@ public class LobbyUIValues : MonoBehaviour
     }
     public void SetPlayerCharacterIndex(int i)
     {
-        master.Variables.characterIndex = i;
+        PlayerData.CharacterIndex = i;
     }
 
     public void ToggleIsReady(bool isReady)
