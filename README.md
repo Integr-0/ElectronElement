@@ -15,7 +15,6 @@ First Person shooter with unconventional mechanics
 ## Todo
 ### Before Next Release
 - Finish player selection
-- Add body part colliders to player
 - Make respawn system
 - Make ammo system
 - Make lobby preview clickable (click to join)
