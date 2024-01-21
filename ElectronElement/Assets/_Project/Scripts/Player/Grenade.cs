@@ -4,7 +4,8 @@ using UnityEngine;
 public class Grenade : MonoBehaviour
 {
     [SerializeField] private float radius;
-    [SerializeField] private float explosionForce;
+    [SerializeField] private float explosionForce; 
+
 
     [SerializeField, Tooltip("This is the damage if you're standing directly next to the grenade, will be changed based on distance")] 
     private int damage;
