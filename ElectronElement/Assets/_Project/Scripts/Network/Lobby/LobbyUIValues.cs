@@ -36,7 +36,7 @@ public class LobbyUIValues : MonoBehaviour
     }
     public void SetPlayerCharacterIndex(int i)
     {
-        PlayerData.CharacterIndex = i;
+        GameManager.Instance.characterIndex = i;
     }
 
     public void ToggleIsReady(bool isReady)

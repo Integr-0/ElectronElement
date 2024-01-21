@@ -14,7 +14,6 @@ First Person shooter with unconventional mechanics
 
 ## Todo
 ### Before Next Release
-- Finish player selection
 - Make respawn system
 - Make ammo system
 - Make lobby preview clickable (click to join)

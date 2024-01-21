@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [Space, SerializeField] private GameObject lobbyParent;
     [SerializeField] private GameObject inLobbyScreen;
 
+    [HideInInspector] public int characterIndex = 0;
+
     private void Start()
     {
         lobbyMaster.OneTimeInit();

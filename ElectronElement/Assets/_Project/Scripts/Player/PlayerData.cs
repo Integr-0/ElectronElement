@@ -22,7 +22,6 @@ public class PlayerData : NetworkBehaviour
         get => PlayerPrefs.GetFloat(KEY_MOUSE_SENS, defaultValue: 300f);
         set => PlayerPrefs.SetFloat(KEY_MOUSE_SENS, value);
     }
-    public static int CharacterIndex;
 
     public Camera cam;
 
@@ -36,15 +35,13 @@ public class PlayerData : NetworkBehaviour
     public bool canPause = true;
 
     private void Awake()
-    {
-        if (IsServer) SetCharacter();
-
+    { 
         NetworkManager.OnClientConnectedCallback += (_) =>
         {
+            SetCharacter();
             if (!IsServer) // Only if you're a client (hosts are servers and clients)
             {
                 GameManager.Instance.ClientStartGame();
-                SetCharacter();
             }
         };
         NetworkManager.OnServerStopped += async (_) =>
@@ -89,7 +86,7 @@ public class PlayerData : NetworkBehaviour
     {
         characterModelParent.SetChildrenActive(false);
 
-        characterModelParent.GetChild(CharacterIndex).gameObject.SetActive(true);
+        characterModelParent.GetChild(GameManager.Instance.characterIndex).gameObject.SetActive(true);
     }
 
     public void MainMenu()
