@@ -11,17 +11,17 @@ public class LobbyList : MonoBehaviour
     {
         try
         {
-            //Filter only lobbies that have at least 1 free slot
+            // Filter only lobbies that have at least 1 free slot
             List<QueryFilter> filters = new()
             {
                 new(QueryFilter.FieldOptions.AvailableSlots, "1", QueryFilter.OpOptions.GE)
             };
-            //Order the results by how many remaining slots there are
+            // Order the results by how many remaining slots there are
             List<QueryOrder> orders = new()
             {
                 new(false, QueryOrder.FieldOptions.AvailableSlots)
             };
-            //combining the filters and orders into the options
+            // combining the filters and orders into the options
             QueryLobbiesOptions options = new()
             {
                 Filters = filters,
@@ -46,7 +46,7 @@ public class LobbyList : MonoBehaviour
 
                 string sceneName = lobby.Data[LobbyVariables.KEY_LOBBY_MAP].Value;
 
-                prev.Init(lobby.Name, sceneName, lobby.Players.Count, lobby.MaxPlayers);
+                prev.Init(lobby.Name, sceneName, lobby.Players.Count, lobby.MaxPlayers, lobby.LobbyCode);
             }
         }
         catch (LobbyServiceException e)
