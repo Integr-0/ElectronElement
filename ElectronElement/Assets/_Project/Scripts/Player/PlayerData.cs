@@ -46,7 +46,7 @@ public class PlayerData : NetworkBehaviour
         };
         NetworkManager.OnServerStopped += (_) =>
         {
-            MainMenu();
+            if (!IsServer) MainMenu();
         };
     }
 
@@ -84,25 +84,24 @@ public class PlayerData : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        var load = LoadingScreen.Instance;
-        load.Activate("Returning to Main Menu", "Leaving lobby", "Despawning Objects", "Loading Scene");
-
-        load.MarkTaskCompleted();
         pauseMenu.Unpause();
-
         GameManager.Instance.ResetLobby();
-
         Cursor.lockState = CursorLockMode.None;
 
-        NetworkManager.SceneManager.LoadScene("MAIN", LoadSceneMode.Single);
+        var load = LoadingScreen.Instance;
+        load.Activate("Returning to Main Menu", "Despawning Objects", "Loading Scene");
 
-        load.MarkTaskCompleted();
 
         var allObjects = FindObjectsOfType<NetworkObject>();
         foreach (var obj in allObjects)
         {
             if (obj.IsSpawned) obj.Despawn();
         }
+
+        load.MarkTaskCompleted();
+
+
+        NetworkManager.SceneManager.LoadScene("MAIN", LoadSceneMode.Single);
 
         load.MarkTaskCompleted();
     }
