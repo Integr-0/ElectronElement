@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -49,7 +50,7 @@ public class CameraManager : MonoBehaviour
         allCams[i].Posess(data);
     }
 
-    private void Update()
+    private async void Update()
     {
         PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(transform.position, out float distanceToClosestPlayer);
 
@@ -63,15 +64,22 @@ public class CameraManager : MonoBehaviour
             {
                 data.Activate();
                 selectPanel.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
 
+                await Task.Yield(); // so it doesn't immediately pause
                 data.canPause = true;
+
+                // this doesn't work
+                // not sure if it's because of unity editor though
+                // will still leave it here if it works in build
+                Cursor.lockState = CursorLockMode.Locked; 
             }
         }
 
-        buttonPrompt.SetActive(anyPlayerNearEnough && !selectPanel.activeSelf && cam == null);
+        bool canEnter = anyPlayerNearEnough && !selectPanel.activeSelf && cam == null && !nearestPlayer.pauseMenu.IsPaused;
 
-        if (anyPlayerNearEnough && Input.GetKeyDown(KeyCode.C) && cam == null)
+        buttonPrompt.SetActive(canEnter);
+
+        if (Input.GetKeyDown(KeyCode.C) && canEnter)
         {
             data.Deactivate();
             selectPanel.SetActive(true);
@@ -86,13 +94,12 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    private int GetNextIndex()
-    {
-        if (cam == allCams.Length - 1) return 0;
-        return (int)cam + 1;
-    }
+    private int GetNextIndex() => ((int)cam + 1) % allCams.Length;
     private int GetPreviousIndex()
     {
+        // simplified version: return (int)((cam + allCams.Length - 1) % allCams.Length);
+        // will not be used as it's hard to debug
+
         if (cam == 0) return allCams.Length - 1;
         return (int)cam - 1;
     }

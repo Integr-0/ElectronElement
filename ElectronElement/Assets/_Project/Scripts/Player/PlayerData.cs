@@ -1,4 +1,5 @@
-﻿using Unity.Netcode;
+﻿using System.Threading.Tasks;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ public class PlayerData : NetworkBehaviour
     public const string KEY_NAME = "PlayerName";
 
     [SerializeField] private Transform characterModelParent;
+    [SerializeField] private GameObject hostDisconnectPopup;
+    public GameObject hud;
 
     public string Name
     {
@@ -44,9 +47,18 @@ public class PlayerData : NetworkBehaviour
                 SetCharacter();
             }
         };
-        NetworkManager.OnServerStopped += (_) =>
+        NetworkManager.OnServerStopped += async (_) =>
         {
-            if (!IsServer) MainMenu();
+            if (!IsServer)
+            {
+                hud.SetActive(false);
+                hostDisconnectPopup.SetActive(true);
+                await Task.Delay(500);
+                hud.SetActive(true);
+                hostDisconnectPopup.SetActive(false);
+
+                MainMenu();
+            }
         };
     }
 

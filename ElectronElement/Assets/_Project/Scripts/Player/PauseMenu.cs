@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
-    [SerializeField] private GameObject HUD;
     [Space, SerializeField] private Slider sensitivitySlider;
     [Space, SerializeField] private PlayerData data;
 
@@ -20,7 +19,7 @@ public class PauseMenu : MonoBehaviour
         data.cam.GetComponent<MouseLook>().enabled = false;
 
         panel.SetActive(true);
-        HUD.SetActive(false);
+        data.hud.SetActive(false);
         IsPaused = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -29,7 +28,7 @@ public class PauseMenu : MonoBehaviour
         data.cam.GetComponent<MouseLook>().enabled = true;
 
         panel.SetActive(false);
-        HUD.SetActive(true);
+        data.hud.SetActive(true);
         IsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
     }

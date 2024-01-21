@@ -29,13 +29,6 @@ public class SecurityCamera : MonoBehaviour
         posessingPlayer = null;
     }
 
-    public void TogglePosession(PlayerData player)
-    {
-        if(posessingPlayer == player) Leave(player);
-        else Posess(player);
-    }
-
-
     private float xRot = 0f;
     private float yRot = 90f;
     private float zoom = 60f;
