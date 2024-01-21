@@ -16,7 +16,7 @@ First Person shooter with unconventional mechanics
 ### Before Next Release
 - Make respawn system
 - Make ammo system
-- Make lobby preview clickable (click to join)
+- Make lobby preview clickable (almost done, lobbyCode is memberOnly though)
 ### Features
 - Make assets
 - Make Authentication system
