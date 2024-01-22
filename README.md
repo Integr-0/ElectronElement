@@ -15,15 +15,14 @@ First Person shooter with unconventional mechanics
 ## Todo
 ### Before Next Release
 - Make respawn system
-- Make ammo system
-- Make lobby preview clickable (almost done, lobbyCode is memberOnly though)
+- Make lobby preview clickable (done, not tested)
 ### Features
 - Make assets
 - Make Authentication system
 - Feature to give weapons to camera
 - Looting/collecting weapons
 - Add more player customization
-- Add quality improvements (like CamerShake)
+- Add quality improvements (like CameraShake)
 ### Code
 - Clean up common variables script (lobby)
 

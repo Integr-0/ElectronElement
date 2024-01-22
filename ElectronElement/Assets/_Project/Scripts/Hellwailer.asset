@@ -40,13 +40,14 @@ MonoBehaviour:
   - shotType: 2
     rangeType: 2
     damage: 30
+  bulletsInMag: 100
+  reloadTimeSeconds: 2
   lowToMidRangeDistance: 30
   midToHighRangeDistance: 75
   fireRate: 8
   canHold: 1
   maxRange: 100
   muzzleFlashSize: 0.075
-  zoomLevels: []
   shootableLayers:
     serializedVersion: 2
     m_Bits: 511

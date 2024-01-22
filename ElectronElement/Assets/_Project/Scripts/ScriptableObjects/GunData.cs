@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class WeaponData : ScriptableObject
+public class GunData : ScriptableObject
 {
     public enum ShotType
     {
@@ -36,16 +36,20 @@ public class WeaponData : ScriptableObject
 
     [Space]
 
+    public int bulletsInMag;
+    public float reloadTimeSeconds;
+
+    [Space]
+
     public float lowToMidRangeDistance;
     public float midToHighRangeDistance;
 
     [Space, Space]
 
-    [Tooltip("Firing speed: 1 / fireRate")] public float fireRate;
+    [Tooltip("Number of shots per second")] public float fireRate;
     public bool canHold;
     public float maxRange;
     public float muzzleFlashSize;
-    public float[] zoomLevels;
 
     [Space]
 
