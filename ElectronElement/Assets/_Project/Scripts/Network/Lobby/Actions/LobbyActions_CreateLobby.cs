@@ -21,11 +21,18 @@ public class LobbyActions_CreateLobby : MonoBehaviour
                 {
                     { LobbyVariables.KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, "0") },
                     { LobbyVariables.KEY_LOBBY_NAME, new DataObject(DataObject.VisibilityOptions.Member, master.Variables.lobbyName) },
-                    { LobbyVariables.KEY_LOBBY_MAP, new DataObject(DataObject.VisibilityOptions.Public, mapName) }
+                    { LobbyVariables.KEY_LOBBY_MAP, new DataObject(DataObject.VisibilityOptions.Public, mapName) },
                 }
             };
 
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(master.Variables.lobbyName, master.Variables.maxPlayers, options);
+            lobby = await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, new UpdateLobbyOptions()
+            {
+                Data = new Dictionary<string, DataObject>()
+                {
+                    { LobbyVariables.KEY_LOBBY_CODE, new DataObject(DataObject.VisibilityOptions.Public, lobby.LobbyCode) }
+                }
+            });
             master.Variables.load.MarkTaskCompleted();
 
             master.Variables.hostedLobby = lobby;

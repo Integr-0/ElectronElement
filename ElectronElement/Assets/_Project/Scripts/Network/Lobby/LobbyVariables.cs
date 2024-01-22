@@ -13,6 +13,7 @@ public class LobbyVariables : MonoBehaviour
     public const string KEY_START_GAME = "StartGame";
     public const string KEY_LOBBY_NAME = "Lobby Name";
     public const string KEY_LOBBY_MAP = "Lobby Map";
+    public const string KEY_LOBBY_CODE = "Lobby Code";
 
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHAR_INDEX = "CharacterIndex";

@@ -46,7 +46,7 @@ public class LobbyList : MonoBehaviour
 
                 string sceneName = lobby.Data[LobbyVariables.KEY_LOBBY_MAP].Value;
 
-                prev.Init(lobby.Name, sceneName, lobby.Players.Count, lobby.MaxPlayers, lobby.LobbyCode);
+                prev.Init(lobby.Name, sceneName, lobby.Players.Count, lobby.MaxPlayers, lobby.Data[LobbyVariables.KEY_LOBBY_CODE].Value);
             }
         }
         catch (LobbyServiceException e)
