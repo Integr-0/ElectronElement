@@ -1,6 +1,7 @@
 # ElectronElement
 
 ---
+
 ## Game Idea
 First Person shooter with unconventional mechanics
 
@@ -12,10 +13,11 @@ First Person shooter with unconventional mechanics
     - Full release: NONE (too early to acculately estimate)
     - Next Version (pre-alpha): February 2024
 
+---
+
 ## Todo
 ### Before Next Release
 - Make respawn system
-- Make lobby preview clickable (done, not tested)
 ### Features
 - Make assets
 - Make Authentication system
@@ -26,8 +28,12 @@ First Person shooter with unconventional mechanics
 ### Code
 - Clean up common variables script (lobby)
 
+---
+
 ## Bugs
-- NONE
+- Shelf looting throws warnings
+
+---
 
 ## Unity Packages
 - *Scifi Gun Collection* - Black Curtain Studio
