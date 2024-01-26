@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -19,7 +20,9 @@ public class LobbyActions_StartGame : MonoBehaviour
 
             master.Variables.load.Activate("Starting Game", "Loading Level", "Building Connection", "Informing Clients", "Spawning Players");
 
-            SceneManager.LoadSceneAsync(master.Variables.sceneIndex, LoadSceneMode.Additive);
+            AsyncOperation op = SceneManager.LoadSceneAsync(master.Variables.sceneIndex, LoadSceneMode.Additive);
+            while (!op.isDone) await Task.Yield();
+
             master.Variables.load.MarkTaskCompleted();
 
             string relayCode = await RelayManager.Instance.CreateRelay();

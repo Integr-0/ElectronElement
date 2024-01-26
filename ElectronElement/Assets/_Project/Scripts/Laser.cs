@@ -1,22 +1,16 @@
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 
 public class Laser : MonoBehaviour
 {
-    [System.Serializable]
-    public struct Stage
-    {
-        public Transform transform;
-        public int neededMats;
-    }
-
     [SerializeField] private Animator anim;
+    [SerializeField] private TMP_Text infoText;
     [SerializeField] private string animatorIntName;
-    [SerializeField] private string animatorBoolName;
 
-    [Space, SerializeField] private Stage[] stages;
-    [SerializeField] private Transform crystal;
+    [Space, SerializeField] private int[] stages;
+    [SerializeField] private Transform terminal;
     [SerializeField] private int neededCrystals;
 
     [SerializeField] private LocalVolumetricFog orb;
@@ -37,22 +31,27 @@ public class Laser : MonoBehaviour
 
         if (currentStage < stages.Length)
         {
-            PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(stages[currentStage].transform.position, out float distance);
+            PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(terminal.position, out float distance);
 
-            if (distance <= neededDistance &&
-                nearestPlayer.shelfLooter.lootedShelves >= stages[currentStage].neededMats &&
+            if (distance > neededDistance) return;
+
+            infoText.text = nearestPlayer.shelfLooter.lootedShelves >= stages[currentStage] ?
+                $"You have enough materials for Stage {currentStage + 1}\n(e)" :
+                $"Stage {currentStage + 1} requires {stages[currentStage]} materials\n" +
+                $"You have {nearestPlayer.shelfLooter.lootedShelves}";
+
+            if (nearestPlayer.shelfLooter.lootedShelves >= stages[currentStage] &&
                 Input.GetKeyDown(KeyCode.E))
             {
-                nearestPlayer.shelfLooter.lootedShelves -= stages[currentStage].neededMats;
+                nearestPlayer.shelfLooter.lootedShelves -= stages[currentStage];
                 currentStage++;
 
-                if (currentStage > 1) anim.SetBool(animatorBoolName, false);
                 anim.SetInteger(animatorIntName, currentStage);
-            }
+            }    
         }
         else if (currentStage == stages.Length)
         {
-            PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(crystal.position, out float distance);
+            PlayerData nearestPlayer = GameManager.Instance.GetClosestPlayerToPoint(terminal.position, out float distance);
 
             if (distance <= neededDistance &&
                 nearestPlayer.shelfLooter.lootedCrystals >= 1 &&
@@ -67,15 +66,22 @@ public class Laser : MonoBehaviour
                     anim.SetInteger(animatorIntName, currentStage);
                 }
             }
+
+            infoText.text = $"Energizing laser...\n{neededCrystals - currentCrystals} energy crystals remaining";
         }
     }
 
     public void Shoot()
     {
         Debug.Log("Everyone is ded");
+        infoText.text = "Laser has been fired";
     }
-    public void FinishAnimation()
+    public void FinishEnergize()
     {
-        anim.SetBool(animatorBoolName, true);
+        infoText.text = "Laser energized.\nCalibrating aim...";
+    }
+    public void FinishCalibration()
+    {
+        infoText.text = "Aim calibrated.\nHeating up...";
     }
 }

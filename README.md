@@ -28,6 +28,10 @@ First Person shooter with unconventional mechanics
 ### Code
 - Clean up common variables script (lobby)
 
+# Ideas
+## Weapons
+- Slow fire rate, one shot kill, 1 shot per mag, can dissolve parts of the map, maybe obtainable from laser
+
 ---
 
 ## Bugs
