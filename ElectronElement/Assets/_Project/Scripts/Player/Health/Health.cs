@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -10,7 +11,7 @@ public class Health : MonoBehaviour
 
     public event Action onDied;
     /// <summary>
-    /// First value: the health added/subtracted
+    /// First value: the health added/subtracted, 
     /// Second value: the new health
     /// </summary>
     public event Action<int, int> onHealthChanged;
@@ -44,4 +45,11 @@ public class Health : MonoBehaviour
         //Call event after clamping
         onHealthChanged?.Invoke(ammt, currentHealth);
     }
+
+    /// <summary>
+    /// toMax true: set health to max health
+    /// toMax false: set health to starting health
+    /// </summary>
+    /// <param name="toMax"></param>
+    public void ResetHealth(bool toMax) => currentHealth = toMax ? maxHealth : startingHealth;
 }

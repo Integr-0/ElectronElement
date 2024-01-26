@@ -164,7 +164,7 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: 750f4c01905e28b4382f9b605a4c1c1c, type: 3}
   colliderLayers:
     serializedVersion: 2
-    m_Bits: 511
+    m_Bits: 4294967295
 --- !u!54 &2594816497963876916
 Rigidbody:
   m_ObjectHideFlags: 0

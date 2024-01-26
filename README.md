@@ -16,8 +16,6 @@ First Person shooter with unconventional mechanics
 ---
 
 ## Todo
-### Before Next Release
-- Make respawn system
 ### Features
 - Make assets
 - Make Authentication system
