@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ShelfLooter : NetworkBehaviour
 {
-    [SerializeField] private GameObject emptyShelfPrefab;
+    [SerializeField] private Transform emptyShelfPrefab;
     [SerializeField] private float lootDist = 1f;
 
     public int lootedShelves = 0;
@@ -35,11 +35,11 @@ public class ShelfLooter : NetworkBehaviour
                 Instantiate(emptyShelfPrefab,
                             shelf.transform.position,
                             shelf.transform.rotation,
-                            shelf.transform.parent).transform.localScale = 
+                            shelf.transform.parent).localScale = 
                             shelf.transform.localScale;
 
                 lootableShelves.Remove(shelf);
-                Destroy(shelf);
+                shelf.GetComponent<NetworkObject>().Despawn();
             }
 
 
@@ -48,7 +48,7 @@ public class ShelfLooter : NetworkBehaviour
                 lootedCrystals++;
 
                 crystals.Remove(crystal);
-                Destroy(crystal);
+                crystal.GetComponent<NetworkObject>().Despawn();
             }
         }
     }

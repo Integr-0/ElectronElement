@@ -19,21 +19,23 @@ First Person shooter with unconventional mechanics
 ### Features
 - Make assets
 - Make Authentication system
-- Feature to give weapons to camera
+- giving weapons to camera
 - Looting/collecting weapons
 - Add more player customization
+- players drop loot (from shelves)
 - Add quality improvements (like CameraShake)
 ### Code
 - Clean up common variables script (lobby)
 
-# Ideas
-## Weapons
+## Ideas
+### Weapons
 - Slow fire rate, one shot kill, 1 shot per mag, can dissolve parts of the map, maybe obtainable from laser
 
 ---
 
 ## Bugs
 - Shelf looting throws warnings
+- Gun flash off center
 
 ---
 

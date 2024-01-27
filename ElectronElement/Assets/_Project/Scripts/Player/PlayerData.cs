@@ -64,12 +64,14 @@ public class PlayerData : NetworkBehaviour
     {
         Movement.enabled = true;
         Look.enabled = true;
+        hud.SetActive(true);
         gunParent.SetActive(true);
     }
     public void Deactivate()
     {
         Movement.enabled = false;
         Look.enabled = false;
+        hud.SetActive(false);
         gunParent.SetActive(false);
     }
 

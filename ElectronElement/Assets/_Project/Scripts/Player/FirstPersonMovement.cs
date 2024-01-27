@@ -139,7 +139,7 @@ public class FirstPersonMovement : NetworkBehaviour
         if (jumpBufferTimer > 0f && isGrounded)
         {
             //real life gravity formula
-            yMovement = Mathf.Sqrt(jumpStrength * -2f * gravity);  
+            yMovement = Mathf.Sqrt(jumpStrength * -2f * gravity);
         }
 
         //adding gravity
