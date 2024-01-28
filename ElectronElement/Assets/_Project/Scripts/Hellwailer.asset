@@ -47,7 +47,7 @@ MonoBehaviour:
   fireRate: 8
   canHold: 1
   maxRange: 100
-  muzzleFlashSize: 0.075
+  muzzleFlashSize: 0.5
   shootableLayers:
     serializedVersion: 2
     m_Bits: 511

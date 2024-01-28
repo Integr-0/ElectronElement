@@ -103,8 +103,7 @@ public class PlayerData : NetworkBehaviour
         load.Activate("Returning to Main Menu", "Despawning Objects", "Loading Scene");
 
 
-        var allObjects = FindObjectsOfType<NetworkObject>();
-        foreach (var obj in allObjects)
+        foreach (var obj in FindObjectsOfType<NetworkObject>())
         {
             if (obj.IsSpawned) obj.Despawn();
         }

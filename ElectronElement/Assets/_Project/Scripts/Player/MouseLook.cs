@@ -17,8 +17,7 @@ public class MouseLook : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         //disable all cameras that arent't owned by this player
-        if (IsLocalPlayer) return;
-        GetComponent<Camera>().enabled = false;
+        if (!IsOwner) GetComponent<Camera>().enabled = false;
     }
 
     void Update()

@@ -26,6 +26,7 @@ First Person shooter with unconventional mechanics
 - Add quality improvements (like CameraShake)
 ### Code
 - Clean up common variables script (lobby)
+- Make weapons use inheritance more (also scriptableObjects)
 
 ## Ideas
 ### Weapons
@@ -34,8 +35,7 @@ First Person shooter with unconventional mechanics
 ---
 
 ## Bugs
-- Shelf looting throws warnings
-- Gun flash off center
+- Shelf looting throws warnings + moves children out of map
 
 ---
 

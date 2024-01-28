@@ -16,12 +16,7 @@ public class Gun : NetworkBehaviour
     private float currentAmmo;
     private float nextTimeToFire;
 
-    [System.Obsolete]
-    private void Awake()
-    {
-        muzzleFlash.startSize = data.muzzleFlashSize;
-        currentAmmo = data.bulletsInMag;
-    }
+    private void Awake() => currentAmmo = data.bulletsInMag;
 
     private void Update()
     {
@@ -45,6 +40,8 @@ public class Gun : NetworkBehaviour
             Reload();
             return;
         }
+
+        muzzleFlash.transform.localScale = Vector3.one * data.muzzleFlashSize;
 
         nextTimeToFire = Time.time + (1 / data.fireRate);
         currentAmmo--;

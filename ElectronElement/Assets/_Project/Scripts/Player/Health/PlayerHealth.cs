@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
 
         health.onDied += () =>
         {
-            health.ResetHealth(false);
+            health.ResetHealth();
             transform.position = Vector3.zero;
         };
     }

@@ -51,5 +51,5 @@ public class Health : MonoBehaviour
     /// toMax false: set health to starting health
     /// </summary>
     /// <param name="toMax"></param>
-    public void ResetHealth(bool toMax) => currentHealth = toMax ? maxHealth : startingHealth;
+    public void ResetHealth(bool toMax = false) => currentHealth = toMax ? maxHealth : startingHealth;
 }

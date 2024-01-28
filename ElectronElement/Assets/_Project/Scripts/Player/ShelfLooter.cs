@@ -39,6 +39,7 @@ public class ShelfLooter : NetworkBehaviour
                             shelf.transform.localScale;
 
                 lootableShelves.Remove(shelf);
+
                 shelf.GetComponent<NetworkObject>().Despawn();
             }
 

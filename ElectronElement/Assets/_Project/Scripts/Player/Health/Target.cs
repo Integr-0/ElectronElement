@@ -12,6 +12,7 @@ public class Target : MonoBehaviour
         Health health = GetComponent<Health>();
         health.onHealthChanged += async (int dmgTaken, int currentHealth) =>
         {
+            health.ResetHealth();
             text.text = dmgTaken.ToString();
             await Task.Delay(1000);
             text.text = "";
