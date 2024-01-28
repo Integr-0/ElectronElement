@@ -35,7 +35,7 @@ First Person shooter with unconventional mechanics
 ---
 
 ## Bugs
-- Shelf looting throws warnings + moves children out of map
+currently no known bugs
 
 ---
 

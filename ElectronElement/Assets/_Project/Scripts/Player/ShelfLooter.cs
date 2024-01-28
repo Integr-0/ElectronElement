@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ShelfLooter : NetworkBehaviour
 {
-    [SerializeField] private Transform emptyShelfPrefab;
     [SerializeField] private float lootDist = 1f;
 
     public int lootedShelves = 0;
@@ -32,15 +31,15 @@ public class ShelfLooter : NetworkBehaviour
             {
                 lootedShelves++;
 
-                Instantiate(emptyShelfPrefab,
-                            shelf.transform.position,
-                            shelf.transform.rotation,
-                            shelf.transform.parent).localScale = 
-                            shelf.transform.localScale;
-
                 lootableShelves.Remove(shelf);
 
-                shelf.GetComponent<NetworkObject>().Despawn();
+                // only despawn the children with a networkObject
+                // because leaving the non-networked children behind creates an empty shelf
+                // that's why you don't even need to instantiate an empty-shelf prefab
+                foreach (Transform c in shelf.transform)
+                {
+                    if (c.TryGetComponent(out NetworkObject n) && n.IsSpawned) n.Despawn();
+                }
             }
 
 
