@@ -35,13 +35,18 @@ public class PlayerData : NetworkBehaviour
     public bool canPause = true;
 
     private void Awake()
-    { 
+    {
         NetworkManager.OnClientConnectedCallback += (_) =>
         {
             SetCharacter();
             if (!IsServer) // Only if you're a client (hosts are servers and clients)
             {
                 GameManager.Instance.ClientStartGame();
+
+                if (!IsOwner)
+                {
+                    hud.SetActive(false);
+                }
             }
         };
         NetworkManager.OnServerStopped += async (_) =>
