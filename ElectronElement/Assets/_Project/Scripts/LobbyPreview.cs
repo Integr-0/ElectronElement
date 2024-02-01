@@ -3,17 +3,13 @@ using UnityEngine;
 
 public class LobbyPreview : MonoBehaviour
 {
-    [SerializeField] private TMP_Text nameText;
-    [SerializeField] private TMP_Text mapText;
-    [SerializeField] private TMP_Text numPlayersText;
+    [SerializeField] private TMP_Text infoText;
 
     private string joinCode;
 
     public void Init(string name, string mapName, int numPlayers, int maxPlayers, string joinCode)
     {
-        nameText.text = name;
-        numPlayersText.text = $"Players: {numPlayers}/{maxPlayers}";
-        mapText.text = "Map: " + mapName;
+        infoText.text = $"{name} | {numPlayers}/{maxPlayers} | {mapName}";
 
         this.joinCode = joinCode;
     }

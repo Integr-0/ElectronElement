@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WindowGroup : MonoBehaviour
 {
+    [SerializeField] private GameObject[] windows;
     public void ToggleObject(GameObject obj)
     {
         bool active = !obj.activeSelf;
@@ -12,6 +13,6 @@ public class WindowGroup : MonoBehaviour
     }
     public void DeactivateAll()
     {
-        transform.SetChildrenActive(false);
+        foreach (GameObject window in windows) window.SetActive(false);
     }
 }

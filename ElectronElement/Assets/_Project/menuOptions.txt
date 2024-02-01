@@ -1,0 +1,10 @@
+You move the cursor through the room and if it goes offscreen the camera moves with your cursor.
+That way you can see through the entire room
+
+Items: 
+	Lobbies - Screen
+	Settings - Rubik's Cube
+	Profile - Charcter MiniFigure
+	Character Customization - Wardrobe
+	Shop - Wallet (initially closed; opens when clicked)
+	Leave Game - Window

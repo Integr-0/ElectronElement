@@ -1360,8 +1360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d23503a580a00548b953b089946ee1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyShelfPrefab: {fileID: 6935459031938432818, guid: f27fcf47b279da042ae6ff22c72d9949,
-    type: 3}
   lootDist: 5
   lootedShelves: 0
   lootedCrystals: 0

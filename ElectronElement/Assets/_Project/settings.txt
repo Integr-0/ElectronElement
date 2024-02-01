@@ -1,0 +1,36 @@
+Groups:
+	General
+		Keybinds
+			(maybe more binds per action)
+		Sensitivity
+			Normal
+			SecurityCams
+	Video
+		Graphics
+		Resulution
+		Fullscreen
+		Anti-Aliasing
+	Audio
+		Volume
+			Master
+				Sounds
+					Alarms
+					Footsteps
+					Gunshots
+				Music
+				Ambient
+	Post-Processing
+		Bloom
+		MotionBlur
+		SSR (Screen space reflection)
+		Lights
+
+
+UI Elements:
+	Buttons
+		Action
+		Bool
+	Slider
+	Dropdown
+	Cycler (like RocketLeague)
+	TextField
