@@ -150,7 +150,7 @@ public class FirstPersonMovement : NetworkBehaviour
         #region applying movement
 
         controller.Move(currentGroundSpeed * Time.deltaTime * move);
-        controller.Move(Time.deltaTime * yMovement * transform.up);
+        controller.Move(yMovement * transform.up);
 
         #endregion
 
