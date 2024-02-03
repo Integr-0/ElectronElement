@@ -16,6 +16,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        if (IsPaused) return;
+
         data.Deactivate();
 
         panel.SetActive(true);
@@ -24,6 +26,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void Unpause()
     {
+        if (!IsPaused) return;
+
         data.Activate();
 
         panel.SetActive(false);
@@ -35,13 +39,13 @@ public class PauseMenu : MonoBehaviour
     {
         if (IsPaused)
         {
-            IsPaused = false;
             Unpause();
+            IsPaused = false;
         }
         else
         {
-            IsPaused = true;
             Pause();
+            IsPaused = true;
         }
     }
 }

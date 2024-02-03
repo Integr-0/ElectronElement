@@ -43,6 +43,10 @@ public class PlayerData : NetworkBehaviour
             {
                 GameManager.Instance.ClientStartGame();
 
+                // not sure about this line
+                // because this function (apparently) only gets called for the server and the connected client
+                // so this seems kinda werid
+                // can't test tho because network doesn't work correctly
                 if (!IsOwner)
                 {
                     hud.SetActive(false);
