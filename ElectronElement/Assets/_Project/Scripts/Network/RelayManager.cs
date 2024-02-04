@@ -19,7 +19,7 @@ public class RelayManager : MonoBehaviourSingleton<RelayManager>
 
             Debug.Log("Created Relay! " + joinCode);
 
-            RelayServerData relayServerData = new(allocation, "dtls");
+            RelayServerData relayServerData = new(allocation, "udp");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
             Debug.Log("Host successful: " + NetworkManager.Singleton.StartHost());
@@ -41,7 +41,7 @@ public class RelayManager : MonoBehaviourSingleton<RelayManager>
 
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(code);
 
-            RelayServerData relayServerData = new(joinAllocation, "dtls");
+            RelayServerData relayServerData = new(joinAllocation, "udp");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
             Debug.Log("Client successful: " + NetworkManager.Singleton.StartClient());
