@@ -7,7 +7,7 @@ public class PlayerHealth : NetworkBehaviour
 {
     [SerializeField] private TMP_Text healthText;
 
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
         if (!IsOwner) return;
 
