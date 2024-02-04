@@ -28,7 +28,7 @@ public class LobbyActions_QuickJoinLobby : MonoBehaviour
             }
             else
             {
-                master.LobbyErrorHandler.HandleException(e);
+                master.LobbyErrorHandler.HandleRateLimits(e);
             }
         }
     }

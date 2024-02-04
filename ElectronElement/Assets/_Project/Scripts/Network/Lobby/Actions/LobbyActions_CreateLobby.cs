@@ -53,7 +53,7 @@ public class LobbyActions_CreateLobby : MonoBehaviour
         }
         catch (LobbyServiceException e)
         {
-            master.LobbyErrorHandler.HandleException(e);
+            master.LobbyErrorHandler.HandleRateLimits(e);
         }
     }
 }

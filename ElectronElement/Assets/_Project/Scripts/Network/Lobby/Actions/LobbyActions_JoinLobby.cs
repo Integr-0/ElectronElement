@@ -31,7 +31,7 @@ public class LobbyActions_JoinLobby : MonoBehaviour
             }
             else
             {
-                master.LobbyErrorHandler.HandleException(e);
+                master.LobbyErrorHandler.HandleRateLimits(e);
             }   
         }
     }

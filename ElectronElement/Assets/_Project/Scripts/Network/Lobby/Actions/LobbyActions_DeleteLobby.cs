@@ -18,7 +18,7 @@ public class LobbyActions_DeleteLobby : MonoBehaviour
         }
         catch (LobbyServiceException e)
         {
-            master.LobbyErrorHandler.HandleException(e);
+            master.LobbyErrorHandler.HandleRateLimits(e);
         }
     }
 }

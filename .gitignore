@@ -71,5 +71,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# Quality Settings
+# Personal
 QualitySettings.asset
+com.unity.probuilder/Settings.json

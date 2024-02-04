@@ -22,9 +22,7 @@ public class RelayManager : MonoBehaviourSingleton<RelayManager>
             RelayServerData relayServerData = new(allocation, "udp");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
-            Debug.Log("Host successful: " + NetworkManager.Singleton.StartHost());
-
-            return joinCode;
+            return NetworkManager.Singleton.StartHost() ? joinCode : null;
         }
         catch (RelayServiceException e)
         {
@@ -33,7 +31,7 @@ public class RelayManager : MonoBehaviourSingleton<RelayManager>
         }
     }
 
-    public async void JoinRelay(string code)
+    public async Task<bool> JoinRelay(string code)
     {
         try
         {
@@ -44,11 +42,12 @@ public class RelayManager : MonoBehaviourSingleton<RelayManager>
             RelayServerData relayServerData = new(joinAllocation, "udp");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
-            Debug.Log("Client successful: " + NetworkManager.Singleton.StartClient());
+            return !string.IsNullOrEmpty(code) && NetworkManager.Singleton.StartClient();
         }
         catch (RelayServiceException e)
         {
             Debug.LogWarning(e);
+            return false;
         }
     }
 }

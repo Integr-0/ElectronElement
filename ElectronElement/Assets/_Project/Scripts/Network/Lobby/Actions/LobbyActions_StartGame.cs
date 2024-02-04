@@ -46,7 +46,7 @@ public class LobbyActions_StartGame : MonoBehaviour
         }
         catch (LobbyServiceException e)
         {
-            master.LobbyErrorHandler.HandleException(e);
+            master.LobbyErrorHandler.HandleRateLimits(e);
         }
     }
 }

@@ -6,7 +6,7 @@ public class LobbyErrorHandler : MonoBehaviour
 {
     [SerializeField] private LobbyMaster master;
 
-    public void HandleException(LobbyServiceException e)
+    public void HandleRateLimits(LobbyServiceException e)
     {
         if (e.Message == "Rate limit has been exceeded") //Too many requests (couldn't find a better condition)
         {
