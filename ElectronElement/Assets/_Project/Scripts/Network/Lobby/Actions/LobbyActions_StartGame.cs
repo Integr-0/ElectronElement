@@ -22,7 +22,7 @@ public class LobbyActions_StartGame : MonoBehaviour
             Debug.Log($"Loading screen active for host");
 
             AsyncOperation op = SceneManager.LoadSceneAsync(master.Variables.sceneIndex, LoadSceneMode.Additive);
-            while (!op.isDone) await Task.Yield();
+            //while (!op.isDone) await Task.Yield();
 
             master.Variables.load.MarkTaskCompleted();
 
