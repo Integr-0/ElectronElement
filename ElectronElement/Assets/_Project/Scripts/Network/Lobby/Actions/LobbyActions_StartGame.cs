@@ -19,6 +19,7 @@ public class LobbyActions_StartGame : MonoBehaviour
             Debug.Log("Starting Game...");
 
             master.Variables.load.Activate("Starting Game", "Loading Level", "Building Connection", "Informing Clients", "Spawning Players");
+            Debug.Log($"Loading screen active for host");
 
             AsyncOperation op = SceneManager.LoadSceneAsync(master.Variables.sceneIndex, LoadSceneMode.Additive);
             while (!op.isDone) await Task.Yield();

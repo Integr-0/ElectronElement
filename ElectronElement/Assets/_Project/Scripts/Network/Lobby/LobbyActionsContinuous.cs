@@ -1,6 +1,6 @@
 using Unity.Services.Lobbies;
-using UnityEngine;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 
 public class LobbyActionsContinuous : MonoBehaviour
 {
@@ -11,8 +11,8 @@ public class LobbyActionsContinuous : MonoBehaviour
     {
         if (master.Variables.hostedLobby == null)
             return;
-        
-            master.Variables.hearbeatTimer -= Time.deltaTime;
+
+        master.Variables.hearbeatTimer -= Time.deltaTime;
         if (master.Variables.hearbeatTimer > 0f)
             return;
 
@@ -46,7 +46,10 @@ public class LobbyActionsContinuous : MonoBehaviour
         if (AllPlayersReady() && !gameStarted)
         {
             if (master.Variables.hostedLobby == null)
+            {
                 master.Variables.load.Activate("Joining Game", "Waiting for players");
+                Debug.Log($"Loading screen active for host");
+            }
 
             master.LobbyActions_StartGame.StartGame();
             gameStarted = true;
