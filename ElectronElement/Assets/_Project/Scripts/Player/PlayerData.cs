@@ -38,6 +38,7 @@ public class PlayerData : NetworkBehaviour
     {
         NetworkManager.OnClientConnectedCallback += (_) =>
         {
+            Debug.Log($"OnClientConnectedCallback triggered (host: {IsHost})");
             SetCharacter();
             if (!IsServer) // Only if you're a client (hosts are servers and clients)
             {
