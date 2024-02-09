@@ -18,7 +18,7 @@ public class UIGOButton : MonoBehaviour
         b.OnClick.RemoveAllListeners();
         b.OnClick.AddListener(async () =>
         {
-            await cam.ZoomToObject(lookAtTarget, moveTarget);
+            await cam.ZoomToObject(lookAtTarget.position, moveTarget.position);
 
             group.DeactivateAll();
             window.SetActive(true);

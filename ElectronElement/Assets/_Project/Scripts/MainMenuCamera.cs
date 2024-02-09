@@ -13,9 +13,11 @@ public class MainMenuCamera : MonoBehaviour
     [SerializeField] private float moveDelta = 10f;
 
     private Vector3 initialPosition;
+    private Vector3 initialRotation;
     private void Awake()
     {
         initialPosition = transform.position;
+        initialRotation = transform.rotation.eulerAngles;
     }
 
     private void LateUpdate()
@@ -35,20 +37,22 @@ public class MainMenuCamera : MonoBehaviour
         return nearLeft || nearRight;
     }
 
-    public async Task ZoomToObject(Transform lookTarget, Transform moveTarget)
+    public async Task ZoomToObject(Vector3 lookTarget, Vector3 moveTarget)
     {
-        float lookDuration = Vector3.Distance(transform.position, moveTarget.position) / moveDelta;
-        transform.DOLookAt(lookTarget.position, lookDuration);
-        while (transform.position != moveTarget.position)
+        float lookDuration = Vector3.Distance(transform.position, moveTarget) / moveDelta;
+        transform.DODynamicLookAt(lookTarget, lookDuration);
+        while (transform.position != moveTarget)
         {
-            transform.position = Vector3.MoveTowards(transform.position, moveTarget.position, moveDelta * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, moveTarget, moveDelta * Time.deltaTime);
             await Task.Yield();
         }
     }
     public async void ResetZoom()
     {
-        while(transform.position != initialPosition)
-            {
+        float lookDuration = Vector3.Distance(transform.position, initialPosition) / moveDelta;
+        transform.DORotate(initialRotation, lookDuration);
+        while (transform.position != initialPosition)
+        {
             transform.position = Vector3.MoveTowards(transform.position, initialPosition, moveDelta * Time.deltaTime);
             await Task.Yield();
         }
