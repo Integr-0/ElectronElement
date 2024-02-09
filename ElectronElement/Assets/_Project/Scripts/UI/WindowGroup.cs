@@ -3,6 +3,10 @@ using UnityEngine;
 public class WindowGroup : MonoBehaviour
 {
     [SerializeField] private GameObject[] windows;
+    public GameObject[] Windows
+    {
+        get => windows;
+    }
     public void ToggleObject(GameObject obj)
     {
         bool active = !obj.activeSelf;

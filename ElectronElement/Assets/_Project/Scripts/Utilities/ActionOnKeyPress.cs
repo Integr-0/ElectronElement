@@ -5,12 +5,12 @@ public class ActionOnKeyPress : MonoBehaviour
 {
     [SerializeField] private KeyCode key;
     [Space,SerializeField] private UnityEvent action;
-    [Space, SerializeField] private bool onlyOnNewPress = true;
+    [Space, SerializeField] private bool onlyOnDownFrame = true;
 
     private void Update()
     {
-        if ((onlyOnNewPress && Input.GetKeyDown(key)) ||
-            (!onlyOnNewPress && Input.GetKey(key)))
+        if (onlyOnDownFrame && Input.GetKeyDown(key) ||
+            !onlyOnDownFrame && Input.GetKey(key))
         {
             action.Invoke();
         }

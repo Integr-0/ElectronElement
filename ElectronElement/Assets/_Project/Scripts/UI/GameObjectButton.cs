@@ -6,9 +6,10 @@ public class GameObjectButton : MonoBehaviour
     [SerializeField, Tooltip("Leave null if you want no info")]
     private GameObject infoText;
 
-    [SerializeField] private GameObject canvas;
+    [SerializeField, Tooltip("Leave null if you want no info")]
+    private GameObject canvas;
 
-    [SerializeField] private UnityEvent OnClick;
+    public UnityEvent OnClick;
 
     private void OnMouseEnter()
     {
@@ -20,16 +21,16 @@ public class GameObjectButton : MonoBehaviour
     }
     private void OnMouseUpAsButton()
     {
-        if (infoText != null && enabled) OnClick.Invoke();
+        if (enabled) OnClick?.Invoke();
     }
 
 
     private void OnDisable()
     {
-        canvas.SetActive(false);
+        if (canvas != null) canvas.SetActive(false);
     }
     private void OnEnable()
     {
-        canvas.SetActive(true);
+        if (canvas != null) canvas.SetActive(true);
     }
 }
