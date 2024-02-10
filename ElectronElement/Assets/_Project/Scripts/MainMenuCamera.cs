@@ -10,7 +10,7 @@ public class MainMenuCamera : MonoBehaviour
     [SerializeField] private float rotationSpeed;
 
     [Header("Tweening")]
-    [SerializeField] private float moveDelta = 10f;
+    [SerializeField] private float zoomDuration = 10f;
 
     private Vector3 initialPosition;
     private Vector3 initialRotation;
@@ -39,22 +39,22 @@ public class MainMenuCamera : MonoBehaviour
 
     public async Task ZoomToObject(Vector3 lookTarget, Vector3 moveTarget)
     {
-        float lookDuration = Vector3.Distance(transform.position, moveTarget) / moveDelta;
-        transform.DODynamicLookAt(lookTarget, lookDuration);
-        while (transform.position != moveTarget)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, moveTarget, moveDelta * Time.deltaTime);
-            await Task.Yield();
-        }
+        bool moveDone = false;
+        bool lookDone = false;
+
+        transform.DODynamicLookAt(lookTarget, zoomDuration).OnComplete(() => lookDone = true);
+        transform.DOMove(moveTarget, zoomDuration).OnComplete(() => moveDone = true);
+
+        while (!(moveDone && lookDone)) await Task.Yield();
     }
     public async void ResetZoom()
     {
-        float lookDuration = Vector3.Distance(transform.position, initialPosition) / moveDelta;
-        transform.DORotate(initialRotation, lookDuration);
-        while (transform.position != initialPosition)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, initialPosition, moveDelta * Time.deltaTime);
-            await Task.Yield();
-        }
+        bool moveDone = false;
+        bool lookDone = false;
+
+        transform.DORotate(initialRotation, zoomDuration).OnComplete(() => lookDone = true);
+        transform.DOMove(initialPosition, zoomDuration).OnComplete(() => moveDone = true);
+
+        while (!(moveDone && lookDone)) await Task.Yield();
     }
 }

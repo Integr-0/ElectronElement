@@ -12,13 +12,14 @@ public class UIGOButton : MonoBehaviour
 
     [Space, SerializeField] private Transform lookAtTarget;
     [SerializeField] private Transform moveTarget;
-    private void Awake()
+    private void Start()
     {
         var b = GetComponent<GameObjectButton>();
-        b.OnClick.RemoveAllListeners();
         b.OnClick.AddListener(async () =>
         {
             await cam.ZoomToObject(lookAtTarget.position, moveTarget.position);
+
+            b.SetActiveState(false);
 
             group.DeactivateAll();
             window.SetActive(true);

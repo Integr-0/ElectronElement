@@ -9,19 +9,26 @@ public class GameObjectButton : MonoBehaviour
     [SerializeField, Tooltip("Leave null if you want no info")]
     private GameObject canvas;
 
+    private bool active = true;
+
+    public void SetActiveState(bool active)
+    {
+        this.active = active;
+    }
+
     public UnityEvent OnClick;
 
     private void OnMouseEnter()
     {
-        if (infoText != null) infoText.SetActive(true);
+        if (infoText != null && active) infoText.SetActive(true);
     }
     private void OnMouseExit()
     {
-        if (infoText != null) infoText.SetActive(false);
+        if (infoText != null && active) infoText.SetActive(false);
     }
     private void OnMouseUpAsButton()
     {
-        if (enabled) OnClick?.Invoke();
+        if (active) OnClick?.Invoke();
     }
 
 
