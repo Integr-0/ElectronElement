@@ -7,7 +7,7 @@ public class PlayerHealth : NetworkBehaviour
 {
     [SerializeField] private TMP_Text healthText;
 
-    private void Awake()
+    private void Start()
     {
         if (!IsOwner) return;
 
@@ -20,6 +20,8 @@ public class PlayerHealth : NetworkBehaviour
         health.onDied += () =>
         {
             health.ResetHealth();
+
+            Debug.Log("Resetting position...");
             transform.position = Vector3.zero;
         };
     }

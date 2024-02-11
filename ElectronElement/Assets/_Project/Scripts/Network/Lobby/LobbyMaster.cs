@@ -21,6 +21,7 @@ public class LobbyMaster : MonoBehaviour
     private void Awake()
     {
         Variables.nameInputField.text = PlayerPrefs.GetString(PlayerData.KEY_NAME, defaultValue: "Unnamed");
+        Variables.sceneIndex = LobbyVariables.SCENES_BEFORE_LEVELS; // the first LEVEL in the build settings
     }
 
     /// <summary>

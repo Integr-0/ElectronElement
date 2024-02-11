@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class LobbyVariables : MonoBehaviour
 {
-    public const int SCENES_BEFORE_LEVELS = 1; //Here it's only 'MAIN' that is before the levels in the build settings
+    public const int SCENES_BEFORE_LEVELS = 2; // 'TitleScreen' and 'MAIN'
     public const float LOBBY_UPDATE_POLL_FREQUENCY_SECONDS = 1.5f;
     public const float LOBBY_HEARTBEAT_TIMER_SECONDS = 15f;
     public const float LOBBY_LIST_DURATION_SECONDS = 30f;
@@ -67,7 +67,7 @@ public class LobbyVariables : MonoBehaviour
     [HideInInspector] public float updatePollTimer;
     [HideInInspector] public float listLobbyTimer;
 
-    [HideInInspector] public int sceneIndex = SCENES_BEFORE_LEVELS; //the first level in the build settings
+    [HideInInspector] public int sceneIndex;
     [HideInInspector] public int maxPlayers = 2;
     [HideInInspector] public string lobbyName = "Unnamed Lobby";
 
