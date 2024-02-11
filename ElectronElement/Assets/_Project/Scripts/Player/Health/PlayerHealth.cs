@@ -21,8 +21,7 @@ public class PlayerHealth : NetworkBehaviour
         {
             health.ResetHealth();
 
-            Debug.Log("Resetting position...");
-            transform.position = Vector3.zero;
+            transform.position = Vector3.zero; // only works once for some reason
         };
     }
 }

@@ -44,7 +44,7 @@ First Person shooter with unconventional mechanics
 > [!CAUTION]
 > Plz Fix!
 
-- currently no known bugs
+- Resetting players's position on respawn only works the first time
 
 ## Ideas
 ### Weapon Ideas
